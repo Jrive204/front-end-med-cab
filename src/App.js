@@ -1,3 +1,8 @@
+
+import SignUpPage from './components/SignUpPage'
+import './App.css';
+
+
 import React from "react";
 import { Route } from "react-router-dom";
 import PrivateRoute from "./Utils/PrivateRoute";
@@ -12,7 +17,7 @@ import CabinetList from "./Components/PersonalCabinet/CabintList";
 const App = () => {
   return (
     <>
-      
+      <SignUpPage />
       <Route exact path="/" component={SignIn} />
       <Route path="/signup" component={SignUp} />
       <PrivateRoute path="/dashboard" component={Dashboard} />
