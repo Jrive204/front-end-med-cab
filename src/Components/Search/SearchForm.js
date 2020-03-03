@@ -23,11 +23,23 @@ const FormContainer = styled.div`
     width:100%;
     display:flex;
     justify-content:center;
+    align-items:center;
     > div:first-child {
       border: 1px solid #F5F5F5;
       &:hover {
         border: 1px solid cornflowerblue;
       }
+    }
+    > div:last-child {
+      select {
+        background-color:#3CB371;
+        color:white;
+        padding:10px;
+        width: 100px;
+      }
+    }
+    > div {
+      margin: 0 10px;
     }
     div:first-child {
       border-radius:5px;
@@ -72,32 +84,45 @@ const CardContainer = styled.section`
   display:flex;
   justify-content:center;
   flex-wrap:wrap;
-  margin-top:20px;
+  margin-top:5px;
 `
 
 const StrainSearch = props => {
   const [data, setData] = useState([]);
   const [query, setQuery] = useState("");
+  const [sortBy, updateSort] = useState("");
   const [pagination, updatePagination] = useState({
     lowest: 0,
-    highest: 30,
+    highest: 12,
   })
 
   useEffect(() => {
-      axiosWithAuth().get('https://medcabinet1.herokuapp.com/api/strains/')
+    if (sortBy.length <= 0) {
+      axiosWithAuth().get(`https://medcabinet1.herokuapp.com/api/strains/`)
       .then(response => {
         console.log(response);
-          setData(response.data);
+        setData(response.data);
       })
       .catch(err => {
         console.log("SearchForm.js – could not fetch data", err)
       });
-  }, []);
+    }
+  }, [sortBy]);
+
+  const handleChange = event => {
+    axiosWithAuth().get(`https://medcabinet1.herokuapp.com/api/strains?sortby=${event.target.value}`)
+    .then(response => {
+      setData(response.data);
+    })
+    .catch(error => {
+      console.log("SearchForm.js – could not sort data", error);
+    })
+  }
 
   const firstPage = () => {
     updatePagination({
       lowest: 0,
-      highest: 30,
+      highest: 12,
     })
   }
 
@@ -107,16 +132,16 @@ const StrainSearch = props => {
 
   const nextPage = () => {
     updatePagination({
-      lowest: pagination.lowest + 30,
-      highest: pagination.highest + 30,
+      lowest: pagination.lowest + 12,
+      highest: pagination.highest + 12,
     })
     console.log(pagination);
   }
 
   const previousPage = () => {
     updatePagination({
-      lowest: pagination.lowest - 30,
-      highest: pagination.highest - 30,
+      lowest: pagination.lowest - 12,
+      highest: pagination.highest - 12,
     })
     console.log(pagination);
   }
@@ -132,14 +157,21 @@ const StrainSearch = props => {
               <input type="text" name="search" id="search" />
               <button type="submit">Search</button>
             </div>
+            <div>
+              <select name="race" onChange={handleChange}>
+                <option value="name">Name</option>
+                <option value="race">Race</option>
+                <option value="strain_rating">Rating</option>
+              </select>
+            </div>
           </form>
         </FormContainer>
-        <ButtonsContainer>
+        {/* <ButtonsContainer>
           <button onClick={firstPage}>first</button>
           <button onClick={previousPage}>previous</button>
           <button onClick={nextPage}>next</button>
           <button onClick={lastPage}>last</button>
-        </ButtonsContainer>
+        </ButtonsContainer> */}
         <CardContainer>
           {data.slice(pagination.lowest, pagination.highest).map(strain => {
             return (
