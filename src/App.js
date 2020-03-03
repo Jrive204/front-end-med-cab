@@ -1,5 +1,5 @@
 
-import SignUpPage from './components/SignUpPage'
+import SignUpPage from './Components/SignUpPage'
 import './App.css';
 
 
@@ -17,8 +17,8 @@ import CabinetList from "./Components/PersonalCabinet/CabintList";
 const App = () => {
   return (
     <>
-      <SignUpPage />
-      <Route exact path="/" component={SignIn} />
+      
+      <Route exact path="/signin" component={SignIn} />
       <Route path="/signup" component={SignUp} />
       <PrivateRoute path="/dashboard" component={Dashboard} />
       <PrivateRoute path="/strains" component={SearchForm} />
