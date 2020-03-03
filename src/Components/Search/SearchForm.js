@@ -11,6 +11,12 @@ import Header from "../Dashboard/Header";
 import { ReactSVG } from "react-svg";
 import styled from "styled-components";
 
+const Container = styled.section`
+  background-color:#98FB98;
+  width:100%;
+  height:100vh;
+`
+
 const FormContainer = styled.div`
   margin-top:20px;
   form {
@@ -18,7 +24,7 @@ const FormContainer = styled.div`
     display:flex;
     justify-content:center;
     > div:first-child {
-      border: 1px solid white;
+      border: 1px solid #F5F5F5;
       &:hover {
         border: 1px solid cornflowerblue;
       }
@@ -62,9 +68,14 @@ const ButtonsContainer = styled.div`
   width:100%;
 `
 
+const CardContainer = styled.section`
+  display:flex;
+  justify-content:center;
+  flex-wrap:wrap;
+  margin-top:20px;
+`
+
 const StrainSearch = props => {
-  console.log(props.strains)
-   
   const [data, setData] = useState([]);
   const [query, setQuery] = useState("");
   const [pagination, updatePagination] = useState({
@@ -83,6 +94,17 @@ const StrainSearch = props => {
       });
   }, []);
 
+  const firstPage = () => {
+    updatePagination({
+      lowest: 0,
+      highest: 30,
+    })
+  }
+
+  const lastPage = () => {
+    console.log("last page");
+  }
+
   const nextPage = () => {
     updatePagination({
       lowest: pagination.lowest + 30,
@@ -92,39 +114,40 @@ const StrainSearch = props => {
   }
 
   const previousPage = () => {
-    if (pagination.lowest <= 0) {
-      console.log("lowest");
-    }
-    else {
-      updatePagination({
-        lowest: pagination.lowest - 30,
-        highest: pagination.highest - 30,
-      })
-    }
+    updatePagination({
+      lowest: pagination.lowest - 30,
+      highest: pagination.highest - 30,
+    })
     console.log(pagination);
   }
 
   return (
     <>
       <Header />
-      <FormContainer>
-        <form>
-          <div>
-            <div><ReactSVG src="search.svg" /></div>
-            <input type="text" name="search" id="search" />
-            <button type="submit">Search</button>
-          </div>
-        </form>
-      </FormContainer>
-      <ButtonsContainer>
-        <button onClick={previousPage}>previous</button>
-        <button onClick={nextPage}>next</button>
-      </ButtonsContainer>
-      {data.slice(pagination.lowest, pagination.highest).map(strain => {
-        return (
-          <div>{strain.name}</div>
-        )
-      })}
+      <Container>
+        <FormContainer>
+          <form>
+            <div>
+              <div><ReactSVG src="search.svg" /></div>
+              <input type="text" name="search" id="search" />
+              <button type="submit">Search</button>
+            </div>
+          </form>
+        </FormContainer>
+        <ButtonsContainer>
+          <button onClick={firstPage}>first</button>
+          <button onClick={previousPage}>previous</button>
+          <button onClick={nextPage}>next</button>
+          <button onClick={lastPage}>last</button>
+        </ButtonsContainer>
+        <CardContainer>
+          {data.slice(pagination.lowest, pagination.highest).map(strain => {
+            return (
+              <StrainCard strain={strain}/>
+            )
+          })}
+        </CardContainer>
+      </Container>
     </>
   );
 };

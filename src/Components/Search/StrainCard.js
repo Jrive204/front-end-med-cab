@@ -6,74 +6,60 @@ import { connect } from 'react-redux';
 import { axiosWithAuth } from "../../Utils/axiosWithAuth";
 // Actions
 import { getStrains, findStrain } from '../../Actions/index';
-// Components
+import styled from 'styled-components';
 
-// Styling
-// import {
-//   Card, CardBody,
-//   CardTitle, CardSubtitle, Button
-// } from 'reactstrap';
-//Icon Import
-import Star from "../../img/star.png";
+const Card = styled.div`
+    width:300px;
+    background-color:white;
+    border-radius:5px;
+    border: 1px solid #F5F5F5;
+    margin:10px;
+    div:first-child {
+        background-color:#3CB371;
+        display:flex;
+        justify-content:center;
+        color:white;
+        font-size:130%;
+        font-weight:bold;
+        padding:5px;
+    }
+    div:last-child {
+        padding:10px;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+    }
+    h3 {
+        font-weight:bold;
+    }
+`
 
-
-
-const StrainCard = (props) => {
-    console.log('hello',props);
-
-   
-    const [strainID, setStrainID] = useState();
-    const [strainData, setStrainData] = useState({});
-    // console.log(strainData)
+const StrainCard = ({strain}) => {
+    const [raceColor, setRaceColor] = useState("black");
 
     useEffect(() => {
-        console.log(strainID);
-        if (strainID) {
-            axiosWithAuth()
-            .post(`/users/${localStorage.id}/strains`, strainID)
-            .then(res => console.log(res))
-            .catch(err => console.log(err));
+        if (strain.race === "hybrid") {
+            setRaceColor("#FF8C00");
         }
-    }, [strainID])
-
-    const clickHandler = e => {
-        e.preventDefault();
-        // props.getStrains();
-        console.log("E.TARGET.ID", e.target.id);
-        setStrainID({ strainID: e.target.id });
-        console.log("STRAINID", strainID);
-        // setStrainData(strainHolder);
-        alert("Strain saved!");
-    };
-
-    const strainHolder = {
-        strain_id: props.strain_id,
-        strain_name: props.name,
-        strain_type: props.type,
-        strain_rating: props.rating,
-        strain_description: props.description,
-        strain_effects: props.effects,
-        strain_flavors: props.flavors
-    }
-    console.log('hello',strainHolder);
+        else if (strain.race === "indica") {
+            setRaceColor("#663399");
+        }
+        else {
+            setRaceColor("#3CB371")
+        }
+    }, [setRaceColor]);
 
     return (
-           
-            <div className="bigBox">
-                    <div className="card-cont" key={props.strain_id}>
-                    <div className="card">  
-                        <h4>Strain: {props.name}</h4>
-                        <h5>Rating:</h5>
-                        <div className="img">
-                        <h6>{props.rating}</h6>
-                            <img src={ Star } alt="logo credit"/>
-                        </div>
-                        {/* <button><Link to={`/strain-details/${props.strain_id}`} style={{ textDecoration: 'none', color: 'green' }}>Strain Details</Link></button> */}
-                        <button id={props.strain_id} onClick={clickHandler}>Save Strain</button>
-                        </div>
-                    </div>
+        <Card>
+            <div><h2>{strain.name}</h2></div>
+            <div>
+                <h3 style={{color: raceColor}}>{strain.race}</h3>
+                <div>
+                    <h3>Flavors</h3>
+                    <p>{strain.flavors}</p>
+                </div>
             </div>
-
+        </Card>
     )
 }
 
