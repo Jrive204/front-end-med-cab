@@ -8,93 +8,124 @@ import { getStrains, findStrain } from '../../Actions/index';
 // Components
 import StrainCard from "./StrainCard";
 import Header from "../Dashboard/Header";
+import { ReactSVG } from "react-svg";
+import styled from "styled-components";
 
+const FormContainer = styled.div`
+  margin-top:20px;
+  form {
+    width:100%;
+    display:flex;
+    justify-content:center;
+    > div:first-child {
+      border: 1px solid white;
+      &:hover {
+        border: 1px solid cornflowerblue;
+      }
+    }
+    div:first-child {
+      border-radius:5px;
+      padding:2px;
+      background-color:#F5F5F5;
+      display:flex;
+      input {
+        width:80%;
+        background-color:inherit;
+        outline:none;
+        border:0;
+        font-size:120%;
+      }
+      button {
+        border-radius:5px;
+        background-color:#3CB371;
+        color:white;
+        font-size:110%;
+        &:hover {
+          cursor:pointer;
+          border:1px solid #98FB98;
+          color:#98FB98;
+        }
+        &:active {
+            background-color:#2E8B57;
+            outline:none;
+        }
+        &:focus {
+            outline:none;
+      }
+    }
+  }
+`
 
-
-
-
+const ButtonsContainer = styled.div`
+  display:flex;
+  justify-content:center;
+  width:100%;
+`
 
 const StrainSearch = props => {
   console.log(props.strains)
    
   const [data, setData] = useState([]);
   const [query, setQuery] = useState("");
-
-  // const search = nameArr => {
-  //     setFilteredStrains(nameArr)
-  // }
-
-  useEffect(() => {
-      props.getStrains();
-  }, [])
+  const [pagination, updatePagination] = useState({
+    lowest: 0,
+    highest: 30,
+  })
 
   useEffect(() => {
-      axiosWithAuth()
-          .get('/strains')
-          .then(res => {
-              console.log('strainsearch',res);
-              const searchResult = res.data.filter(item => item.strain_name.toLowerCase().includes(query.toLowerCase()));
-              setData(searchResult);
-          })
-          .catch(err => console.log(err));
-  }, [query]);
+      axiosWithAuth().get('https://medcabinet1.herokuapp.com/api/strains/')
+      .then(response => {
+        console.log(response);
+          setData(response.data);
+      })
+      .catch(err => {
+        console.log("SearchForm.js – could not fetch data", err)
+      });
+  }, []);
 
-  const handleChanges = e => {
-      setQuery(e.target.value);
-  };
+  const nextPage = () => {
+    updatePagination({
+      lowest: pagination.lowest + 30,
+      highest: pagination.highest + 30,
+    })
+    console.log(pagination);
+  }
 
-  
-
+  const previousPage = () => {
+    if (pagination.lowest <= 0) {
+      console.log("lowest");
+    }
+    else {
+      updatePagination({
+        lowest: pagination.lowest - 30,
+        highest: pagination.highest - 30,
+      })
+    }
+    console.log(pagination);
+  }
 
   return (
     <>
-    <Header />
-      <div className="bigBG">
-      <div className="homeWrap">
-          
-          <div className="pWrap">
-          
+      <Header />
+      <FormContainer>
+        <form>
+          <div>
+            <div><ReactSVG src="search.svg" /></div>
+            <input type="text" name="search" id="search" />
+            <button type="submit">Search</button>
           </div>
-          <div className="title">
-              <h1>Strains</h1>
-          </div>
-          {/* <SearchDiv> */}
-          <form>
-              <input
-              onChange={handleChanges}
-              type="text"
-              name="search"
-              value={query}
-              placeholder="Search a Strain"/>
-          </form>
-          {/* {data.map((item, i) => (
-              <p key={i}>{item.strain_name}</p>
-          ))} */}
-          {/* </SearchDiv> */}
-          <div className="cardBox">
-          {data.map((props, i) => (
-              <StrainCard
-                  // strains={props.strains}
-                key={i}
-                strain_id={props.id}
-                name={props.strain_name}
-                type={props.type}
-                rating={props.rating}
-                description={props.description}
-                strain_effects={props.effects}
-                effects={props.effects.map((effect, i) => 
-                      <li key={i}>{effect}</li>
-                )}
-                strain_flavors={props.flavors}
-                flavors={props.flavors.map((flavor, i) => 
-                  <li key={i}>{flavor}</li>
-                )}
-              />
-                 ))}
-          </div>
-      </div>
-      </div>
-      </>
+        </form>
+      </FormContainer>
+      <ButtonsContainer>
+        <button onClick={previousPage}>previous</button>
+        <button onClick={nextPage}>next</button>
+      </ButtonsContainer>
+      {data.slice(pagination.lowest, pagination.highest).map(strain => {
+        return (
+          <div>{strain.name}</div>
+        )
+      })}
+    </>
   );
 };
 

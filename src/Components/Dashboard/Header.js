@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 // import logo from '../../img/logo.png';
 
@@ -59,10 +59,11 @@ const HeaderContainer = styled.div`
     }
 `;
 
-const Header = () => {
+const Header = props => {
     const signout = () => {
         localStorage.removeItem("token")
         localStorage.removeItem("user_id")
+        // props.history.push("/")
     }
 
     return(

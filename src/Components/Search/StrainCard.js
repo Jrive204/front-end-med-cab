@@ -57,7 +57,6 @@ const StrainCard = (props) => {
     }
     console.log('hello',strainHolder);
 
-
     return (
            
             <div className="bigBox">

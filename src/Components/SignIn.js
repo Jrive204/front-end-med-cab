@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { UserLogin } from '../Actions/ActionCreator';
 import { ReactSVG } from 'react-svg';
 import styled from 'styled-components';
-import { axiosWithAuth } from "../Utils/axiosWithAuth";
+import axios from "axios";
 
 const Container = styled.div`
     width:100%;
@@ -126,7 +126,7 @@ const SignIn = props => {
           password: values.password
         };
         //wasnt able to get props.history to work inside of an action
-        axiosWithAuth().post('https://medcabinet1.herokuapp.com/api/auth/login', userCredentials)
+        axios.post('https://medcabinet1.herokuapp.com/api/auth/login', userCredentials)
     
         .then(response =>{
           localStorage.setItem("token", response.data.token);

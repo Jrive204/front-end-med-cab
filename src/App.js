@@ -18,7 +18,7 @@ const App = () => {
   return (
     <>
       
-      <Route exact path="/signin" component={SignIn} />
+      <Route exact path="/" component={SignIn} />
       <Route path="/signup" component={SignUp} />
       <PrivateRoute path="/dashboard" component={Dashboard} />
       <PrivateRoute path="/strains" component={SearchForm} />
