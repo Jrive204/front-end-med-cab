@@ -33,7 +33,7 @@ const StrainSearch = props => {
           .get('/strains')
           .then(res => {
               console.log('strainsearch',res);
-              const searchResult = res.data.token.filter(item => item.strain_name.toLowerCase().includes(query.toLowerCase()));
+              const searchResult = res.data.filter(item => item.strain_name.toLowerCase().includes(query.toLowerCase()));
               setData(searchResult);
           })
           .catch(err => console.log(err));
