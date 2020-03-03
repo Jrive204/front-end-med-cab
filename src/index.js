@@ -7,8 +7,11 @@ import combinedReducer from "./Reducers/combinedReducer";
 import { BrowserRouter as Router } from "react-router-dom";
 import App from "./App";
 import "./index.css";
+import logger from 'redux-logger';
+// Reducer
+import { rootReducer } from './Reducers';
 
-const store = createStore(combinedReducer, applyMiddleware(thunk));
+const store = createStore(rootReducer, applyMiddleware(thunk, logger));
 
 ReactDOM.render(
   <Provider store={store}>

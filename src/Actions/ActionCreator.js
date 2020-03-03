@@ -50,6 +50,27 @@ export const Logout = () => {
   return { type: types.LOGOUT };
 };
 
+// GET strains list
+export const FETCH_STRAINS_START = "FETCH_STRAINS_START";
+export const FETCH_STRAINS_SUCCESS = "FETCH_STRAINS_SUCCESS";
+export const FETCH_STRAINS_FAILURE = "FETCH_STRAINS_FAILURE";
+// GET an array of strain data
+export const getStrains = () => {
+  return dispatch => {
+    dispatch({ type: FETCH_STRAINS_START });
+    axiosWithAuth()
+      .get("/strains")
+      .then(res => {
+        console.log('actionCreator',res.data);
+        dispatch({ type: FETCH_STRAINS_SUCCESS, payload: res.data });
+      })
+      .catch(err => {
+        console.log(err);
+        dispatch({ type: FETCH_STRAINS_FAILURE });  // set error to payload laters
+      });
+  };
+};
+
 //!!get Query_Strains SearchForm.js
 // export const queryStrains =(input) => dispatch =>{
 //   axiosWithAuth()
@@ -74,3 +95,4 @@ export const fetchCurrentCabinetStrain = strain_name => dispatch => {
     .then(res => dispatch({ type: types.UPDATE_CURRENT_CABINET_STRAIN, payload: res.data }))
     .catch(err => console.log(err));
 };
+
