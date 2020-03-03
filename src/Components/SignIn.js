@@ -103,8 +103,8 @@ const Submit = styled.button`
 
 const SignIn = props => {
     const [values, setValues] = useState({
-      email:"",
-      password: ""
+      "username":"",
+      "password": ""
     });
     const [match, setMatchStatus] = useState(true);
     const [emptyValues, setValueStatus] = useState(false);
@@ -122,7 +122,7 @@ const SignIn = props => {
       }
       else {
         const userCredentials = {
-          username: values.email,
+          username: values.username,
           password: values.password
         };
         //wasnt able to get props.history to work inside of an action
@@ -133,8 +133,14 @@ const SignIn = props => {
           localStorage.setItem("user_id", response.data.id);
           props.history.push("/dashboard")
           console.log(response.data)
+          setMatchStatus(true);
+          setValueStatus(false);
         })
-        .catch(err => console.log(err.response))
+        .catch(err => {
+          console.log(err.response);
+          setMatchStatus(false);
+          setValueStatus(true);
+        })
       }
     };
     const handleChange = (evt) => {
@@ -173,7 +179,7 @@ const SignIn = props => {
   
   const mapStateToProps = state => {
     return {
-      user: state.email,
+      username: state.username,
       passsword: state.password
     }
   };
