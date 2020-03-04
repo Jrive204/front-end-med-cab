@@ -17,22 +17,21 @@ const Container = styled.section`
   height:100vh;
 `
 
-const ButtonsContainer = styled.div`
-  display:flex;
-  justify-content:center;
-  width:100%;
-`
-
 const CardContainer = styled.section`
   display:flex;
   justify-content:center;
   flex-wrap:wrap;
+  .error {
+    color:red;
+    margin-top:10px;
+  }
 `
 
-const StrainList = props => {
+const StrainList = () => {
   const [data, setData] = useState([]);
   const [originalData, setOriginalData] = useState([]);
   const [query, setQuery] = useState("");
+  const [failure, setFailureStatus] = useState(false);
   const [pagination, updatePagination] = useState({
     lowest: 0,
     highest: 12,
@@ -45,10 +44,12 @@ const StrainList = props => {
   const getData = (sortType) => {
     axiosWithAuth().get(`https://medcabinet1.herokuapp.com/api/strains?sortby=${sortType}`)
     .then(response => {
+      setFailureStatus(false);
       setData(response.data);
       setOriginalData(response.data);
     })
     .catch(error => {
+      setFailureStatus(true);
       console.log("StrainList.js – could not sort data", error);
     })
   }
@@ -64,6 +65,7 @@ const StrainList = props => {
               <StrainCard strain={strain}/>
             )
           })}
+          <div className="error" style={failure ? {display:"block"} : {display:"none"}}>Could not fetch data. Try refreshing the page or logging out.</div>
         </CardContainer>
       </Container>
     </>

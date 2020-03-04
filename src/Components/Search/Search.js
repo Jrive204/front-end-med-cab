@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { ReactSVG } from 'react-svg';
 import styled from 'styled-components'
 
@@ -9,9 +9,10 @@ const FormContainer = styled.div`
   form {
     width:100%;
     display:flex;
+    flex:5;
     justify-content:center;
     align-items:center;
-    > div:first-child {
+    > div:last-child {
       border: 1px solid #F5F5F5;
       &:hover {
         border: 1px solid cornflowerblue;
@@ -20,7 +21,7 @@ const FormContainer = styled.div`
     > div {
       margin: 0 10px;
     }
-    div:first-child {
+    div:last-child {
       border-radius:5px;
       padding:2px;
       background-color:#F5F5F5;
@@ -32,28 +33,30 @@ const FormContainer = styled.div`
         border:0;
         font-size:120%;
       }
-      button {
-        border-radius:5px;
-        background-color:#3CB371;
-        color:white;
-        font-size:110%;
-        &:hover {
-          cursor:pointer;
-          border:1px solid #98FB98;
-          color:#98FB98;
-        }
-        &:active {
-            background-color:#2E8B57;
-            outline:none;
-        }
-        &:focus {
-            outline:none;
-      }
     }
+  }
+  button {
+    border-radius:5px;
+    background-color:#3CB371;
+    color:white;
+    font-size:110%;
+    width:100px;
+    &:hover {
+      cursor:pointer;
+      border:1px solid #98FB98;
+      color:#98FB98;
+    }
+    &:active {
+        background-color:#2E8B57;
+        outline:none;
+    }
+    &:focus {
+        outline:none;
   }
 `
 
 const Search = ({setQuery, getData, setData, originalData, query, pagination, updatePagination, data}) => {
+    const [searchType, setSearchType] = useState("all");
 
     const updateQuery = event => setQuery(event.target.value);
     const sortList = event => {
@@ -61,19 +64,45 @@ const Search = ({setQuery, getData, setData, originalData, query, pagination, up
         getData(event.target.value);
     }
 
+    const updateSearchType = event => {
+        setSearchType(event.target.value);
+        console.log(event.target.value);
+    }
+
     const handleSearch = event => {
         event.preventDefault();
-        const filteredData = originalData.filter(strain => {
-          let passed = false;
-          Object.values(strain).forEach(value => {
-            if ((typeof value === "string") && (!(value.includes("https")))) {
-              if (value.toLowerCase().includes(query.toLowerCase())) {
-                passed = true;
-              }
-            }
-          })
-          return passed === true;
-        })
+        let filteredData = [];
+        if (searchType === "all") {
+            filteredData = originalData.filter(strain => {
+                let passed = false;
+                Object.values(strain).forEach(value => {
+                  if ((typeof value === "string") && (!(value.includes("https")))) {
+                    if (value.toLowerCase().includes(query.toLowerCase())) {
+                      passed = true;
+                    }
+                  }
+                })
+                return passed === true;
+            })
+        }
+        else {
+            filteredData = originalData.filter(strain => {
+                let passed = false;
+                let correctKey = 0;
+                Object.keys(strain).forEach((key, index) => {
+                    if (key === searchType) {
+                        correctKey = index;
+                    }
+                });
+                if (Object.values(strain)[correctKey] === null) {
+                    passed = false;
+                }
+                else if (Object.values(strain)[correctKey].toLowerCase().includes(query.toLowerCase())) {
+                    passed = true;
+                }
+                return passed === true;
+            })
+        }
         setData(filteredData);
         console.log(data);
     }
@@ -96,21 +125,23 @@ const Search = ({setQuery, getData, setData, originalData, query, pagination, up
 
     return (
         <FormContainer>
-          <button style={{marginLeft: "50px"}} onClick={previousPage}>previous</button>
-          <form onSubmit={handleSearch} autoComplete="off">
-            <div>
-              <div><ReactSVG src="search.svg" /></div>
-              <input type="text" name="search" id="search" onChange={updateQuery} value={query}/>
-              <button type="submit">Search</button>
-            </div>
-          </form>
-          {/* <div>
-            <select name="race" onChange={sortList}>
-              <option value="name">Name</option>
-              <option value="race">Race</option>
-              <option value="strain_rating">Rating</option>
-            </select>
-          </div> */}
+            <button style={{marginLeft: "50px"}} onClick={previousPage}>previous</button>
+            <form onSubmit={handleSearch} autoComplete="off">
+                <select style={{backgroundColor: "#3CB371", color: "white", fontSize: "100%", height: "30px"}} onChange={updateSearchType}>
+                    <option value="all">All Info</option>
+                    <option value="race">Race</option>
+                    <option value="negative">Negative Effects</option>
+                    <option value="positive">Positive Effects</option>
+                    <option value="flavors">Flavors</option>
+                    <option value="medical">Medical Attributes</option>
+                    <option value="description">Description</option>
+                </select>
+                <div>
+                    <div><ReactSVG src="search.svg" /></div>
+                    <input type="text" name="search" id="search" onChange={updateQuery} value={query}/>
+                    <button type="submit">Search</button>
+                </div>
+            </form>
           <button style={{marginRight: "50px"}} onClick={nextPage}>next</button>
         </FormContainer>
     )
