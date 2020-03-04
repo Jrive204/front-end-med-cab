@@ -1,12 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import Header from './Header';
+import { axiosWithAuth } from "../../Utils/axiosWithAuth";
 
 
-const Dashboard = () => {
+const Dashboard = props => {
+
+    useEffect(() => {
+      axiosWithAuth().get("https://medcabinet1.herokuapp.com/api/users/user")
+      .then(response => {
+        console.log(response);
+        localStorage.setItem("userID", response.data.subject);
+      })
+      .catch(error => {
+        console.log(error);
+      })
+    }, [])
+
     return (
         <div>
-      <Header/>
       <h2>Dashboard</h2>
       <div className='dashboard-container'>
         <Link to='/recommender'>

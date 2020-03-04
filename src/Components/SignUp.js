@@ -181,7 +181,6 @@ const SignUp = props => {
 
                 <Link to='/'>Have an account? Sign in here.</Link>
             </SignUpPanel>
-            
         </Background>
     )
 }
