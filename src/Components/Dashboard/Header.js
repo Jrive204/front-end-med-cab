@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 import { ReactSVG } from 'react-svg';
 
@@ -61,25 +61,26 @@ const HeaderContainer = styled.div`
     }
 `;
 
-const Header = props => {
+const Header = ({displayHeader}) => {
+    const { push } = useHistory();
     const signout = () => {
         localStorage.removeItem("token")
         localStorage.removeItem("user_id")
-        // props.history.push("/")
+        push("/")
     }
 
     return (
-        <HeaderContainer>
+        <HeaderContainer style={displayHeader ? {display: "flex"} : {display: "none"}}>
             <div className='header-container'>
                 <Link to='/dashboard'>
                     <ReactSVG src="flask.svg" />
                 </Link>
                 <nav>
                     <Link to='/recommender'>Recommender</Link>
-                    <Link to='/strains'>Strain Search</Link>
+                    <Link to='/strains'>Strain List</Link>
                     <Link to='/cabinet'>My Cabinet</Link>
                 </nav>
-                <Link to='/' className='sign-out' onClick={signout}><div>Sign Out</div></Link>
+                <Link to='/' className='sign-out' onClick={signout}><div>Sign&nbsp;Out</div></Link>
             </div>
         </HeaderContainer>
     );

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { axiosWithAuth } from "../../Utils/axiosWithAuth";
@@ -108,7 +108,7 @@ const StrainCard = ({strain, favoriteMap, updatePagination, updateFavoriteMap}) 
                         idToDelete = favorite.id;
                     }
                 })
-                axiosWithAuth().delete(`https://medcabinet1.herokuapp.com/api/users/${localStorage.getItem("userID")}/favorites`, idToDelete)
+                axiosWithAuth().delete(`https://medcabinet1.herokuapp.com/api/users/favorites/${idToDelete}`)
                 .then(delResponse => {
                     console.log(delResponse);
                 })

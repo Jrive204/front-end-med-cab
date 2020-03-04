@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { axiosWithAuth } from "../../Utils/axiosWithAuth";
 
 
-const Dashboard = () => {
+const Dashboard = props => {
 
     useEffect(() => {
       axiosWithAuth().get("https://medcabinet1.herokuapp.com/api/users/user")
