@@ -27,7 +27,7 @@ const ProfilePage = () => {
                 </div>
                 <div>
                 <UserInfoCard
-                  key={index}
+                  id={currentUser.id}
                   name={currentUser.username}
                   email={currentUser.email}
                 />
@@ -54,6 +54,6 @@ const ProfilePage = () => {
             </div>
         </div>
     )
-}d
+};
 
 export default ProfilePage;
