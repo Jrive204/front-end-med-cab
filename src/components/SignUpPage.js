@@ -144,7 +144,7 @@ const SignUpPage = () => {
                     </InputContainer>
                     
                     <InputContainer>
-                        <Label htmlFor='passwork'>Password</Label>
+                        <Label htmlFor='password'>Password</Label>
                         <Input
                             id='password'
                             type='password'

@@ -5,11 +5,12 @@ import { Link } from 'react-router-dom';
 
 const Background = styled.div`
     width: 100%;
-    height: 500px;
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #98FB98;
+    background: rgb(126,255,126);
+    background: radial-gradient(circle, rgba(126,255,126,1) 0%, rgba(64,204,69,1) 78%, rgba(0,124,8,1) 100%);
 `;
 
 const SignUpPanel = styled.div`
@@ -137,9 +138,10 @@ const SignUpPage = (props) => {
                 <Header>Sign-Up</Header>
                
                 <form onSubmit={handleSubmit}>
-                    {/* <InputContainer>
+                    <InputContainer>
                         <Label htmlFor='username'>Username</Label>
                         <Input
+                            required
                             id='username'
                             type='text'
                             name='username'
@@ -147,11 +149,12 @@ const SignUpPage = (props) => {
                             onChange={handleChanges}
                             value={newUser.name}
                         />
-                    </InputContainer> */}
+                    </InputContainer>
                     
                     <InputContainer>
-                        <Label htmlFor='passwork'>Password</Label>
+                        <Label htmlFor='password'>Password</Label>
                         <Input
+                            required
                             id='password'
                             type='password'
                             name='password'
@@ -167,7 +170,6 @@ const SignUpPage = (props) => {
                             id='email'
                             type='email'
                             name='email'
-                            style={emptyValues ? {border: "1px solid red"} : {border: "1px solid white"}}
                             onChange={handleChanges}
                             value={newUser.email}
                         />
@@ -175,8 +177,10 @@ const SignUpPage = (props) => {
                     
                     <Button type='submit'>Sign Up</Button>
                 </form>
+
+                <Link to='/'>Have an account? Sign in here.</Link>
             </SignUpPanel>
-            <Link to='/signin'>Have an account? Sign in here.</Link>
+            
         </Background>
     )
 }
