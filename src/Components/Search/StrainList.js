@@ -8,7 +8,6 @@ import { getStrains, findStrain } from '../../Actions/index';
 // Components
 import Search from './Search';
 import StrainCard from "./StrainCard";
-import Header from "../Dashboard/Header";
 import styled from "styled-components";
 
 const Container = styled.section`
@@ -36,6 +35,7 @@ const StrainList = () => {
     lowest: 0,
     highest: 12,
   })
+  const [favoriteMap, updateFavoriteMap] = useState();
 
   useEffect(() => {
     getData("name");
@@ -47,6 +47,12 @@ const StrainList = () => {
       setFailureStatus(false);
       setData(response.data);
       setOriginalData(response.data);
+      updateFavoriteMap(response.data.map(strain => {
+        return {
+          id: strain.id,
+          favorited: false,
+        }
+      }))
     })
     .catch(error => {
       setFailureStatus(true);
@@ -56,14 +62,15 @@ const StrainList = () => {
 
   return (
     <>
-      <Header />
       <Container>
         <Search setQuery={setQuery} getData={getData} originalData={originalData} query={query} setData={setData} data={data} updatePagination={updatePagination} pagination={pagination}/>
         <CardContainer>
           {data.slice(pagination.lowest, pagination.highest).map(strain => {
-            return (
-              <StrainCard strain={strain}/>
-            )
+            if (favoriteMap !== undefined) {
+              return (
+                <StrainCard strain={strain} updatePagination={updatePagination} favoriteMap={favoriteMap} updateFavoriteMap={updateFavoriteMap}/>
+              )
+            }
           })}
           <div className="error" style={failure ? {display:"block"} : {display:"none"}}>Could not fetch data. Try refreshing the page or logging out.</div>
         </CardContainer>

@@ -127,12 +127,11 @@ const SignIn = props => {
         };
         //wasnt able to get props.history to work inside of an action
         axios.post('https://medcabinet1.herokuapp.com/api/auth/login', userCredentials)
-    
-        .then(response =>{
+        .then(response => {
           localStorage.setItem("token", response.data.token);
           localStorage.setItem("user_id", response.data.id);
           props.history.push("/dashboard")
-          console.log(response.data)
+          console.log(response)
           setMatchStatus(true);
           setValueStatus(false);
         })

@@ -6,7 +6,6 @@ import Header from './Header';
 const Dashboard = () => {
     return (
         <div>
-      <Header/>
       <h2>Dashboard</h2>
       <div className='dashboard-container'>
         <Link to='/recommender'>

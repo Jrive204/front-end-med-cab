@@ -18,7 +18,6 @@ const CabintList = () => {
 
     return (
         <div>
-            <Header/>
             {list.map(strain => {
                 return (
                     <div>{strain.name}</div>

@@ -1,11 +1,9 @@
-// React
 import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-// Axios
 import { axiosWithAuth } from "../../Utils/axiosWithAuth";
-// Actions
 import { getStrains, findStrain } from '../../Actions/index';
+import { ReactSVG } from 'react-svg';
 import styled from 'styled-components';
 
 const Card = styled.div`
@@ -15,7 +13,7 @@ const Card = styled.div`
     border: 1px solid #F5F5F5;
     margin:10px;
     text-align:center;
-    div:first-child {
+    > div:first-child {
         background-color:#3CB371;
         display:flex;
         justify-content:center;
@@ -24,11 +22,35 @@ const Card = styled.div`
         font-weight:bold;
         padding:5px;
     }
-    div:last-child {
+    > div:last-child {
         padding:5px;
         display:flex;
         flex-direction:column;
         align-items:center;
+        > div:first-child {
+            width:90%;
+            display:flex;
+            justify-content:space-between;
+            > * {
+                width:50px;
+            }
+            button {
+                border-radius:20px;
+                outline:none;
+                width:40px;
+                border:0;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                &:focus {
+                    outline:none;
+                }
+                &:hover {
+                    cursor:pointer;
+                    fill:#3CB371;
+                }
+            }
+        }
     }
     h3 {
         margin-top:5px;
@@ -36,12 +58,37 @@ const Card = styled.div`
     }
 `
 
-const StrainCard = ({strain}) => {
+const StrainCard = ({strain, favoriteMap, updatePagination, updateFavoriteMap}) => {
+
+    const favoriteStatus = () => {
+        if (favoriteMap[strain.id].favorited === false) {
+            updateFavoriteState(true);
+        }
+        else {
+            updateFavoriteState(false);
+        }
+    }
+
+    const updateFavoriteState = (boolean) => {
+        const newMap = favoriteMap.map(object => {
+            if (object.id === strain.id) {
+                return {
+                    id: object.id,
+                    favorited: boolean,
+                }
+            }
+            else {
+                return object;
+            }
+        })
+        updateFavoriteMap(newMap);
+    }
+
     return (
         <Card>
             <div><h2>{strain.name}</h2></div>
             <div>
-                <h3>{strain.race}</h3>
+                <div><h3>{strain.strain_rating}</h3><h3>{strain.race}</h3><div><button onClick={favoriteStatus}><ReactSVG style={favoriteMap[strain.id].favorited ? {display: "none"} : {display: "block"}}src="heart-open.svg"/><ReactSVG style={favoriteMap[strain.id].favorited ? {display: "block"} : {display: "none"}}src="heart-closed.svg"/></button></div></div>
                 <div>
                     <h3>Flavors</h3>
                     <p>{strain.flavors}</p>
