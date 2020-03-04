@@ -59,9 +59,15 @@ const Card = styled.div`
 `
 
 const StrainCard = ({strain, favoriteMap, updatePagination, updateFavoriteMap}) => {
+    let favIndex = 0;
+    favoriteMap.forEach((favorite, index) => {
+        if (favorite.id === strain.id) {
+            favIndex = index;
+        }
+    })
 
     const favoriteStatus = () => {
-        if (favoriteMap[strain.id].favorited === false) {
+        if (favoriteMap[favIndex].favorited === false) {
             updateFavoriteState(true);
         }
         else {
@@ -88,7 +94,7 @@ const StrainCard = ({strain, favoriteMap, updatePagination, updateFavoriteMap}) 
         <Card>
             <div><h2>{strain.name}</h2></div>
             <div>
-                <div><h3>{strain.strain_rating}</h3><h3>{strain.race}</h3><div><button onClick={favoriteStatus}><ReactSVG style={favoriteMap[strain.id].favorited ? {display: "none"} : {display: "block"}}src="heart-open.svg"/><ReactSVG style={favoriteMap[strain.id].favorited ? {display: "block"} : {display: "none"}}src="heart-closed.svg"/></button></div></div>
+                <div><h3>{strain.strain_rating}</h3><h3>{strain.race}</h3><div><button onClick={favoriteStatus}><ReactSVG style={favoriteMap[favIndex].favorited ? {display: "none"} : {display: "block"}}src="heart-open.svg"/><ReactSVG style={favoriteMap[favIndex].favorited ? {display: "block"} : {display: "none"}}src="heart-closed.svg"/></button></div></div>
                 <div>
                     <h3>Flavors</h3>
                     <p>{strain.flavors}</p>
