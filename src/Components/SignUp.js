@@ -176,7 +176,7 @@ const SignUpPage = (props) => {
                     <Button type='submit'>Sign Up</Button>
                 </form>
             </SignUpPanel>
-            <Link to='/signin'>Have an account? Sign in here.</Link>
+            <Link to='/'>Have an account? Sign in here.</Link>
         </Background>
     )
 }

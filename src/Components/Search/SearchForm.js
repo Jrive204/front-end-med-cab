@@ -18,7 +18,7 @@ const Container = styled.section`
 `
 
 const FormContainer = styled.div`
-  margin-top:20px;
+  margin-top:10px;
   form {
     width:100%;
     display:flex;
@@ -84,50 +84,50 @@ const CardContainer = styled.section`
   display:flex;
   justify-content:center;
   flex-wrap:wrap;
-  margin-top:5px;
 `
 
 const StrainSearch = props => {
   const [data, setData] = useState([]);
+  const [originalData, setOriginalData] = useState([]);
   const [query, setQuery] = useState("");
-  const [sortBy, updateSort] = useState("");
   const [pagination, updatePagination] = useState({
     lowest: 0,
     highest: 12,
   })
 
   useEffect(() => {
-    if (sortBy.length <= 0) {
-      axiosWithAuth().get(`https://medcabinet1.herokuapp.com/api/strains/`)
-      .then(response => {
-        console.log(response);
-        setData(response.data);
-      })
-      .catch(err => {
-        console.log("SearchForm.js – could not fetch data", err)
-      });
-    }
-  }, [sortBy]);
+    getData("name");
+  }, []);
 
-  const handleChange = event => {
-    axiosWithAuth().get(`https://medcabinet1.herokuapp.com/api/strains?sortby=${event.target.value}`)
+  const updateQuery = event => setQuery(event.target.value);
+  const sortList = event => getData(event.target.value);
+
+  const getData = (sortType) => {
+    axiosWithAuth().get(`https://medcabinet1.herokuapp.com/api/strains?sortby=${sortType}`)
     .then(response => {
       setData(response.data);
+      setOriginalData(response.data);
     })
     .catch(error => {
       console.log("SearchForm.js – could not sort data", error);
     })
   }
 
-  const firstPage = () => {
-    updatePagination({
-      lowest: 0,
-      highest: 12,
+  const handleSearch = event => {
+    event.preventDefault();
+    const filteredData = originalData.filter(strain => {
+      let passed = false;
+      Object.values(strain).forEach(value => {
+        if ((typeof value === "string") && (!(value.includes("https")))) {
+          if (value.toLowerCase().includes(query.toLowerCase())) {
+            passed = true;
+          }
+        }
+      })
+      return passed === true;
     })
-  }
-
-  const lastPage = () => {
-    console.log("last page");
+    setData(filteredData);
+    console.log(data);
   }
 
   const nextPage = () => {
@@ -151,20 +151,20 @@ const StrainSearch = props => {
       <Header />
       <Container>
         <FormContainer>
-          <form>
+          <form onSubmit={handleSearch}>
             <div>
               <div><ReactSVG src="search.svg" /></div>
-              <input type="text" name="search" id="search" />
+              <input type="text" name="search" id="search" onChange={updateQuery}/>
               <button type="submit">Search</button>
             </div>
-            <div>
-              <select name="race" onChange={handleChange}>
-                <option value="name">Name</option>
-                <option value="race">Race</option>
-                <option value="strain_rating">Rating</option>
-              </select>
-            </div>
           </form>
+          <div>
+            <select name="race" onChange={sortList}>
+              <option value="name">Name</option>
+              <option value="race">Race</option>
+              <option value="strain_rating">Rating</option>
+            </select>
+          </div>
         </FormContainer>
         {/* <ButtonsContainer>
           <button onClick={firstPage}>first</button>
@@ -178,6 +178,19 @@ const StrainSearch = props => {
               <StrainCard strain={strain}/>
             )
           })}
+          {/* {data.slice(pagination.lowest, pagination.highest).map(strain => {
+            let passed = false;
+            Object.values(strain).forEach(value => {
+              if ((typeof value === "string") && (!(value.includes("https")))) {
+                if (value.toLowerCase().includes(query.toLowerCase())) {
+                  passed = true;
+                }
+              }
+            })
+            if (passed) {
+              return <StrainCard strain={strain}/>
+            }
+          })} */}
         </CardContainer>
       </Container>
     </>
