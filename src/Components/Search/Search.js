@@ -59,10 +59,6 @@ const Search = ({setQuery, getData, setData, originalData, query, pagination, up
     const [searchType, setSearchType] = useState("all");
 
     const updateQuery = event => setQuery(event.target.value);
-    const sortList = event => {
-        setQuery("");
-        getData(event.target.value);
-    }
 
     const updateSearchType = event => {
         setSearchType(event.target.value);
@@ -158,7 +154,7 @@ const Search = ({setQuery, getData, setData, originalData, query, pagination, up
                     <option value="positive">Positive Effects</option>
                     <option value="flavors">Flavors</option>
                     <option value="medical">Medical Attributes</option>
-                    <option value="description">Description</option>
+                    <option value="strain_description">Description</option>
                 </select>
                 <div>
                     <div><ReactSVG src="search.svg" /></div>

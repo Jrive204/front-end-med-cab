@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { NavLink, useHistory } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { UserLogin } from '../Actions/ActionCreator';
@@ -101,13 +101,18 @@ const Submit = styled.button`
 `
 
 
-const SignIn = props => {
+const SignIn = ({setHeaderDisplay}) => {
     const [values, setValues] = useState({
       "username":"",
       "password": ""
     });
     const [match, setMatchStatus] = useState(true);
     const [emptyValues, setValueStatus] = useState(false);
+    const { push } = useHistory();
+
+    useEffect(() => {
+      setHeaderDisplay(false);
+    }, [setHeaderDisplay]);
   
     const handleSubmit = evt => {
       evt.preventDefault();
@@ -125,18 +130,17 @@ const SignIn = props => {
           username: values.username,
           password: values.password
         };
-        //wasnt able to get props.history to work inside of an action
         axios.post('https://medcabinet1.herokuapp.com/api/auth/login', userCredentials)
         .then(response => {
           localStorage.setItem("token", response.data.token);
-          localStorage.setItem("user_id", response.data.id);
-          props.history.push("/dashboard")
+          push("/dashboard")
           console.log(response)
           setMatchStatus(true);
           setValueStatus(false);
+          setHeaderDisplay(true);
         })
         .catch(err => {
-          console.log(err.response);
+          console.log(err);
           setMatchStatus(false);
           setValueStatus(true);
         })
