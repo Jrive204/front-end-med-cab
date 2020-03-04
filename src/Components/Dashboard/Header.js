@@ -1,60 +1,46 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-// import logo from '../../img/logo.png';
+import { ReactSVG } from 'react-svg';
 
 const HeaderContainer = styled.div`
     height: 10vh;
     width: 100%;
-    background: white;
+    background-color:#3CB371;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     display: flex;
     justify-content: center;
     align-items: center;
 
     .header-container {
-        width: 1024px;
-        background: white;
+        width: 90%;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        
         a {
-            img {
-                height: 64px;
-                cursor: pointer;
+            text-decoration: none;
+            margin: 0 16px;
+            // border-bottom: 2px solid white;
+            font-size: 1rem;
+            font-weight: 500;
+            color:white;
+            fill:white;
+            :hover {
+                color:#DCDCDC;
+                fill:#DCDCDC;
             }
         }
 
         nav {
             display: flex;
             align-items: center;
-
-            a {
-                text-decoration: none;
-                margin: 0 16px;
-                // border-bottom: 2px solid white;
-                font-size: 1rem;
-                font-weight: 500;
-                color: #333;
-                transition: 0.25s;
-
-                :hover {
-                    opacity: 0.5;
-                }
-            }
         }
 
         .sign-out {
             text-decoration: none;
             font-size: 1rem;
             font-weight: 500;
-            color: #333;
             transition: 0.25s;
-
-            :hover {
-                opacity: 0.5;
-            }
         }
     }
 `;
@@ -66,11 +52,11 @@ const Header = props => {
         // props.history.push("/")
     }
 
-    return(
+    return (
         <HeaderContainer>
             <div className='header-container'>
                 <Link to='/dashboard'>
-                    {/* <img src={logo} alt='bestbud logo'/> */}
+                    <ReactSVG src="flask.svg" />
                 </Link>
                 <nav>
                     <Link to='/recommender'>Recommender</Link>

@@ -158,7 +158,7 @@ const Search = ({setQuery, getData, setData, originalData, query, pagination, up
                     <option value="positive">Positive Effects</option>
                     <option value="flavors">Flavors</option>
                     <option value="medical">Medical Attributes</option>
-                    <option value="description">Description</option>
+                    <option value="strain_description">Description</option>
                 </select>
                 <div>
                     <div><ReactSVG src="search.svg" /></div>
