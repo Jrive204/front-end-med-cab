@@ -103,29 +103,53 @@ const Search = ({setQuery, getData, setData, originalData, query, pagination, up
                 return passed === true;
             })
         }
+        updatePagination({
+            lowest: 0,
+            highest: 12,
+        })
         setData(filteredData);
         console.log(data);
     }
 
-    const nextPage = () => {
+    const firstPage = () => {
         updatePagination({
-          lowest: pagination.lowest + 12,
-          highest: pagination.highest + 12,
+            lowest: 0,
+            highest: 12,
         })
+    }
+
+    const lastPage = () => {
+        console.log(data.length % 12);
+        updatePagination({
+            lowest: (data.length + (12 - data.length % 12) - 12),
+            highest: data.length + (12 - data.length % 12),
+        })
+    }
+
+    const nextPage = () => {
+        if (pagination.highest < data.length) {
+            updatePagination({
+                lowest: pagination.lowest + 12,
+                highest: pagination.highest + 12,
+            })
+        }
         console.log(pagination);
     }
     
     const previousPage = () => {
-        updatePagination({
-            lowest: pagination.lowest - 12,
-            highest: pagination.highest - 12,
-        })
+        if (pagination.lowest > 0) {
+            updatePagination({
+                lowest: pagination.lowest - 12,
+                highest: pagination.highest - 12,
+            })
+        }
         console.log(pagination);
     }
 
     return (
         <FormContainer>
-            <button style={{marginLeft: "50px"}} onClick={previousPage}>previous</button>
+            <button style={{marginLeft: "50px"}} onClick={firstPage}>{`<<`}</button>
+            <button onClick={previousPage}>previous</button>
             <form onSubmit={handleSearch} autoComplete="off">
                 <select style={{backgroundColor: "#3CB371", color: "white", fontSize: "100%", height: "30px"}} onChange={updateSearchType}>
                     <option value="all">All Info</option>
@@ -142,7 +166,8 @@ const Search = ({setQuery, getData, setData, originalData, query, pagination, up
                     <button type="submit">Search</button>
                 </div>
             </form>
-          <button style={{marginRight: "50px"}} onClick={nextPage}>next</button>
+          <button onClick={nextPage}>next</button>
+          <button style={{marginRight: "50px"}} onClick={lastPage}>{`>>`}</button>
         </FormContainer>
     )
 }
