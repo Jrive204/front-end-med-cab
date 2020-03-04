@@ -76,8 +76,10 @@ const StrainCard = ({strain, favoriteMap, updatePagination, updateFavoriteMap}) 
     }
 
     const updateFavoriteState = (boolean) => {
+        let strainID = 0;
         const newMap = favoriteMap.map(object => {
             if (object.id === strain.id) {
+                strainID = strain.id;
                 return {
                     id: object.id,
                     favorited: boolean,
@@ -88,6 +90,36 @@ const StrainCard = ({strain, favoriteMap, updatePagination, updateFavoriteMap}) 
             }
         })
         updateFavoriteMap(newMap);
+        if (boolean === true) {
+            axiosWithAuth().post(`https://medcabinet1.herokuapp.com/api/users/${localStorage.getItem("userID")}/favorites`, {"strain_id": strainID})
+            .then(response => {
+                console.log(response);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        }
+        else {
+            let idToDelete = 0;
+            axiosWithAuth().get(`https://medcabinet1.herokuapp.com/api/users/${localStorage.getItem("userID")}/favorites`)
+            .then(response => {
+                response.data.map(favorite => {
+                    if (strain.id === favorite.strain_id) {
+                        idToDelete = favorite.id;
+                    }
+                })
+                axiosWithAuth().delete(`https://medcabinet1.herokuapp.com/api/users/${localStorage.getItem("userID")}/favorites`, idToDelete)
+                .then(delResponse => {
+                    console.log(delResponse);
+                })
+                .catch(delError => {
+                    console.log(delError);
+                })
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        }
     }
 
     return (

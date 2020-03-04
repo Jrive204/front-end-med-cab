@@ -129,7 +129,6 @@ const SignIn = props => {
         axios.post('https://medcabinet1.herokuapp.com/api/auth/login', userCredentials)
         .then(response => {
           localStorage.setItem("token", response.data.token);
-          localStorage.setItem("user_id", response.data.id);
           props.history.push("/dashboard")
           console.log(response)
           setMatchStatus(true);

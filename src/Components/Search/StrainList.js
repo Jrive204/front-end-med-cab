@@ -47,12 +47,39 @@ const StrainList = () => {
       setFailureStatus(false);
       setData(response.data);
       setOriginalData(response.data);
-      updateFavoriteMap(response.data.map(strain => {
-        return {
-          id: strain.id,
-          favorited: false,
-        }
-      }))
+      axiosWithAuth().get(`https://medcabinet1.herokuapp.com/api/users/${localStorage.getItem("userID")}/favorites`)
+      .then(favResponse => {
+        console.log(favResponse.data);
+        updateFavoriteMap(response.data.map(strain => {
+          let match = false
+          favResponse.data.map(favorite => {
+            if (favorite.strain_id === strain.id) {
+              match = true;
+            }
+          })
+          if (match === true) {
+            return {
+              id: strain.id,
+              favorited: true,
+            }
+          }
+          else {
+            return {
+              id: strain.id,
+              favorited: false,
+            }
+          }
+        }))
+      })
+      .catch(favError => {
+        console.log(favError);
+        updateFavoriteMap(response.data.map(strain => {
+          return {
+            id: strain.id,
+            favorited: false,
+          }
+        }))
+      })
     })
     .catch(error => {
       setFailureStatus(true);
