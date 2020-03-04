@@ -1,24 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { axiosWithAuth } from "../../Utils/axiosWithAuth";
-import Header from './Header';
+import Header from '../Dashboard/Header';
 import UserInfoCard from './UserInfoCard';
 
 
-const ProfilePage = () => {
-    const [currentUser, setCurrentUser] = useState();
+const ProfilePage = (
+    // const [currentUser, setCurrentUser] = useState();
 
-    useEffect(() => {
-        axiosWithAuth().get('https://medcabinet1.herokuapp.com/api/users/:id')
-          .then(response => {
-            setCurrentUser(response.data);
-          })
-          .catch(error => {
-            console.log('Error:', error);
-          });
-      }, []);
+    // useEffect(() => {
+    //     axiosWithAuth().get('https://medcabinet1.herokuapp.com/api/users/:id')
+    //       .then(response => {
+    //         console.log(response);
+    //         setCurrentUser(response.data);
+    //       })
+    //       .catch(error => {
+    //         console.log('Error:', error);
+    //       });
+    //   }, []);
 
-    return (
+    // return (
         <div>
             <Header />
             <div>
@@ -27,9 +28,9 @@ const ProfilePage = () => {
                 </div>
                 <div>
                 <UserInfoCard
-                  id={currentUser.id}
-                  name={currentUser.username}
-                  email={currentUser.email}
+                //   id={currentUser.id}
+                //   name={currentUser.username}
+                //   email={currentUser.email}
                 />
                 </div>
             </div>
@@ -53,7 +54,7 @@ const ProfilePage = () => {
                 </Link>
             </div>
         </div>
-    )
-};
+    // )
+);
 
 export default ProfilePage;

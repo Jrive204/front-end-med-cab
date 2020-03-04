@@ -9,6 +9,7 @@ import Dashboard from "./Components/Dashboard/Dashboard";
 import SearchForm from "./Components/Search/SearchForm";
 import RecommendForm from "./Components/Recommend/RecommendForm";
 import CabinetList from "./Components/PersonalCabinet/CabintList";
+import ProfilePage from "./Components/ProfilePage/ProfilePage";
 
 
 const App = () => {
@@ -19,7 +20,7 @@ const App = () => {
       <Route path="/signup" component={SignUp} />
       <PrivateRoute path="/dashboard" component={Dashboard} />
       <PrivateRoute path="/strains" component={SearchForm} />
-      
+      <PrivateRoute path="/profile" component={ProfilePage} />      
       <PrivateRoute path="/recommender" component={RecommendForm} />
       <Route exact path="/cabinet" component={CabinetList} />
       {/* <PrivateRoute exact path="/cabinet/strain/:id" component={CabinetStrain} /> */}

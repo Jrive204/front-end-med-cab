@@ -85,7 +85,7 @@ width:100%;
     }
 `;
 
-const SignUpPage = (props) => {
+const SignUp = props => {
     const [newUser, setNewUser] = useState ({
         username: '',
         password: '',
@@ -109,7 +109,8 @@ const SignUpPage = (props) => {
             .then(response =>{
                       localStorage.setItem("token", response.data.token);
                       localStorage.setItem("user_id", response.data.id);
-                      props.history.push("/desktop")
+                      localStorage.setItem("email", response.data.email);
+                      props.history.push("/dashboard")
                       console.log(response.data)
             // .then(response => {
             //     console.log(response);
@@ -185,7 +186,7 @@ const SignUpPage = (props) => {
     )
 }
 
-export default SignUpPage;
+export default SignUp;
 
 
 

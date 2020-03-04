@@ -51,6 +51,7 @@ const HeaderContainer = styled.div`
             font-weight: 500;
             color: #333;
             transition: 0.25s;
+            margin-left: 1.5rem;
 
             :hover {
                 opacity: 0.5;
@@ -76,7 +77,10 @@ const Header = () => {
                     <Link to='/strains'>Strain Search</Link>
                     <Link to='/cabinet'>My Cabinet</Link>
                 </nav>
-                <Link to='/' className='sign-out' onClick={signout}>Sign Out</Link>
+                <div>
+                    <Link to='/profilepage'className='sign-out'>Profile</Link>
+                    <Link to='/' className='sign-out' onClick={signout}>Sign Out</Link>
+                </div>
             </div>
         </HeaderContainer>
     );
