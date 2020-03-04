@@ -26,11 +26,10 @@ const HeaderContainer = styled.div`
             color:white;
             fill:white;
             :hover {
-                color:#DCDCDC;
-                fill:#DCDCDC;
+                color:#98FB98;
+                fill:#98FB98;
             }
         }
-
         nav {
             display: flex;
             align-items: center;
@@ -41,6 +40,23 @@ const HeaderContainer = styled.div`
             font-size: 1rem;
             font-weight: 500;
             transition: 0.25s;
+        }
+        > a:last-child {
+            color:#3CB371;
+            font-weight:bold;
+            > div {
+                background-color:white;
+                padding:7px;
+                border:1px solid #DCDCDC;
+                border-radius:5px;
+            }
+            &:hover {
+                > div {
+                    background-color:#3CB371;
+                    color:#98FB98;
+                    border:1px solid #98FB98;
+                }
+            }
         }
     }
 `;
@@ -63,7 +79,7 @@ const Header = props => {
                     <Link to='/strains'>Strain Search</Link>
                     <Link to='/cabinet'>My Cabinet</Link>
                 </nav>
-                <Link to='/' className='sign-out' onClick={signout}>Sign Out</Link>
+                <Link to='/' className='sign-out' onClick={signout}><div>Sign Out</div></Link>
             </div>
         </HeaderContainer>
     );
