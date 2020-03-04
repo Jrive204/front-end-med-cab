@@ -59,10 +59,11 @@ const HeaderContainer = styled.div`
     }
 `;
 
-const Header = () => {
+const Header = props => {
     const signout = () => {
         localStorage.removeItem("token")
         localStorage.removeItem("user_id")
+        // props.history.push("/")
     }
 
     return(

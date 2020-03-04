@@ -1,80 +1,110 @@
-// React
 import React, { useState, useEffect } from "react";
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-// Axios
 import { axiosWithAuth } from "../../Utils/axiosWithAuth";
-// Actions
 import { getStrains, findStrain } from '../../Actions/index';
-// Components
+import { ReactSVG } from 'react-svg';
+import styled from 'styled-components';
 
-// Styling
-// import {
-//   Card, CardBody,
-//   CardTitle, CardSubtitle, Button
-// } from 'reactstrap';
-//Icon Import
-import Star from "../../img/star.png";
-
-
-
-const StrainCard = (props) => {
-    console.log('hello',props);
-
-   
-    const [strainID, setStrainID] = useState();
-    const [strainData, setStrainData] = useState({});
-    // console.log(strainData)
-
-    useEffect(() => {
-        console.log(strainID);
-        if (strainID) {
-            axiosWithAuth()
-            .post(`/users/${localStorage.id}/strains`, strainID)
-            .then(res => console.log(res))
-            .catch(err => console.log(err));
-        }
-    }, [strainID])
-
-    const clickHandler = e => {
-        e.preventDefault();
-        // props.getStrains();
-        console.log("E.TARGET.ID", e.target.id);
-        setStrainID({ strainID: e.target.id });
-        console.log("STRAINID", strainID);
-        // setStrainData(strainHolder);
-        alert("Strain saved!");
-    };
-
-    const strainHolder = {
-        strain_id: props.strain_id,
-        strain_name: props.name,
-        strain_type: props.type,
-        strain_rating: props.rating,
-        strain_description: props.description,
-        strain_effects: props.effects,
-        strain_flavors: props.flavors
+const Card = styled.div`
+    width:300px;
+    background-color:white;
+    border-radius:5px;
+    border: 1px solid #F5F5F5;
+    margin:10px;
+    text-align:center;
+    > div:first-child {
+        background-color:#3CB371;
+        display:flex;
+        justify-content:center;
+        color:white;
+        font-size:130%;
+        font-weight:bold;
+        padding:5px;
     }
-    console.log('hello',strainHolder);
+    > div:last-child {
+        padding:5px;
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        > div:first-child {
+            width:90%;
+            display:flex;
+            justify-content:space-between;
+            > * {
+                width:50px;
+            }
+            button {
+                border-radius:20px;
+                outline:none;
+                width:40px;
+                border:0;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                &:focus {
+                    outline:none;
+                }
+                &:hover {
+                    cursor:pointer;
+                    fill:#3CB371;
+                }
+            }
+        }
+    }
+    h3 {
+        margin-top:5px;
+        font-weight:bold;
+    }
+`
 
+const StrainCard = ({strain, favoriteMap, updatePagination, updateFavoriteMap}) => {
+    let favIndex = 0;
+    favoriteMap.forEach((favorite, index) => {
+        if (favorite.id === strain.id) {
+            favIndex = index;
+        }
+    })
+
+    const favoriteStatus = () => {
+        if (favoriteMap[favIndex].favorited === false) {
+            updateFavoriteState(true);
+        }
+        else {
+            updateFavoriteState(false);
+        }
+    }
+
+    const updateFavoriteState = (boolean) => {
+        const newMap = favoriteMap.map(object => {
+            if (object.id === strain.id) {
+                return {
+                    id: object.id,
+                    favorited: boolean,
+                }
+            }
+            else {
+                return object;
+            }
+        })
+        updateFavoriteMap(newMap);
+    }
 
     return (
-           
-            <div className="bigBox">
-                    <div className="card-cont" key={props.strain_id}>
-                    <div className="card">  
-                        <h4>Strain: {props.name}</h4>
-                        <h5>Rating:</h5>
-                        <div className="img">
-                        <h6>{props.rating}</h6>
-                            <img src={ Star } alt="logo credit"/>
-                        </div>
-                        {/* <button><Link to={`/strain-details/${props.strain_id}`} style={{ textDecoration: 'none', color: 'green' }}>Strain Details</Link></button> */}
-                        <button id={props.strain_id} onClick={clickHandler}>Save Strain</button>
-                        </div>
-                    </div>
+        <Card>
+            <div><h2>{strain.name}</h2></div>
+            <div>
+                <div><h3>{strain.strain_rating}</h3><h3>{strain.race}</h3><div><button onClick={favoriteStatus}><ReactSVG style={favoriteMap[favIndex].favorited ? {display: "none"} : {display: "block"}}src="heart-open.svg"/><ReactSVG style={favoriteMap[favIndex].favorited ? {display: "block"} : {display: "none"}}src="heart-closed.svg"/></button></div></div>
+                <div>
+                    <h3>Flavors</h3>
+                    <p>{strain.flavors}</p>
+                </div>
+                <div>
+                    <h3>Helpful for</h3>
+                    <p style={{fontSize: "80%"}}>{strain.medical}</p>
+                </div>
             </div>
-
+        </Card>
     )
 }
 
