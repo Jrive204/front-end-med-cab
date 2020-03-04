@@ -15,6 +15,7 @@ const Container = styled.div`
     background-color:#98FB98;
 `
 
+
 const LoginWindow = styled.div`
     border:1px solid #F5F5F5;
     border-radius:5px;
@@ -157,6 +158,7 @@ const SignIn = ({setHeaderDisplay}) => {
     }
   
     return (
+
       <Container>
         <LoginWindow>
           <Heading><ReactSVG src="flask.svg"/><h1>Login</h1></Heading>

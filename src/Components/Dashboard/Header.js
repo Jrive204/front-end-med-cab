@@ -39,7 +39,7 @@ const HeaderContainer = styled.div`
             text-decoration: none;
             font-size: 1rem;
             font-weight: 500;
-            transition: 0.25s;
+
         }
         > a:last-child {
             color:#3CB371;
@@ -76,11 +76,14 @@ const Header = ({displayHeader}) => {
                     <ReactSVG src="flask.svg" />
                 </Link>
                 <nav>
+                    <Link to='/profilepage'>Profile</Link>
                     <Link to='/recommender'>Recommender</Link>
                     <Link to='/strains'>Strain List</Link>
                     <Link to='/cabinet'>My Cabinet</Link>
                 </nav>
-                <Link to='/' className='sign-out' onClick={signout}><div>Sign&nbsp;Out</div></Link>
+                <div>
+                    <Link to='/' className='sign-out' onClick={signout}>Sign Out</Link>
+                </div>
             </div>
         </HeaderContainer>
     );
