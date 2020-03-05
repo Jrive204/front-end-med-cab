@@ -127,11 +127,7 @@ const SignIn = ({setHeaderDisplay}) => {
           setValueStatus(true);
       }
       else {
-        const userCredentials = {
-          username: values.username,
-          password: values.password
-        };
-        axios.post('https://medcabinet1.herokuapp.com/api/auth/login', userCredentials)
+        axios.post('https://medcabinet1.herokuapp.com/api/auth/login', values)
         .then(response => {
           localStorage.setItem("token", response.data.token);
           push("/dashboard")
@@ -182,11 +178,4 @@ const SignIn = ({setHeaderDisplay}) => {
     );
   };
   
-  const mapStateToProps = state => {
-    return {
-      username: state.username,
-      passsword: state.password
-    }
-  };
-  
-  export default connect(mapStateToProps, {UserLogin})(SignIn);
+  export default SignIn;

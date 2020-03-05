@@ -18,6 +18,7 @@ const Card = styled.div`
         display:flex;
         justify-content:center;
         color:white;
+        fill:white;
         font-size:130%;
         font-weight:bold;
         padding:5px;
@@ -80,6 +81,7 @@ const StrainCard = ({strain, favoriteMap, updatePagination, updateFavoriteMap}) 
         const newMap = favoriteMap.map(object => {
             if (object.id === strain.id) {
                 strainID = strain.id;
+                console.log(strainID);
                 return {
                     id: object.id,
                     favorited: boolean,
@@ -89,11 +91,11 @@ const StrainCard = ({strain, favoriteMap, updatePagination, updateFavoriteMap}) 
                 return object;
             }
         })
-        updateFavoriteMap(newMap);
         if (boolean === true) {
             axiosWithAuth().post(`https://medcabinet1.herokuapp.com/api/users/${localStorage.getItem("userID")}/favorites`, {"strain_id": strainID})
             .then(response => {
                 console.log(response);
+                updateFavoriteMap(newMap);
             })
             .catch(error => {
                 console.log(error);
@@ -110,6 +112,7 @@ const StrainCard = ({strain, favoriteMap, updatePagination, updateFavoriteMap}) 
                 })
                 axiosWithAuth().delete(`https://medcabinet1.herokuapp.com/api/users/favorites/${idToDelete}`)
                 .then(delResponse => {
+                    updateFavoriteMap(newMap);
                     console.log(delResponse);
                 })
                 .catch(delError => {
@@ -124,7 +127,7 @@ const StrainCard = ({strain, favoriteMap, updatePagination, updateFavoriteMap}) 
 
     return (
         <Card>
-            <div><h2>{strain.name}</h2></div>
+            <div><ReactSVG src={`${strain.race}.svg`}/><h2>{strain.name}</h2></div>
             <div>
                 <div><h3>{strain.strain_rating}</h3><h3>{strain.race}</h3><div><button onClick={favoriteStatus}><ReactSVG style={favoriteMap[favIndex].favorited ? {display: "none"} : {display: "block"}}src="heart-open.svg"/><ReactSVG style={favoriteMap[favIndex].favorited ? {display: "block"} : {display: "none"}}src="heart-closed.svg"/></button></div></div>
                 <div>

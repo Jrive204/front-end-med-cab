@@ -41,23 +41,9 @@ const CabinetList = () => {
             setData(response.data);
             setOriginalData(response.data);
             updateFavoriteMap(response.data.map(strain => {
-                let match = false
-                response.data.map(favorite => {
-                    if (favorite.strain_id === strain.id) {
-                        match = true;
-                    }
-                })
-                if (match === true) {
-                    return {
-                    id: strain.id,
+                return {
+                    id: strain.strain_id,
                     favorited: true,
-                    }
-                }
-                else {
-                    return {
-                    id: strain.id,
-                    favorited: false,
-                    }
                 }
             }))
         })
@@ -78,7 +64,7 @@ const CabinetList = () => {
                     )
                     }
                 })}
-                <div className="error" style={failure ? {display:"block"} : {display:"none"}}>Could not fetch data. Try refreshing the page or logging out.</div>
+                <div className="error" style={failure ? {display:"block"} : {display:"none"}}>Favorites list empty.</div>
             </CardContainer>
         </Container>
     )

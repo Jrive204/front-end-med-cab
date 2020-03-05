@@ -65,7 +65,7 @@ const Header = ({displayHeader}) => {
     const { push } = useHistory();
     const signout = () => {
         localStorage.removeItem("token")
-        localStorage.removeItem("user_id")
+        localStorage.removeItem("userID")
         push("/")
     }
 
@@ -77,13 +77,11 @@ const Header = ({displayHeader}) => {
                 </Link>
                 <nav>
                     <Link to='/profilepage'>Profile</Link>
-                    <Link to='/recommender'>Recommender</Link>
+                    <Link to='/recommender'>Strain Recommendations</Link>
                     <Link to='/strains'>Strain List</Link>
                     <Link to='/cabinet'>My Cabinet</Link>
                 </nav>
-                <div>
-                    <Link to='/' className='sign-out' onClick={signout}>Sign Out</Link>
-                </div>
+                    <Link to='/' className='sign-out' onClick={signout}><div>Sign&nbsp;Out</div></Link>
             </div>
         </HeaderContainer>
     );

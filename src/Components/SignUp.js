@@ -108,14 +108,9 @@ const SignUp = props => {
             axios.post("https://medcabinet1.herokuapp.com/api/auth/register", newUser)
             .then(response =>{
                       localStorage.setItem("token", response.data.token);
-                      localStorage.setItem("user_id", response.data.id);
-                      localStorage.setItem("email", response.data.email);
+                      localStorage.setItem("userID", response.data.id);
                       props.history.push("/dashboard")
                       console.log(response.data)
-            // .then(response => {
-            //     console.log(response);
-            //     localStorage.setItem("token", response.data.token);
-            //     setValueStatus(false);
             })
 
             .catch(error => {

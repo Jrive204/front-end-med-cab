@@ -26,8 +26,6 @@ const App = () => {
         <PrivateRoute path="/dashboard" component={Dashboard} />
         <PrivateRoute path="/strains" component={StrainList} />
           <PrivateRoute path="/profile" component={ProfilePage} />      
-
-        
         <PrivateRoute path="/recommender" component={RecommendForm} />
         <Route exact path="/cabinet" component={CabinetList} />
         <Route path="/">

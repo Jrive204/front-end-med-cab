@@ -44,6 +44,7 @@ const StrainList = () => {
   const getData = (sortType) => {
     axiosWithAuth().get(`https://medcabinet1.herokuapp.com/api/strains?sortby=${sortType}`)
     .then(response => {
+      console.log(response);
       setFailureStatus(false);
       setData(response.data);
       setOriginalData(response.data);
@@ -72,7 +73,7 @@ const StrainList = () => {
         }))
       })
       .catch(favError => {
-        console.log(favError);
+        console.log("Couldn't fetch favorites list for user – it's possible the list is empty", favError);
         updateFavoriteMap(response.data.map(strain => {
           return {
             id: strain.id,

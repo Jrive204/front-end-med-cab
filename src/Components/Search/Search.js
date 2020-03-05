@@ -149,6 +149,7 @@ const Search = ({setQuery, getData, setData, originalData, query, pagination, up
             <form onSubmit={handleSearch} autoComplete="off">
                 <select style={{backgroundColor: "#3CB371", color: "white", fontSize: "100%", height: "30px"}} onChange={updateSearchType}>
                     <option value="all">All Info</option>
+                    <option value="name">Name</option>
                     <option value="race">Race</option>
                     <option value="negative">Negative Effects</option>
                     <option value="positive">Positive Effects</option>
