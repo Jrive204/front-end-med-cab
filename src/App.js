@@ -6,7 +6,7 @@ import PrivateRoute from "./Utils/PrivateRoute";
 import SignIn from "./Components/SignIn";
 import SignUp from "./Components/SignUp";
 import Dashboard from "./Components/Dashboard/Dashboard";
-import StrainInfo from "./Components/Search/StrainInfo";
+import StrainInfoCard from "./Components/Search/StrainInfoCard";
 import StrainList from "./Components/Search/StrainList";
 import RecommendForm from "./Components/Recommend/RecommendForm";
 import ProfilePage from "./Components/ProfilePage/ProfilePage";
@@ -28,7 +28,7 @@ const App = () => {
         </Route>
         <PrivateRoute path="/dashboard" component={Dashboard} />
         <Route path="/strains/:strainID">
-          <StrainInfo />
+          <StrainInfoCard />
         </Route>
         <PrivateRoute path="/strains" component={StrainList} />
         <PrivateRoute path="/profile" component={ProfilePage} />      

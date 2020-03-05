@@ -50,7 +50,7 @@ const FormContainer = styled.div`
       display:flex;
       input {
         width:80%;
-        background-color:inherit;
+        background-color:#F5F5F5;
         outline:none;
         border:0;
         font-size:120%;
@@ -77,7 +77,7 @@ const FormContainer = styled.div`
         outline:none;
   }
   &.clear-button {
-      background-color:inherit;
+      background-color:#F5F5F5;
       width:50px;
       outline:none;
       border:0;
