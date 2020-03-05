@@ -60,7 +60,7 @@ const CabinetList = () => {
                 {data.slice(pagination.lowest, pagination.highest).map(strain => {
                     if (favoriteMap !== undefined) {
                     return (
-                        <StrainCard strain={strain} updatePagination={updatePagination} favoriteMap={favoriteMap} updateFavoriteMap={updateFavoriteMap}/>
+                        <StrainCard cabinet={true} strain={strain} updatePagination={updatePagination} favoriteMap={favoriteMap} updateFavoriteMap={updateFavoriteMap}/>
                     )
                     }
                 })}

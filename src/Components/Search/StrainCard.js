@@ -63,11 +63,19 @@ const Card = styled.div`
     }
 `
 
-const StrainCard = ({strain, favoriteMap, updateFavoriteMap}) => {
+const StrainCard = ({strain, favoriteMap, updateFavoriteMap, cabinet}) => {
+    console.log(cabinet);
     let favIndex = 0;
     favoriteMap.forEach((favorite, index) => {
-        if (favorite.id === strain.id) {
-            favIndex = index;
+        if (cabinet === false) {
+            if (favorite.id === strain.id) {
+                favIndex = index;
+            }
+        }
+        else {
+            if (favorite.id === strain.strain_id ) {
+                favIndex = index;
+            }
         }
     })
 
@@ -82,19 +90,35 @@ const StrainCard = ({strain, favoriteMap, updateFavoriteMap}) => {
 
     const updateFavoriteState = (boolean) => {
         let strainID = 0;
-        console.log(strain.id);
-        const newMap = favoriteMap.map(object => {
-            if (object.id === strain.id) {
-                strainID = strain.id;
-                return {
-                    id: object.id,
-                    favorited: boolean,
+        let newMap = [];
+        if (cabinet === false) {
+            newMap = favoriteMap.map(object => {
+                if (object.id === strain.id) {
+                    strainID = strain.id;
+                    return {
+                        id: object.id,
+                        favorited: boolean,
+                    }
                 }
-            }
-            else {
-                return object;
-            }
-        })
+                else {
+                    return object;
+                }
+            })
+        }
+        else {
+            newMap = favoriteMap.map(object => {
+                if (object.id === strain.strain_id) {
+                    strainID = strain.strain_id;
+                    return {
+                        id: object.id,
+                        favorited: boolean,
+                    }
+                }
+                else {
+                    return object;
+                }
+            })
+        }
         if (boolean === true) {
             axiosWithAuth().post(`https://medcabinet1.herokuapp.com/api/users/${localStorage.getItem("userID")}/favorites`, {"strain_id": strainID})
             .then(response => {
@@ -109,11 +133,20 @@ const StrainCard = ({strain, favoriteMap, updateFavoriteMap}) => {
             let idToDelete = 0;
             axiosWithAuth().get(`https://medcabinet1.herokuapp.com/api/users/${localStorage.getItem("userID")}/favorites`)
             .then(response => {
-                response.data.map(favorite => {
-                    if (strain.id === favorite.strain_id) {
-                        idToDelete = favorite.id;
-                    }
-                })
+                if (cabinet === false) {
+                    response.data.map(favorite => {
+                        if (strain.id === favorite.strain_id) {
+                            idToDelete = favorite.id;
+                        }
+                    })
+                }
+                else {
+                    response.data.map(favorite => {
+                        if (strain.strain_id === favorite.strain_id) {
+                            idToDelete = favorite.id;
+                        }
+                    })
+                }
                 axiosWithAuth().delete(`https://medcabinet1.herokuapp.com/api/users/favorites/${idToDelete}`)
                 .then(delResponse => {
                     updateFavoriteMap(newMap);
@@ -131,7 +164,7 @@ const StrainCard = ({strain, favoriteMap, updateFavoriteMap}) => {
 
     return (
         <Card>
-            <div><Link to={`/strains/${strain.id}`}><ReactSVG src={`${strain.race}.svg`}/><h2>{strain.name}</h2></Link></div>
+            <div><Link to={cabinet ? `/strains/${strain.strain_id}` : `/strains/${strain.id}`}><ReactSVG src={`${strain.race}.svg`}/><h2>{strain.name}</h2></Link></div>
             <div>
                 <div><h3>{strain.strain_rating}</h3><h3>{strain.race}</h3><div><button onClick={favoriteStatus}><ReactSVG style={favoriteMap[favIndex].favorited ? {display: "none"} : {display: "block"}}src="heart-open.svg"/><ReactSVG style={favoriteMap[favIndex].favorited ? {display: "block"} : {display: "none"}}src="heart-closed.svg"/></button></div></div>
                 <div>
