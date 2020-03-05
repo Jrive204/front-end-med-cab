@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { Link, useHistory } from 'react-router-dom';
@@ -93,6 +93,10 @@ const SignUp = ({setHeaderDisplay}) => {
     });
     const [emptyValues, setValueStatus] = useState(false);
     const { push } = useHistory();
+
+    useEffect(() => {
+        setHeaderDisplay(false);
+    }, [setHeaderDisplay])
 
     const handleSubmit = e => {
         e.preventDefault();
