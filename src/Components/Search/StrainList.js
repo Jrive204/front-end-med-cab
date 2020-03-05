@@ -88,7 +88,7 @@ const StrainList = () => {
   return (
     <>
       <Container>
-        <Search displaySort={true} setQuery={setQuery} getData={getData} originalData={originalData} query={query} setData={setData} data={data} updatePagination={updatePagination} pagination={pagination}/>
+        <Search cabinet={false} setQuery={setQuery} getData={getData} originalData={originalData} query={query} setData={setData} data={data} updatePagination={updatePagination} pagination={pagination}/>
         <CardContainer>
           {data.slice(pagination.lowest, pagination.highest).map(strain => {
             if (favoriteMap !== undefined) {

@@ -13,6 +13,10 @@ const FormContainer = styled.div`
       font-size:100%;
       height:30px;
   }
+  .rec-toggle {
+      margin-left:20px;
+      width:150px;
+  }
   .sort-container {
       display:flex;
       align-items:center;
@@ -91,7 +95,7 @@ const FormContainer = styled.div`
   }
 `
 
-const Search = ({setQuery, setData, originalData, query, pagination, updatePagination, data, getData, displaySort}) => {
+const Search = ({setQuery, setData, originalData, query, pagination, updatePagination, data, getData, cabinet}) => {
     const [searchType, setSearchType] = useState("all");
     const [sort, setSort] = useState("name");
     const [ascending, setAscending] = useState(true);
@@ -202,10 +206,23 @@ const Search = ({setQuery, setData, originalData, query, pagination, updatePagin
         getData(event.target.value, ascending);
     }
 
+    const changePath = event => {
+        if (event.target.value === "recommendations") {
+            getData(`https://medcabinet1.herokuapp.com/api/recommendedstrains/${localStorage.getItem("userID")}/user`);
+        }
+        else {
+            getData(`https://medcabinet1.herokuapp.com/api/users/${localStorage.getItem("userID")}/favorites`);
+        }
+    }
+
     return (
         <FormContainer>
             <button style={{marginLeft: "50px"}} onClick={firstPage}>{`<<`}</button>
             <button onClick={previousPage}>previous</button>
+            <select onChange={changePath} className="rec-toggle" style={cabinet ? {display:"flex"} : {display:"none"}}>
+                <option value="favorites">Favorites</option>
+                <option value="recommendations">Recommendations</option>
+            </select>
             <form onSubmit={handleSearch} autoComplete="off">
                 <select onChange={updateSearchType}>
                     <option value="all">All Info</option>
@@ -224,7 +241,7 @@ const Search = ({setQuery, setData, originalData, query, pagination, updatePagin
                     <button type="submit">Search</button>
                 </div>
             </form>
-            <div className="sort-container" style={displaySort ? {display:"flex"} : {display:"none"}}>
+            <div className="sort-container" style={cabinet ? {display:"none"} : {display:"flex"}}>
                 <div>Sort&nbsp;by</div>
                 <select onChange={updateSort}>
                     <option value="name">Name</option>
