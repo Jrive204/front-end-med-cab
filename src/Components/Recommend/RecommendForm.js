@@ -26,55 +26,67 @@ const RecommendForm = () => {
   const userID = useSelector(state => state.currentuser);
 
   function makestring() {
-    return setChoices({
-      ...choices,
-      race: [...new Set(choices.race)].join(','),
-      positive_effects: [...new Set(choices.positive_effects)].join(','),
-      negative_effects_avoid: [...new Set(choices.negative_effects_avoid)].join(
-        ','
-      ),
-      ailments: Array.isArray(choices.ailments)
-        ? choices.ailments.join(',')
-        : '',
-      flavors: [...new Set(choices.flavors)].join(',')
-    });
-  }
-  const onSubmit = e => {
-    e.preventDefault();
     setChoices({
       ...choices,
-      race: [...new Set(choices.race)].join(','),
-      positive_effects: [...new Set(choices.positive_effects)].join(','),
-      negative_effects_avoid: [...new Set(choices.negative_effects_avoid)].join(
-        ','
-      ),
+      race: Array.isArray(choices.race) ? choices.race.join(',') : choices.race,
+      positive_effects: Array.isArray(choices.positive_effects)
+        ? choices.positive_effects.join(',')
+        : choices.positive_effects,
+      negative_effects_avoid: Array.isArray(choices.negative_effects_avoid)
+        ? choices.negative_effects_avoid.join(',')
+        : choices.negative_effects_avoid,
       ailments: Array.isArray(choices.ailments)
         ? choices.ailments.join(',')
-        : '',
-      flavors: [...new Set(choices.flavors)].join(',')
+        : choices.ailments,
+      flavors: Array.isArray(choices.flavors)
+        ? choices.flavors.join(',')
+        : choices.flavors
     });
+  }
+  function axpost() {
+    axiosWithAuth()
+      .post(
+        `https://medcabinet1.herokuapp.com/api/usersdata/${localStorage.getItem(
+          'userID'
+        )}/user`,
+        choices
+      )
+      .then(res => console.log(res))
+      .catch(err => console.log(err.message));
+  }
 
-    setTimeout(
-      () =>
-        axiosWithAuth()
-          .post(
-            `https://medcabinet1.herokuapp.com/api/usersdata/${localStorage.getItem(
-              'userID'
-            )}/user`,
-            choices
-          )
-          .then(res => console.log(res))
-          .catch(err => console.log(err.message)),
-      500
-    );
+  const onSubmit = e => {
+    e.preventDefault();
+
+    axiosWithAuth()
+      .post(
+        `https://medcabinet1.herokuapp.com/api/usersdata/${localStorage.getItem(
+          'userID'
+        )}/user`,
+        choices
+      )
+      .then(res => console.log(res))
+      .catch(err => console.log(err.message));
   };
 
   const handlechange = e => {
     e.preventDefault();
-
     setChoices({
       ...choices,
-      [e.target.name]: e.target.value
+      race: Array.isArray(choices.race) ? choices.race.join(',') : choices.race,
+      positive_effects: Array.isArray(choices.positive_effects)
+        ? choices.positive_effects.join(',')
+        : choices.positive_effects,
+      negative_effects_avoid: Array.isArray(choices.negative_effects_avoid)
+        ? choices.negative_effects_avoid.join(',')
+        : choices.negative_effects_avoid,
+      ailments: Array.isArray(choices.ailments)
+        ? choices.ailments.join(',')
+        : choices.ailments,
+      flavors: Array.isArray(choices.flavors)
+        ? choices.flavors.join(',')
+        : choices.flavors,
+      additional_desired_effects: e.target.value
     });
   };
 
@@ -285,6 +297,7 @@ const RecommendForm = () => {
             cols='50'
             rows='10'
             maxLength='200'
+            required
             // value={user.review}
             onChange={handlechange}
           />
