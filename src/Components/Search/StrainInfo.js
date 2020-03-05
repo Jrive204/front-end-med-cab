@@ -1,6 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { ReactSVG } from 'react-svg';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components'
 import { axiosWithAuth } from '../../Utils/axiosWithAuth';
 
@@ -95,6 +94,7 @@ const Card = styled.div`
 `
 
 const StrainInfoCard = ({data, favorited, setFavoriteStatus}) => {
+    const {goBack} = useHistory();
     
     const addToCabinet = () => {
         if (favorited === false) {
@@ -133,7 +133,7 @@ const StrainInfoCard = ({data, favorited, setFavoriteStatus}) => {
 
     return (
         <Card>
-            <div className="heading"><div><Link to="/strains">{`<`}</Link></div><div><h1>{data.name}</h1></div></div>
+            <div className="heading"><div><button onClick={() => goBack()}>{`<`}</button></div><div><h1>{data.name}</h1></div></div>
             <div>
                 <div class="id-race-rating"><p>ID: {data.id}</p><p>Rating: {data.strain_rating}</p></div>
                 <div class="race"><p>{data.race}</p></div>
