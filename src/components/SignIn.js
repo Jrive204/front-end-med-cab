@@ -134,7 +134,7 @@ const SignIn = ({setHeaderDisplay}) => {
         axios.post('https://medcabinet1.herokuapp.com/api/auth/login', userCredentials)
         .then(response => {
           localStorage.setItem("token", response.data.token);
-          push("/dashboard")
+          push("/profile")
           console.log(response)
           setMatchStatus(true);
           setValueStatus(false);
