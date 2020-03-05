@@ -1,8 +1,0 @@
-export const SIGN_UP = "SIGN_UP";
-export const LOGIN = "LOGIN";
-export const LOGOUT = "LOGOUT";
-export const GET_SEARCH= "GET_SEARCH";
-export const GET_CABINET_STRAINS = "GET_CABINET_STRAINS";
-export const UPDATE_CURRENT_CABINET_STRAIN = "UPDATE_CURRENT_CABINET_STRAIN";
-
-
