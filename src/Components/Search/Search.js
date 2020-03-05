@@ -6,6 +6,26 @@ const FormContainer = styled.div`
   margin-top:10px;
   display:flex;
   justify-content:center;
+  align-items:center;
+  select {
+      background-color:#3CB371;
+      color:white;
+      font-size:100%;
+      height:30px;
+  }
+  .sort-container {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      color:#3CB371;
+      font-weight:bold;
+      width:150px;
+      margin-right:50px;
+      border-radius:5px;
+      select {
+          height:35px;
+      }
+  }
   form {
     width:100%;
     display:flex;
@@ -20,6 +40,8 @@ const FormContainer = styled.div`
     }
     > div {
       margin: 0 10px;
+      display:flex;
+      align-items:center;
     }
     div:last-child {
       border-radius:5px;
@@ -41,6 +63,7 @@ const FormContainer = styled.div`
     color:white;
     font-size:110%;
     width:100px;
+    height:35px;
     &:hover {
       cursor:pointer;
       border:1px solid #98FB98;
@@ -53,9 +76,19 @@ const FormContainer = styled.div`
     &:focus {
         outline:none;
   }
+  &.clear-button {
+      background-color:inherit;
+      width:50px;
+      outline:none;
+      border:0;
+      fill:lightgray;
+      &:hover {
+        fill:#A9A9A9;
+      }
+  }
 `
 
-const Search = ({setQuery, getData, setData, originalData, query, pagination, updatePagination, data}) => {
+const Search = ({setQuery, setData, originalData, query, pagination, updatePagination, data, getData}) => {
     const [searchType, setSearchType] = useState("all");
 
     const updateQuery = event => setQuery(event.target.value);
@@ -72,7 +105,7 @@ const Search = ({setQuery, getData, setData, originalData, query, pagination, up
             filteredData = originalData.filter(strain => {
                 let passed = false;
                 Object.values(strain).forEach(value => {
-                  if ((typeof value === "string") && (!(value.includes("https")))) {
+                  if (typeof value === "string") {
                     if (value.toLowerCase().includes(query.toLowerCase())) {
                       passed = true;
                     }
@@ -142,12 +175,20 @@ const Search = ({setQuery, getData, setData, originalData, query, pagination, up
         console.log(pagination);
     }
 
+    const clearQuery = () => {
+        setQuery("");
+    }
+
+    const updateSort = event => {
+        getData(event.target.value);
+    }
+
     return (
         <FormContainer>
             <button style={{marginLeft: "50px"}} onClick={firstPage}>{`<<`}</button>
             <button onClick={previousPage}>previous</button>
             <form onSubmit={handleSearch} autoComplete="off">
-                <select style={{backgroundColor: "#3CB371", color: "white", fontSize: "100%", height: "30px"}} onChange={updateSearchType}>
+                <select onChange={updateSearchType}>
                     <option value="all">All Info</option>
                     <option value="name">Name</option>
                     <option value="race">Race</option>
@@ -160,9 +201,19 @@ const Search = ({setQuery, getData, setData, originalData, query, pagination, up
                 <div>
                     <div><ReactSVG src="search.svg" /></div>
                     <input type="text" name="search" id="search" onChange={updateQuery} value={query}/>
+                    <button type="button" onClick={clearQuery} className="clear-button"><ReactSVG src="clear.svg"/></button>
                     <button type="submit">Search</button>
                 </div>
             </form>
+            <div className="sort-container">
+                <div>Sort by</div>
+                <select onChange={updateSort}>
+                    <option value="name">Name</option>
+                    <option value="strain_rating">Rating</option>
+                    <option value="race">Race</option>
+                    <option value="flavors">Flavors</option>
+                </select>
+            </div>
           <button onClick={nextPage}>next</button>
           <button style={{marginRight: "50px"}} onClick={lastPage}>{`>>`}</button>
         </FormContainer>

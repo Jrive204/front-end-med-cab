@@ -59,7 +59,7 @@ const Card = styled.div`
     }
 `
 
-const StrainCard = ({strain, favoriteMap, updatePagination, updateFavoriteMap}) => {
+const StrainCard = ({strain, favoriteMap, updateFavoriteMap}) => {
     let favIndex = 0;
     favoriteMap.forEach((favorite, index) => {
         if (favorite.id === strain.id) {
@@ -78,10 +78,10 @@ const StrainCard = ({strain, favoriteMap, updatePagination, updateFavoriteMap}) 
 
     const updateFavoriteState = (boolean) => {
         let strainID = 0;
+        console.log(strain.id);
         const newMap = favoriteMap.map(object => {
             if (object.id === strain.id) {
                 strainID = strain.id;
-                console.log(strainID);
                 return {
                     id: object.id,
                     favorited: boolean,

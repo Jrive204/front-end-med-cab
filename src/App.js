@@ -22,7 +22,9 @@ const App = () => {
       {/* <Header style={displayHeader ? {display: "block"} : {display: "none"}}/> */}
       <Header displayHeader={displayHeader}/>
       <Switch>
-        <Route path="/signup" component={SignUp} />
+        <Route path="/signup">
+          <SignUp setHeaderDisplay={setHeaderDisplay}/>
+        </Route>
         <PrivateRoute path="/dashboard" component={Dashboard} />
         <PrivateRoute path="/strains" component={StrainList} />
           <PrivateRoute path="/profile" component={ProfilePage} />      
