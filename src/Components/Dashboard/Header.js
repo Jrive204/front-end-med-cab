@@ -60,35 +60,30 @@ const HeaderContainer = styled.div`
   }
 `;
 
-const Header = ({ displayHeader }) => {
-  const { push } = useHistory();
-  const signout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user_id');
-    push('/');
-  };
+const Header = ({displayHeader}) => {
+    const { push } = useHistory();
+    const signout = () => {
+        localStorage.removeItem("token")
+        localStorage.removeItem("userID")
+        push("/")
+    }
 
-  return (
-    <HeaderContainer
-      style={displayHeader ? { display: 'flex' } : { display: 'none' }}>
-      <div className='header-container'>
-        <Link to='/dashboard'>
-          <ReactSVG src='flask.svg' />
-        </Link>
-        <nav>
-          <Link to='/profile'>Profile</Link>
-          <Link to='/recommender'>Strain Recommendations</Link>
-          <Link to='/strains'>Strain List</Link>
-          <Link to='/cabinet'>My Cabinet</Link>
-        </nav>
-        <div>
-          <Link to='/' className='sign-out' onClick={signout}>
-            Sign Out
-          </Link>
-        </div>
-      </div>
-    </HeaderContainer>
-  );
+    return (
+        <HeaderContainer style={displayHeader ? {display: "flex"} : {display: "none"}}>
+            <div className='header-container'>
+                <Link to='/dashboard'>
+                    <ReactSVG src="flask.svg" />
+                </Link>
+                <nav>
+                    <Link to='/profilepage'>Profile</Link>
+                    <Link to='/recommender'>Strain Recommendations</Link>
+                    <Link to='/strains'>Strain List</Link>
+                    <Link to='/cabinet'>My Cabinet</Link>
+                </nav>
+                    <Link to='/' className='sign-out' onClick={signout}><div>Sign&nbsp;Out</div></Link>
+            </div>
+        </HeaderContainer>
+    );
 };
 
 export default Header;

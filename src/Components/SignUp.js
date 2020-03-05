@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 
 const Background = styled.div`
     width: 100%;
@@ -85,13 +85,18 @@ width:100%;
     }
 `;
 
-const SignUp = props => {
+const SignUp = ({setHeaderDisplay}) => {
     const [newUser, setNewUser] = useState ({
         username: '',
         password: '',
         email: ''
     });
     const [emptyValues, setValueStatus] = useState(false);
+    const { push } = useHistory();
+
+    useEffect(() => {
+        setHeaderDisplay(false);
+    }, [setHeaderDisplay])
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -108,16 +113,11 @@ const SignUp = props => {
             axios.post("https://medcabinet1.herokuapp.com/api/auth/register", newUser)
             .then(response =>{
                       localStorage.setItem("token", response.data.token);
-                      localStorage.setItem("user_id", response.data.id);
-                      localStorage.setItem("email", response.data.email);
-                      props.history.push("/dashboard")
+                      localStorage.setItem("userID", response.data.id);
+                      push("/dashboard")
                       console.log(response.data)
-            // .then(response => {
-            //     console.log(response);
-            //     localStorage.setItem("token", response.data.token);
-            //     setValueStatus(false);
+                      setHeaderDisplay(true);
             })
-
             .catch(error => {
                 console.log(error);
                 setValueStatus(true);
@@ -186,5 +186,3 @@ const SignUp = props => {
 }
 
 export default SignUp;
-
-
