@@ -16,7 +16,7 @@ const Container = styled.div`
 const LoginWindow = styled.div`
   border: 1px solid #f5f5f5;
   border-radius: 5px;
-  width: 25%;
+  width: 30%;
   min-width: 300px;
   display: flex;
   flex-direction: column;
@@ -32,8 +32,13 @@ const Heading = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color:#3cb371;
+  color:white;
+  fill:white;
+  padding:10px;
+  border-radius:10px;
   h1 {
-    font-family: 'Lilita One', sans-serif;
+    font-family: 'Pacifico', cursive;
     font-size: 200%;
     font-weight: bold;
   }
@@ -59,7 +64,6 @@ const Input = styled.input`
   outline: none;
   font-size: 80%;
   font-family: inherit;
-  border: 1px solid white;
   &:hover {
     border: 1px solid cornflowerblue;
   }
@@ -153,9 +157,10 @@ const SignIn = ({ setHeaderDisplay }) => {
     <Container>
       <LoginWindow>
         <Heading>
-          <ReactSVG src='flask.svg' />
-          <h1>Login</h1>
+          <ReactSVG src='flask-lg.svg' />
+          <h1>Dr. Mary Jane</h1>
         </Heading>
+        <h2 style={{fontSize: "120%", fontWeight: "bold", marginTop: "10px"}}>Log In</h2>
         <form onSubmit={handleSubmit}>
           <InputContainer>
             <Label htmlFor='username'>Username</Label>
@@ -166,7 +171,7 @@ const SignIn = ({ setHeaderDisplay }) => {
               style={
                 emptyValues
                   ? { border: '1px solid red' }
-                  : { border: '1px solid white' }
+                  : { border: '1px solid lightgray' }
               }
               value={values.username}
               onChange={handleChange}
@@ -181,7 +186,7 @@ const SignIn = ({ setHeaderDisplay }) => {
               style={
                 emptyValues
                   ? { border: '1px solid red' }
-                  : { border: '1px solid white' }
+                  : { border: '1px solid lightgray' }
               }
               value={values.password}
               onChange={handleChange}
