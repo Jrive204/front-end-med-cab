@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { ReactSVG } from 'react-svg';
 import styled from 'styled-components'
+import { axiosWithAuth } from '../../Utils/axiosWithAuth';
 
 const Card = styled.div`
     background-color:white;
     border-radius:10px;
-    margin:5%;
+    margin:3%;
     display:flex;
     flex-direction:column;
     font-size:120%;
@@ -46,7 +47,10 @@ const Card = styled.div`
         }
         .description {
             text-align:center;
-            margin:10px;
+            background-color:#F5F5F5;
+            border-radius:10px;
+            padding:10px;
+            margin:30px 10px 30px 10px;
         }
         .effects {
             margin:10px;
@@ -58,13 +62,68 @@ const Card = styled.div`
             }
         }
     }
+    button {
+        font-size:90%;
+        padding:8px;
+        background-color:#3CB371;
+        color:white;
+        border-radius:5px;
+        &:hover {
+            cursor:pointer;
+            border:1px solid #98FB98;
+            color:#98FB98;
+        }
+        &:active {
+            background-color:#2E8B57;
+            outline:none;
+        }
+        &:focus {
+            outline:none;
+        }
+    }
     h1 {
         font-weight:bold;
         font-size:150%;
     }
 `
 
-const StrainInfoCard = ({data}) => {
+const StrainInfoCard = ({data, favorited, setFavoriteStatus}) => {
+    
+    const addToCabinet = () => {
+        if (favorited === false) {
+            axiosWithAuth().post(`https://medcabinet1.herokuapp.com/api/users/${localStorage.getItem("userID")}/favorites`, {"strain_id": data.id})
+            .then(response => {
+                console.log(response);
+                setFavoriteStatus(true);
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        }
+        else {
+            let idToDelete = 0;
+            axiosWithAuth().get(`https://medcabinet1.herokuapp.com/api/users/${localStorage.getItem("userID")}/favorites`)
+            .then(response => {
+                response.data.map(favorite => {
+                    if (data.id === favorite.strain_id) {
+                        idToDelete = favorite.id;
+                    }
+                })
+                axiosWithAuth().delete(`https://medcabinet1.herokuapp.com/api/users/favorites/${idToDelete}`)
+                .then(delResponse => {
+                    setFavoriteStatus(false);
+                    console.log(delResponse);
+                })
+                .catch(delError => {
+                    console.log(delError);
+                })
+            })
+            .catch(error => {
+                console.log(error);
+            })
+        }
+    }
+
     return (
         <Card>
             <div className="heading"><div><Link to="/strains">{`<`}</Link></div><div><ReactSVG src={`${data.race}.svg`} /><h1>{data.name}</h1></div></div>
@@ -87,6 +146,7 @@ const StrainInfoCard = ({data}) => {
                     <p>Helpful for those who are experiencing:</p>
                     <p>{data.medical}</p>
                 </div>
+                <div class="effects"><button onClick={addToCabinet}>{favorited ? "Remove From Cabinet" : "Add To Cabinet"}</button></div>
             </div>
         </Card>
     )

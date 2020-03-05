@@ -13,15 +13,30 @@ const Container = styled.div`
 const StrainInfoCard = () => {
     const { strainID } = useParams();
     const [data, setData] = useState({});
+    const [favorited, setFavoriteStatus] = useState(false);
     
     useEffect(() => {
+        let currentStrain = {};
         axiosWithAuth().get(`https://medcabinet1.herokuapp.com/api/strains/`)
         .then(response => {
             response.data.forEach(strain => {
                 if (strain.id.toString() === strainID) {
                     console.log(strain);
+                    currentStrain = strain;
                     setData(strain);
                 }
+            })
+            axiosWithAuth().get(`https://medcabinet1.herokuapp.com/api/users/${localStorage.getItem("userID")}/favorites`)
+            .then(favResponse => {
+                favResponse.data.map(favorite => {
+                    if (favorite.strain_id === currentStrain.id) {
+                        setFavoriteStatus(true);
+                    }
+                })
+            })
+            .catch(error => {
+                console.log(error);
+                setFavoriteStatus(false);
             })
         })
         .catch(error => {
@@ -31,7 +46,7 @@ const StrainInfoCard = () => {
 
     return (
         <Container>
-            <StrainInfo data={data}/>
+            <StrainInfo favorited={favorited} setFavoriteStatus={setFavoriteStatus} data={data}/>
         </Container>
     )
 }
