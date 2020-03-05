@@ -31,10 +31,10 @@ const CabinetList = () => {
     })
     const [favoriteMap, updateFavoriteMap] = useState();
 
-    useEffect(() => getData(), []);
+    useEffect(() => getData(`https://medcabinet1.herokuapp.com/api/users/${localStorage.getItem("userID")}/favorites`), []);
 
-    const getData = () => {
-        axiosWithAuth().get(`https://medcabinet1.herokuapp.com/api/users/${localStorage.getItem("userID")}/favorites`)
+    const getData = (path) => {
+        axiosWithAuth().get(path)
         .then(response => {
             setFailureStatus(false);
             console.log(response.data);
@@ -55,7 +55,7 @@ const CabinetList = () => {
 
     return (
         <Container>
-            <Search displaySort={false} setQuery={setQuery} getData={getData} originalData={originalData} query={query} setData={setData} data={data} updatePagination={updatePagination} pagination={pagination}/>
+            <Search cabinet={true} setQuery={setQuery} getData={getData} originalData={originalData} query={query} setData={setData} data={data} updatePagination={updatePagination} pagination={pagination}/>
             <CardContainer>
                 {data.slice(pagination.lowest, pagination.highest).map(strain => {
                     if (favoriteMap !== undefined) {
