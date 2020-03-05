@@ -76,13 +76,14 @@ const StrainList = () => {
             id: strain.id,
             favorited: false,
           }
-        }))
+        }));
       })
-      .catch(error => {
-        setFailureStatus(true);
-        console.log('StrainList.js – could not sort data', error);
-      });
-  };
+    })
+    .catch(error => {
+      setFailureStatus(true);
+      console.log('StrainList.js – could not sort data', error);
+    })
+  }
 
   return (
     <>

@@ -163,7 +163,7 @@ const StrainCard = ({strain, favoriteMap, updateFavoriteMap, cabinet}) => {
             })
             .catch(error => {
                 console.log(error);
-            }
+            })
         }
       };
 
