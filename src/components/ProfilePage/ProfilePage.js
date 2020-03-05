@@ -142,7 +142,7 @@ const ProfilePage = () => {
                     <BottomContent>
                         <ProfileNav>
                             <div>
-                                <Link to='/profile/myfavorites'>My Favorites</Link>
+                                <Link to='/profile'>My Favorites</Link>
                             </div>
                             <div>
                                 <Link to='/profile/findmore'>Find More</Link>
@@ -150,7 +150,7 @@ const ProfilePage = () => {
                         </ProfileNav>
 
                         <Switch>
-                            <Route path="/profile/myfavorites">
+                            <Route path="/profile">
                                 <MyFavs component={MyFavs} />
                             </Route>
                             <Route path="/profile/findmore">

@@ -7,14 +7,7 @@ import styled from 'styled-components';
 const Container = styled.section`
   width: 70%;
   margin: 0 auto;
-    .link {
-            color: black;
-            margin: 5% 0 0 27%;
-            &:hover {
-                text-decoration: underline;
-            }
-    }
-`
+`;
 
 const CardContainer = styled.section`
   display:flex;
@@ -24,7 +17,21 @@ const CardContainer = styled.section`
     color:red;
     margin-top:10px;
   }
-`
+`;
+
+const Button = styled.div`
+  width: 40%;
+  margin: 2% auto;
+  padding: 2%;
+  color: white;
+  background-color: #3CB371;
+  border-radius: 5px;
+
+    p {
+        margin-left: 18%;
+    }
+
+`;
 
 const MyFavs = () => {
     const [data, setData] = useState([]);
@@ -72,9 +79,11 @@ const MyFavs = () => {
 
     return (
         <Container>
-            <div>
-                <Link to='/cabinet' className='link'> Click here to see more of your favorites </Link>
-            </div>
+            <Link to='/cabinet'>
+                <Button>
+                    <p>See all your favorites</p>
+                </Button>
+            </Link>
             <CardContainer>
                 {data.slice(pagination.lowest, pagination.highest).map(strain => {
                     if (favoriteMap !== undefined) {
