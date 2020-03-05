@@ -4,61 +4,60 @@ import styled from 'styled-components';
 import { ReactSVG } from 'react-svg';
 
 const HeaderContainer = styled.div`
-    height: 10vh;
-    width: 100%;
-    background-color:#3CB371;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  height: 10vh;
+  width: 100%;
+  background-color: #3cb371;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .header-container {
+    width: 90%;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-
-    .header-container {
-        width: 90%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        a {
-            text-decoration: none;
-            margin: 0 16px;
-            // border-bottom: 2px solid white;
-            font-size: 1rem;
-            font-weight: 500;
-            color:white;
-            fill:white;
-            :hover {
-                color:#98FB98;
-                fill:#98FB98;
-            }
-        }
-        nav {
-            display: flex;
-            align-items: center;
-        }
-
-        .sign-out {
-            text-decoration: none;
-            font-size: 1rem;
-            font-weight: 500;
-
-        }
-        > a:last-child {
-            color:#3CB371;
-            font-weight:bold;
-            > div {
-                background-color:white;
-                padding:7px;
-                border:1px solid #DCDCDC;
-                border-radius:5px;
-            }
-            &:hover {
-                > div {
-                    background-color:#3CB371;
-                    color:#98FB98;
-                    border:1px solid #98FB98;
-                }
-            }
-        }
+    a {
+      text-decoration: none;
+      margin: 0 16px;
+      // border-bottom: 2px solid white;
+      font-size: 1rem;
+      font-weight: 500;
+      color: white;
+      fill: white;
+      :hover {
+        color: #98fb98;
+        fill: #98fb98;
+      }
     }
+    nav {
+      display: flex;
+      align-items: center;
+    }
+
+    .sign-out {
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 500;
+    }
+    > a:last-child {
+      color: #3cb371;
+      font-weight: bold;
+      > div {
+        background-color: white;
+        padding: 7px;
+        border: 1px solid #dcdcdc;
+        border-radius: 5px;
+      }
+      &:hover {
+        > div {
+          background-color: #3cb371;
+          color: #98fb98;
+          border: 1px solid #98fb98;
+        }
+      }
+    }
+  }
 `;
 
 const Header = ({displayHeader}) => {

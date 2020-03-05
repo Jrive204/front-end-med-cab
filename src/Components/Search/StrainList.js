@@ -1,24 +1,22 @@
 import React, { useState, useEffect } from "react";
-// Axios
 import { axiosWithAuth } from "../../Utils/axiosWithAuth";
-// Components
 import Search from './Search';
-import StrainCard from "./StrainCard";
-import styled from "styled-components";
+import StrainCard from './StrainCard';
+import styled from 'styled-components';
 
 const Container = styled.section`
-  background-color:#98FB98;
-  width:100%;
-  height:100vh;
-`
+  background-color: #98fb98;
+  width: 100%;
+  height: 100vh;
+`;
 
 const CardContainer = styled.section`
-  display:flex;
-  justify-content:center;
-  flex-wrap:wrap;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
   .error {
-    color:red;
-    margin-top:10px;
+    color: red;
+    margin-top: 10px;
   }
   a {
     color:inherit;
@@ -28,12 +26,12 @@ const CardContainer = styled.section`
 const StrainList = () => {
   const [data, setData] = useState([]);
   const [originalData, setOriginalData] = useState([]);
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
   const [failure, setFailureStatus] = useState(false);
   const [pagination, updatePagination] = useState({
     lowest: 0,
-    highest: 12,
-  })
+    highest: 12
+  });
   const [favoriteMap, updateFavoriteMap] = useState();
 
   useEffect(() => {
@@ -80,12 +78,11 @@ const StrainList = () => {
           }
         }))
       })
-    })
-    .catch(error => {
-      setFailureStatus(true);
-      console.log("StrainList.js – could not sort data", error);
-    })
-  }
+      .catch(error => {
+        setFailureStatus(true);
+        console.log('StrainList.js – could not sort data', error);
+      });
+  };
 
   return (
     <>
@@ -99,7 +96,11 @@ const StrainList = () => {
               )
             }
           })}
-          <div className="error" style={failure ? {display:"block"} : {display:"none"}}>Could not fetch data. Try refreshing the page or logging out.</div>
+          <div
+            className='error'
+            style={failure ? { display: 'block' } : { display: 'none' }}>
+            Could not fetch data. Try refreshing the page or logging out.
+          </div>
         </CardContainer>
       </Container>
     </>

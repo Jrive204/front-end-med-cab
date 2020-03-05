@@ -1,67 +1,76 @@
-// Axios
 import { axiosWithAuth } from '../Utils/axiosWithAuth';
-// Destructuring command names
-// GET strains list
-export const FETCH_STRAINS_START = "FETCH_STRAINS_START";
-export const FETCH_STRAINS_SUCCESS = "FETCH_STRAINS_SUCCESS";
-export const FETCH_STRAINS_FAILURE = "FETCH_STRAINS_FAILURE";
-// GET saved strains list
-export const FETCH_SAVED_STRAINS_START = "FETCH_SAVED_STRAINS_START";
-export const FETCH_SAVED_STRAINS_SUCCESS = "FETCH_SAVED_STRAINS_SUCCESS";
-export const FETCH_SAVED_STRAINS_FAILURE = "FETCH_SAVED_STRAINS_FAILURE";
-// Find specific strain
-export const FIND_STRAIN_START = "FIND_STRAIN_START";
-export const FIND_STRAIN_SUCCESS = "FIND_STRAIN_SUCCESS";
-export const FIND_STRAIN_FAILURE = "FIND_STRAIN_FAILURE";
+import { DATA_FAILURE, DATA_START, DATA_SUCCESS } from '../Reducers';
 
+export const Fetch = () => dispatch => {
+  dispatch({ type: DATA_START });
 
-// GET an array of strain data
-export const getStrains = () => {
-  return dispatch => {
-    dispatch({ type: FETCH_STRAINS_START });
-    axiosWithAuth()
-      .get("/strains")
-      .then(res => {
-        console.log(res.data);
-        dispatch({ type: FETCH_STRAINS_SUCCESS, payload: res.data });
-      })
-      .catch(err => {
-        console.log(err);
-        dispatch({ type: FETCH_STRAINS_FAILURE });  // set error to payload laters
-      });
-  };
+  axiosWithAuth()
+    .get('/items')
+    .then(
+      res =>
+        console.log(res, 'res data') &
+        dispatch({ type: DATA_SUCCESS, payload: res.data })
+    )
+    .catch(
+      err =>
+        console.log(err, 'ERROR') &
+        dispatch({ type: DATA_FAILURE, payload: err })
+    );
+};
+export const Fetchusers = () => dispatch => {
+  dispatch({ type: DATA_START });
+
+  axiosWithAuth()
+    .get('/users')
+    .then(
+      res =>
+        console.log(res, 'res data') &
+        dispatch({ type: DATA_SUCCESS, users: res.data })
+    )
+    .catch(
+      err =>
+        console.log(err, 'ERROR') &
+        dispatch({ type: DATA_FAILURE, payload: err })
+    );
 };
 
-// GET saved strains list
-export const getSavedStrains = () => {
-  return dispatch => {
-    dispatch({ type: FETCH_SAVED_STRAINS_START });
-    axiosWithAuth()
-      .get(`/users/${localStorage.id}/strains`)
-      .then(res => {
-        console.log(res.data);
-        dispatch({ type: FETCH_SAVED_STRAINS_SUCCESS, payload: res.data });
-      })
-      .catch(err => {
-        console.log(err);
-        dispatch({ type: FETCH_SAVED_STRAINS_FAILURE });  // set error to payload laters
-      });
-  };
+export const Send = (url, data) => dispatch => {
+  dispatch({ type: DATA_START });
+  axiosWithAuth()
+    .post(url, data)
+    .then(res => {
+      console.log(res, 'Sent data');
+      dispatch({ type: DATA_SUCCESS, payload: res.data });
+    })
+    .catch(err => {
+      dispatch({ type: DATA_FAILURE, payload: err.response });
+    });
 };
 
-// Find specific strain
-export const findStrain = id => {
-  return dispatch => {
-    dispatch({ type: FIND_STRAIN_START });
-    axiosWithAuth()
-      .get(`/strains/${id}`)
-      .then(res => {
-        console.log(res.data);
-        dispatch({ type: FIND_STRAIN_SUCCESS, payload: res.data });
-      })
-      .catch(err => {
-        console.log(err);
-        dispatch({ type: FIND_STRAIN_FAILURE });
-      });
-  };
+export const Edit = (id, data) => dispatch => {
+  dispatch({ type: DATA_START });
+  axiosWithAuth()
+    .put(`/item/${id}`, data)
+    .then(res => {
+      console.log(res, 'Deleted data');
+      dispatch({ type: DATA_SUCCESS });
+      // dispatch(Fetch());
+    })
+    .catch(err => {
+      dispatch({ type: DATA_FAILURE, payload: err.response });
+    });
+};
+
+export const Delete = id => dispatch => {
+  dispatch({ type: DATA_START });
+  axiosWithAuth()
+    .delete(`/item/${id}`)
+    .then(res => {
+      console.log(res, 'Deleted data');
+      dispatch({ type: DATA_SUCCESS });
+      // dispatch(Fetch());
+    })
+    .catch(err => {
+      dispatch({ type: DATA_FAILURE, payload: err.response });
+    });
 };

@@ -1,7 +1,7 @@
-import React from "react";
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { axiosWithAuth } from "../../Utils/axiosWithAuth";
+import { axiosWithAuth } from '../../Utils/axiosWithAuth';
 import { getStrains, findStrain } from '../../Actions/index';
 import { ReactSVG } from 'react-svg';
 import styled from 'styled-components';
@@ -56,12 +56,18 @@ const Card = styled.div`
                 }
             }
         }
+        &:hover {
+          cursor: pointer;
+          fill: #3cb371;
+        }
+      }
     }
-    h3 {
-        margin-top:5px;
-        font-weight:bold;
-    }
-`
+  }
+  h3 {
+    margin-top: 5px;
+    font-weight: bold;
+  }
+`;
 
 const StrainCard = ({strain, favoriteMap, updateFavoriteMap, cabinet}) => {
     console.log(cabinet);
@@ -79,14 +85,13 @@ const StrainCard = ({strain, favoriteMap, updateFavoriteMap, cabinet}) => {
         }
     })
 
-    const favoriteStatus = () => {
-        if (favoriteMap[favIndex].favorited === false) {
-            updateFavoriteState(true);
-        }
-        else {
-            updateFavoriteState(false);
-        }
+  const favoriteStatus = () => {
+    if (favoriteMap[favIndex].favorited === false) {
+      updateFavoriteState(true);
+    } else {
+      updateFavoriteState(false);
     }
+  };
 
     const updateFavoriteState = (boolean) => {
         let strainID = 0;
@@ -158,9 +163,9 @@ const StrainCard = ({strain, favoriteMap, updateFavoriteMap, cabinet}) => {
             })
             .catch(error => {
                 console.log(error);
-            })
+            }
         }
-    }
+      };
 
     return (
         <Card>
@@ -180,14 +185,4 @@ const StrainCard = ({strain, favoriteMap, updateFavoriteMap, cabinet}) => {
     )
 }
 
-const mapStateToProps = state => ({
-    strains: state.strainReducer.strains,
-    error: state.strainReducer.error,
-    isFetching: state.strainReducer.isFetching
-});
-
-
-export default connect(
-    mapStateToProps,
-    { getStrains, findStrain }
-)(StrainCard);
+export default StrainCard;
