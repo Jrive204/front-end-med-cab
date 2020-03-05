@@ -13,7 +13,7 @@ const Card = styled.div`
     border: 1px solid #F5F5F5;
     margin:10px;
     text-align:center;
-    > div:first-child {
+    > div:first-child > a{
         background-color:#3CB371;
         display:flex;
         justify-content:center;
@@ -22,6 +22,10 @@ const Card = styled.div`
         font-size:130%;
         font-weight:bold;
         padding:5px;
+        &:hover {
+            color:#98FB98;
+            fill:#98FB98;
+        }
     }
     > div:last-child {
         padding:5px;
@@ -127,7 +131,7 @@ const StrainCard = ({strain, favoriteMap, updateFavoriteMap}) => {
 
     return (
         <Card>
-            <div><ReactSVG src={`${strain.race}.svg`}/><h2>{strain.name}</h2></div>
+            <div><Link to={`/strains/${strain.id}`}><ReactSVG src={`${strain.race}.svg`}/><h2>{strain.name}</h2></Link></div>
             <div>
                 <div><h3>{strain.strain_rating}</h3><h3>{strain.race}</h3><div><button onClick={favoriteStatus}><ReactSVG style={favoriteMap[favIndex].favorited ? {display: "none"} : {display: "block"}}src="heart-open.svg"/><ReactSVG style={favoriteMap[favIndex].favorited ? {display: "block"} : {display: "none"}}src="heart-closed.svg"/></button></div></div>
                 <div>

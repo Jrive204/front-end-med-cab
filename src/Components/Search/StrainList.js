@@ -1,10 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 // Axios
 import { axiosWithAuth } from "../../Utils/axiosWithAuth";
-// Actions
-import { getStrains, findStrain } from '../../Actions/index';
 // Components
 import Search from './Search';
 import StrainCard from "./StrainCard";
@@ -23,6 +19,9 @@ const CardContainer = styled.section`
   .error {
     color:red;
     margin-top:10px;
+  }
+  a {
+    color:inherit;
   }
 `
 
@@ -91,7 +90,7 @@ const StrainList = () => {
   return (
     <>
       <Container>
-        <Search setQuery={setQuery} getData={getData} originalData={originalData} query={query} setData={setData} data={data} updatePagination={updatePagination} pagination={pagination}/>
+        <Search displaySort={true} setQuery={setQuery} getData={getData} originalData={originalData} query={query} setData={setData} data={data} updatePagination={updatePagination} pagination={pagination}/>
         <CardContainer>
           {data.slice(pagination.lowest, pagination.highest).map(strain => {
             if (favoriteMap !== undefined) {
@@ -107,14 +106,4 @@ const StrainList = () => {
   );
 };
 
-const mapStateToProps = state => ({
-  strains: state.strainReducer.strains,
-  error: state.strainReducer.error,
-  isFetching: state.strainReducer.isFetching
-});
-
-
-export default connect(
-  mapStateToProps,
-  { getStrains }
-)(StrainList);
+export default StrainList;

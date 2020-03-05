@@ -6,6 +6,7 @@ import PrivateRoute from "./Utils/PrivateRoute";
 import SignIn from "./Components/SignIn";
 import SignUp from "./Components/SignUp";
 import Dashboard from "./Components/Dashboard/Dashboard";
+import StrainInfo from "./Components/Search/StrainInfo";
 import StrainList from "./Components/Search/StrainList";
 import RecommendForm from "./Components/Recommend/RecommendForm";
 import ProfilePage from "./Components/ProfilePage/ProfilePage";
@@ -26,15 +27,17 @@ const App = () => {
           <SignUp setHeaderDisplay={setHeaderDisplay}/>
         </Route>
         <PrivateRoute path="/dashboard" component={Dashboard} />
+        <Route path="/strains/:strainID">
+          <StrainInfo />
+        </Route>
         <PrivateRoute path="/strains" component={StrainList} />
-          <PrivateRoute path="/profile" component={ProfilePage} />      
+        <PrivateRoute path="/profile" component={ProfilePage} />      
         <PrivateRoute path="/recommender" component={RecommendForm} />
         <Route exact path="/cabinet" component={CabinetList} />
         <Route path="/">
           <SignIn setHeaderDisplay={setHeaderDisplay}/>
         </Route>
       </Switch>
-      {/* <PrivateRoute exact path="/cabinet/strain/:id" component={CabinetStrain} /> */}
     </>
   );
 };

@@ -55,7 +55,7 @@ const CabinetList = () => {
 
     return (
         <Container>
-            <Search setQuery={setQuery} getData={getData} originalData={originalData} query={query} setData={setData} data={data} updatePagination={updatePagination} pagination={pagination}/>
+            <Search displaySort={false} setQuery={setQuery} getData={getData} originalData={originalData} query={query} setData={setData} data={data} updatePagination={updatePagination} pagination={pagination}/>
             <CardContainer>
                 {data.slice(pagination.lowest, pagination.highest).map(strain => {
                     if (favoriteMap !== undefined) {

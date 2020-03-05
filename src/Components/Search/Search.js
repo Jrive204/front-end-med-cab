@@ -88,7 +88,7 @@ const FormContainer = styled.div`
   }
 `
 
-const Search = ({setQuery, setData, originalData, query, pagination, updatePagination, data, getData}) => {
+const Search = ({setQuery, setData, originalData, query, pagination, updatePagination, data, getData, displaySort}) => {
     const [searchType, setSearchType] = useState("all");
 
     const updateQuery = event => setQuery(event.target.value);
@@ -205,7 +205,7 @@ const Search = ({setQuery, setData, originalData, query, pagination, updatePagin
                     <button type="submit">Search</button>
                 </div>
             </form>
-            <div className="sort-container">
+            <div className="sort-container" style={displaySort ? {display:"flex"} : {display:"none"}}>
                 <div>Sort by</div>
                 <select onChange={updateSort}>
                     <option value="name">Name</option>
