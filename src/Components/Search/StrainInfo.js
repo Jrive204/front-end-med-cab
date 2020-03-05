@@ -1,18 +1,18 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { ReactSVG } from 'react-svg';
+import { useHistory } from 'react-router-dom';
 import styled from 'styled-components'
 import { axiosWithAuth } from '../../Utils/axiosWithAuth';
 
 const Card = styled.div`
     background-color:white;
     border-radius:10px;
-    margin:2%;
     display:flex;
     flex-direction:column;
     font-size:120%;
     border: 1px solid #F5F5F5;
     > .heading {
+        border-top-left-radius:10px;
+        border-top-right-radius:10px;
         display:flex;
         justify-content:center;
         align-items:center;
@@ -44,6 +44,12 @@ const Card = styled.div`
             display:flex;
             justify-content:space-between;
             font-weight:bold;
+        }
+        .race {
+            font-weight:bold;
+            font-size:150%;
+            display:flex;
+            justify-content:center;
         }
         .description {
             text-align:center;
@@ -83,11 +89,12 @@ const Card = styled.div`
     }
     h1 {
         font-weight:bold;
-        font-size:150%;
+        font-size:180%;
     }
 `
 
 const StrainInfoCard = ({data, favorited, setFavoriteStatus}) => {
+    const {goBack} = useHistory();
     
     const addToCabinet = () => {
         if (favorited === false) {
@@ -126,9 +133,10 @@ const StrainInfoCard = ({data, favorited, setFavoriteStatus}) => {
 
     return (
         <Card>
-            <div className="heading"><div><Link to="/strains">{`<`}</Link></div><div><ReactSVG src={`${data.race}.svg`} /><h1>{data.name}</h1></div></div>
+            <div className="heading"><div><button onClick={() => goBack()}>{`<`}</button></div><div><h1>{data.name}</h1></div></div>
             <div>
-                <div class="id-race-rating"><p>ID: {data.id}</p><p className="race">{data.race}</p><p>Rating: {data.strain_rating}</p></div>
+                <div class="id-race-rating"><p>ID: {data.id}</p><p>Rating: {data.strain_rating}</p></div>
+                <div class="race"><p>{data.race}</p></div>
                 <div class="description">{data.strain_description}</div>
                 <div class="effects">
                     <p>Flavors</p>

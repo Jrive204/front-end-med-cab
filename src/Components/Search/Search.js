@@ -3,7 +3,7 @@ import { ReactSVG } from 'react-svg';
 import styled from 'styled-components'
 
 const FormContainer = styled.div`
-  margin-top:10px;
+  padding-top:10px;
   display:flex;
   justify-content:center;
   align-items:center;
