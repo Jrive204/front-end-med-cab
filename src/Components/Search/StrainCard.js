@@ -13,18 +13,22 @@ const Card = styled.div`
     border: 1px solid #F5F5F5;
     margin:10px;
     text-align:center;
-    > div:first-child > a{
-        background-color:#3CB371;
-        display:flex;
-        justify-content:center;
-        color:white;
-        fill:white;
-        font-size:130%;
-        font-weight:bold;
-        padding:5px;
-        &:hover {
-            color:#98FB98;
-            fill:#98FB98;
+    > div:first-child {
+        align-items:center;
+        a {
+            border-top-left-radius:5px;
+            border-top-right-radius:5px;
+            text-decoration:none;
+            background-color:#3CB371;
+            display:flex;
+            justify-content:center;
+            color:white;
+            fill:white;
+            padding:3px;
+            &:hover {
+                color:#98FB98;
+                fill:#98FB98;
+            }
         }
     }
     > div:last-child {
@@ -44,6 +48,7 @@ const Card = styled.div`
                 outline:none;
                 width:40px;
                 border:0;
+                background-color:white;
                 display:flex;
                 align-items:center;
                 justify-content:center;
@@ -56,16 +61,25 @@ const Card = styled.div`
                 }
             }
         }
-        &:hover {
-          cursor: pointer;
-          fill: #3cb371;
+        > div:last-child {
+            > * {
+                margin:0;
+            }
         }
       }
     }
   }
+  h2 {
+      font-size:150%;
+      font-weight:bold;
+  }
   h3 {
-    margin-top: 5px;
+    font-size:120%;
+    margin-top: 1px;
     font-weight: bold;
+    text-decoration:none;
+    display:flex;
+    align-items:center;
   }
 `;
 
@@ -171,14 +185,10 @@ const StrainCard = ({strain, favoriteMap, updateFavoriteMap, cabinet}) => {
         <Card>
             <div><Link to={cabinet ? `/strains/${strain.strain_id}` : `/strains/${strain.id}`}><ReactSVG src={`${strain.race}.svg`}/><h2>{strain.name}</h2></Link></div>
             <div>
-                <div><h3>{strain.strain_rating}</h3><h3>{strain.race}</h3><div><button onClick={favoriteStatus}><ReactSVG style={favoriteMap[favIndex].favorited ? {display: "none"} : {display: "block"}}src="heart-open.svg"/><ReactSVG style={favoriteMap[favIndex].favorited ? {display: "block"} : {display: "none"}}src="heart-closed.svg"/></button></div></div>
+                <div><h3><ReactSVG src="rating.svg"/>{strain.strain_rating}</h3><h3>{strain.race}</h3><div><button onClick={favoriteStatus}><ReactSVG style={favoriteMap[favIndex].favorited ? {display: "none"} : {display: "block"}}src="heart-open.svg"/><ReactSVG style={favoriteMap[favIndex].favorited ? {display: "block"} : {display: "none"}}src="heart-closed.svg"/></button></div></div>
                 <div>
                     <h3>Flavors</h3>
                     <p>{strain.flavors}</p>
-                </div>
-                <div>
-                    <h3>Helpful for</h3>
-                    <p style={{fontSize: "80%"}}>{strain.medical}</p>
                 </div>
             </div>
         </Card>

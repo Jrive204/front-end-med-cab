@@ -7,7 +7,8 @@ import styled from 'styled-components'
 const Container = styled.div`
     background-color:#98FB98;
     width:100%;
-    height:100vh;
+    height:150vh;
+    padding:1%;
 `
 
 const StrainInfoCard = () => {

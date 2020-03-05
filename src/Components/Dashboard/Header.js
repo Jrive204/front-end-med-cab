@@ -7,7 +7,6 @@ const HeaderContainer = styled.div`
   height: 10vh;
   width: 100%;
   background-color: #3cb371;
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -20,7 +19,6 @@ const HeaderContainer = styled.div`
     a {
       text-decoration: none;
       margin: 0 16px;
-      // border-bottom: 2px solid white;
       font-size: 1rem;
       font-weight: 500;
       color: white;
