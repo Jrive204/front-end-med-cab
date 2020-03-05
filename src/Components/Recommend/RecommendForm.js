@@ -24,6 +24,21 @@ const RecommendForm = () => {
   const { push } = useHistory();
 
   const userID = useSelector(state => state.currentuser);
+
+  function makestring() {
+    return setChoices({
+      ...choices,
+      race: [...new Set(choices.race)].join(','),
+      positive_effects: [...new Set(choices.positive_effects)].join(','),
+      negative_effects_avoid: [...new Set(choices.negative_effects_avoid)].join(
+        ','
+      ),
+      ailments: Array.isArray(choices.ailments)
+        ? choices.ailments.join(',')
+        : '',
+      flavors: [...new Set(choices.flavors)].join(',')
+    });
+  }
   const onSubmit = e => {
     e.preventDefault();
     setChoices({
@@ -33,24 +48,25 @@ const RecommendForm = () => {
       negative_effects_avoid: [...new Set(choices.negative_effects_avoid)].join(
         ','
       ),
-      ailments: [...new Set(choices.ailments)].join(','),
+      ailments: Array.isArray(choices.ailments)
+        ? choices.ailments.join(',')
+        : '',
       flavors: [...new Set(choices.flavors)].join(',')
     });
 
-    axiosWithAuth()
-      .post(
-        `https://medcabinet1.herokuapp.com/api/usersdata/${localStorage.getItem(
-          'userID'
-        )}/user`,
-        choices
-      )
-      .then(response => {
-        console.log(response);
-        push('/strains');
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    setTimeout(
+      () =>
+        axiosWithAuth()
+          .post(
+            `https://medcabinet1.herokuapp.com/api/usersdata/${localStorage.getItem(
+              'userID'
+            )}/user`,
+            choices
+          )
+          .then(res => console.log(res))
+          .catch(err => console.log(err.message)),
+      500
+    );
   };
 
   const handlechange = e => {
