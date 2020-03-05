@@ -93,6 +93,10 @@ video {
   max-width: 100%;
 }
 
+html {
+  background: #98fb98;
+}
+
 body {
   background: #98fb98;
 }
