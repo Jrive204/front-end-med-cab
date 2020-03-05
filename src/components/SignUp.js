@@ -10,8 +10,7 @@ const Background = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgb(126,255,126);
-    background: radial-gradient(circle, rgba(126,255,126,1) 0%, rgba(64,204,69,1) 78%, rgba(0,124,8,1) 100%);
+    background-color:#98FB98;
 `;
 
 const SignUpPanel = styled.div`

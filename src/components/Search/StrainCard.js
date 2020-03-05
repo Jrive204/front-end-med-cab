@@ -10,7 +10,7 @@ const Card = styled.div`
     width:300px;
     background-color:white;
     border-radius:5px;
-    border: 1px solid #F5F5F5;
+    border: 1px solid #3CB371;
     margin:10px;
     text-align:center;
     > div:first-child {

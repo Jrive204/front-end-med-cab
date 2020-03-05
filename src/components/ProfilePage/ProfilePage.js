@@ -1,35 +1,38 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Route, Link, Switch } from 'react-router-dom';
 import { axiosWithAuth } from "../../Utils/axiosWithAuth";
 import Header from '../Dashboard/Header';
+import MyFavs from './MyFavs';
+import FindMore from './FindMore';
 import styled from 'styled-components';
 
 const Background = styled.div`
     width: 100%;
-    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgb(126,255,126);
-    background: radial-gradient(circle, rgba(126,255,126,1) 0%, rgba(64,204,69,1) 78%, rgba(0,124,8,1) 100%);
+    background-color:#98FB98;
 `;
 
 const Profile = styled.div`
-    background-color: white;
-    width: 60rem;
-    height: 100vh;
+    background-color: #FFFFF0;
+    width: 60%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
 `;
 
-const Welcome = styled.h2`
+const Welcome = styled.div`
     font-size: 200%;
     font-weight: normal;
+    width: 100%;
     display: flex;
     justify-content: space-between;
-    margin-top: 10px
+    flex-wrap: wrap;
+    padding-bottom: 10px;
+    margin: 10px 0 25px;
+    border-bottom: 1px solid black;
 `;
 
 const Username = styled.h2`
@@ -40,10 +43,12 @@ const Username = styled.h2`
 const UserCard = styled.div`
     display: flex;
     width: 75%;
+    height: 100%;
     justify-content: space-between;
-    background-color: lightgrey;
-    border-radius: 50px 10px 10px 50px;
-    padding: 15px
+    background-color: white;
+    border: 1px solid #3CB371;
+    border-radius: 50px;
+    padding: 0px
 `;
 
 const Image = styled.div`
@@ -54,26 +59,42 @@ const Image = styled.div`
 `;
 
 const InfoHeader = styled.div`
-    width: 20%;
+    width: 15%;
     display: flex;
     flex-direction: column;
     align-items: flex-end;
 
     .infoItems {
-        margin: 10px 0;
+        margin: 7px 0;
+        font-weight: 800;
     }
 `;
 
 const Info = styled.div`
     width: 55%;
-
     .infoItems {
         margin: 10px 0 20px;
     }
 `;
 
+const BottomContent = styled.div`
+    width: 100%;
+`;
 
+const ProfileNav = styled.div`
+    width: 30%;
+    margin: 30px 0 0 33.5%;
+    display: flex;
+    justify-content: space-between;
 
+        div {
+            font-size: 1.5rem;
+            &:first-child {
+                border-right: 1px solid black;
+                padding-right: 20px;
+            }   
+        }
+`;
 
 const ProfilePage = () => {
     const [currentUser, setCurrentUser] = useState({});
@@ -118,8 +139,26 @@ const ProfilePage = () => {
                             </div>
                         </Info>
                     </UserCard>
-                    <div>
-                        <Link to='/cabinet'>
+                    <BottomContent>
+                        <ProfileNav>
+                            <div>
+                                <Link to='/profile/myfavorites'>My Favorites</Link>
+                            </div>
+                            <div>
+                                <Link to='/profile/findmore'>Find More</Link>
+                            </div>
+                        </ProfileNav>
+
+                        <Switch>
+                            <Route path="/profile/myfavorites">
+                                <MyFavs component={MyFavs} />
+                            </Route>
+                            <Route path="/profile/findmore">
+                                <FindMore component={FindMore} />
+                            </Route>
+                        </Switch>
+
+                        {/* <Link to='/cabinet'>
                             <div className='button'>
                                 <h3>My Cabinet</h3>
                             </div>
@@ -135,8 +174,8 @@ const ProfilePage = () => {
                             <div className='button'>
                                 <h3>Strain Search</h3>
                             </div>
-                        </Link>
-                    </div>
+                        </Link> */}
+                    </BottomContent>
                 </Profile>
             </Background>
         </div>
