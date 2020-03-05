@@ -19,9 +19,12 @@ const FormContainer = styled.div`
       justify-content:space-between;
       color:#3CB371;
       font-weight:bold;
-      width:150px;
+      width:200px;
       margin-right:50px;
       border-radius:5px;
+      button {
+          width:50px;
+      }
       select {
           height:35px;
       }
@@ -90,6 +93,8 @@ const FormContainer = styled.div`
 
 const Search = ({setQuery, setData, originalData, query, pagination, updatePagination, data, getData, displaySort}) => {
     const [searchType, setSearchType] = useState("all");
+    const [sort, setSort] = useState("name");
+    const [ascending, setAscending] = useState(true);
 
     const updateQuery = event => setQuery(event.target.value);
 
@@ -175,12 +180,26 @@ const Search = ({setQuery, setData, originalData, query, pagination, updatePagin
         console.log(pagination);
     }
 
+    const setDirection = () => {
+        let direction = ascending;
+        if (ascending === true) {
+            direction = false;
+            setAscending(false);
+        }
+        else {
+            direction = true;
+            setAscending(true);
+        }
+        getData(sort, direction);
+    }
+
     const clearQuery = () => {
         setQuery("");
     }
 
     const updateSort = event => {
-        getData(event.target.value);
+        setSort(event.target.value);
+        getData(event.target.value, ascending);
     }
 
     return (
@@ -206,13 +225,14 @@ const Search = ({setQuery, setData, originalData, query, pagination, updatePagin
                 </div>
             </form>
             <div className="sort-container" style={displaySort ? {display:"flex"} : {display:"none"}}>
-                <div>Sort by</div>
+                <div>Sort&nbsp;by</div>
                 <select onChange={updateSort}>
                     <option value="name">Name</option>
                     <option value="strain_rating">Rating</option>
                     <option value="race">Race</option>
                     <option value="flavors">Flavors</option>
                 </select>
+                <button onClick={setDirection}>{ascending ? "a-z" : "z-a"}</button>
             </div>
           <button onClick={nextPage}>next</button>
           <button style={{marginRight: "50px"}} onClick={lastPage}>{`>>`}</button>

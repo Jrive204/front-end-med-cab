@@ -7,7 +7,7 @@ import { axiosWithAuth } from '../../Utils/axiosWithAuth';
 const Card = styled.div`
     background-color:white;
     border-radius:10px;
-    margin:3%;
+    margin:2%;
     display:flex;
     flex-direction:column;
     font-size:120%;

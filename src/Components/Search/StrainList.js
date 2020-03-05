@@ -37,11 +37,11 @@ const StrainList = () => {
   const [favoriteMap, updateFavoriteMap] = useState();
 
   useEffect(() => {
-    getData("name");
+    getData("name", true);
   }, []);
 
-  const getData = (sortType) => {
-    axiosWithAuth().get(`https://medcabinet1.herokuapp.com/api/strains?sortby=${sortType}`)
+  const getData = (sortType, ascending) => {
+    axiosWithAuth().get(`https://medcabinet1.herokuapp.com/api/strains?sortby=${sortType}&sortdir=${ascending ? "asc" : "desc"}`)
     .then(response => {
       console.log(response);
       setFailureStatus(false);
