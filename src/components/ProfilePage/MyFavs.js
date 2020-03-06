@@ -26,11 +26,9 @@ const Button = styled.div`
   color: white;
   background-color: #3CB371;
   border-radius: 5px;
-
     p {
         margin-left: 18%;
     }
-
 `;
 
 const MyFavs = () => {
