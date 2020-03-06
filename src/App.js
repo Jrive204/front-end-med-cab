@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import './App.css';
 import { Route, Switch } from "react-router-dom";
 import PrivateRoute from "./Utils/PrivateRoute";
-import SignIn from "./Components/SignIn";
-import SignUp from "./Components/SignUp";
-import Dashboard from "./Components/Dashboard/Dashboard";
-import StrainList from "./Components/Search/StrainList";
-import RecommendForm from "./Components/Recommend/RecommendForm";
-import ProfilePage from "./Components/ProfilePage/ProfilePage";
-import CabinetList from "./Components/PersonalCabinet/CabinetList";
-import Header from "./Components/Dashboard/Header"
+import SignIn from "./components/SignIn";
+import SignUp from "./components/SignUp";
+import Dashboard from "./components/Dashboard/Dashboard";
+import StrainList from "./components/Search/StrainList";
+import RecommendForm from "./components/Recommend/RecommendForm";
+import ProfilePage from "./components/ProfilePage/ProfilePage";
+import CabinetList from "./components/PersonalCabinet/CabinetList";
+import Header from "./components/Dashboard/Header"
 
 
 const App = () => {

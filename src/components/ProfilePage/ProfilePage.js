@@ -150,31 +150,13 @@ const ProfilePage = () => {
                         </ProfileNav>
 
                         <Switch>
-                            <Route path="/profile">
+                            <Route exact path="/profile">
                                 <MyFavs component={MyFavs} />
                             </Route>
                             <Route path="/profile/findmore">
                                 <FindMore component={FindMore} />
                             </Route>
                         </Switch>
-
-                        {/* <Link to='/cabinet'>
-                            <div className='button'>
-                                <h3>My Cabinet</h3>
-                            </div>
-                        </Link>
-
-                        <Link to='/recommender'>
-                            <div className='button'>
-                                <h3>Recommender</h3>
-                            </div>
-                        </Link>
-
-                        <Link to='/strains'>
-                            <div className='button'>
-                                <h3>Strain Search</h3>
-                            </div>
-                        </Link> */}
                     </BottomContent>
                 </Profile>
             </Background>
