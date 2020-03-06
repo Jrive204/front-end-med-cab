@@ -69,11 +69,10 @@ const Header = ({displayHeader}) => {
     return (
         <HeaderContainer style={displayHeader ? {display: "flex"} : {display: "none"}}>
             <div className='header-container'>
-                <Link to='/dashboard'>
+                <Link to='/profile'>
                     <ReactSVG src="flask.svg" />
                 </Link>
                 <nav>
-                    <Link to='/profile'>Profile</Link>
                     <Link to='/recommendations'>Strain Recommendations</Link>
                     <Link to='/strains'>Strain List</Link>
                     <Link to='/cabinet'>My Cabinet</Link>
