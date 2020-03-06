@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+<<<<<<< HEAD
 import { Link, useHistory } from 'react-router-dom';
+=======
+import { Link } from 'react-router-dom';
+// import { ReactSVG } from 'react-svg';
+>>>>>>> parent of f884e11... props
 
 const Background = styled.div`
     width: 100%;
@@ -9,8 +14,12 @@ const Background = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+<<<<<<< HEAD
     background: rgb(126,255,126);
     background: radial-gradient(circle, rgba(126,255,126,1) 0%, rgba(64,204,69,1) 78%, rgba(0,124,8,1) 100%);
+=======
+    background-color:#98FB98;
+>>>>>>> parent of f884e11... props
 `;
 
 const SignUpPanel = styled.div`
@@ -85,18 +94,25 @@ width:100%;
     }
 `;
 
+<<<<<<< HEAD
 const SignUp = ({setHeaderDisplay}) => {
+=======
+const SignUp = props => {
+>>>>>>> parent of f884e11... props
     const [newUser, setNewUser] = useState ({
         username: '',
         password: '',
         email: ''
     });
     const [emptyValues, setValueStatus] = useState(false);
+<<<<<<< HEAD
     const { push } = useHistory();
 
     useEffect(() => {
         setHeaderDisplay(false);
     }, [setHeaderDisplay])
+=======
+>>>>>>> parent of f884e11... props
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -113,11 +129,20 @@ const SignUp = ({setHeaderDisplay}) => {
             axios.post("https://medcabinet1.herokuapp.com/api/auth/register", newUser)
             .then(response =>{
                       localStorage.setItem("token", response.data.token);
+<<<<<<< HEAD
                       localStorage.setItem("userID", response.data.id);
                       push("/dashboard")
                       console.log(response.data)
                       setHeaderDisplay(true);
             })
+=======
+                      localStorage.setItem("user_id", response.data.id);
+                      localStorage.setItem("email", response.data.email);
+                      props.history.push("/dashboard")
+                      console.log(response.data)
+            })
+
+>>>>>>> parent of f884e11... props
             .catch(error => {
                 console.log(error);
                 setValueStatus(true);
@@ -136,7 +161,14 @@ const SignUp = ({setHeaderDisplay}) => {
     return (
         <Background>
             <SignUpPanel>
+<<<<<<< HEAD
                 <Header>Sign-Up</Header>
+=======
+                <Header>
+                    {/* <ReactSVG src="flask.svg"/> */}
+                    Sign-Up
+                </Header>
+>>>>>>> parent of f884e11... props
                
                 <form onSubmit={handleSubmit}>
                     <InputContainer>

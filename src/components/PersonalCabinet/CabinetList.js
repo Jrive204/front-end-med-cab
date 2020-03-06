@@ -31,10 +31,17 @@ const CabinetList = () => {
     })
     const [favoriteMap, updateFavoriteMap] = useState();
 
+<<<<<<< HEAD
     useEffect(() => getData(), []);
 
     const getData = () => {
         axiosWithAuth().get(`https://medcabinet1.herokuapp.com/api/users/${localStorage.getItem("userID")}/favorites`)
+=======
+    useEffect(() => getData(`https://medcabinet1.herokuapp.com/api/users/${localStorage.getItem("userID")}/favorites`), []);
+
+    const getData = (path) => {
+        axiosWithAuth().get(path)
+>>>>>>> parent of f884e11... props
         .then(response => {
             setFailureStatus(false);
             console.log(response.data);
