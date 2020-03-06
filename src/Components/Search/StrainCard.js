@@ -87,7 +87,9 @@ const Card = styled.div`
 `;
 
 const StrainCard = ({strain, favoriteMap, updateFavoriteMap, cabinet}) => {
+    console.log(cabinet);
     console.log(favoriteMap);
+    console.log(strain);
     let favIndex = 0;
     favoriteMap.forEach((favorite, index) => {
         if (cabinet === false) {
