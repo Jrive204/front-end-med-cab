@@ -32,11 +32,11 @@ const Heading = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #3cb371;
-  color: white;
-  fill: white;
-  padding: 10px;
-  border-radius: 10px;
+  background-color:#3cb371;
+  color:white;
+  fill:white;
+  padding:10px;
+  border-radius:10px;
   h1 {
     font-family: 'Pacifico', cursive;
     font-size: 200%;
@@ -130,10 +130,8 @@ const SignIn = ({ setHeaderDisplay }) => {
         .post('https://medcabinet1.herokuapp.com/api/auth/login', values)
         .then(response => {
           localStorage.setItem('token', response.data.token);
-          localStorage.setItem('CUSER', response.config.data);
-
-          push('/profile/findmore');
-          console.log(response.config.data);
+          push('/dashboard');
+          console.log(response);
           setMatchStatus(true);
           setValueStatus(false);
           setHeaderDisplay(true);
@@ -162,9 +160,7 @@ const SignIn = ({ setHeaderDisplay }) => {
           <ReactSVG src='flask-lg.svg' />
           <h1>Dr. Mary Jane</h1>
         </Heading>
-        <h2 style={{ fontSize: '120%', fontWeight: 'bold', marginTop: '10px' }}>
-          Log In
-        </h2>
+        <h2 style={{fontSize: "120%", fontWeight: "bold", marginTop: "10px"}}>Log In</h2>
         <form onSubmit={handleSubmit}>
           <InputContainer>
             <Label htmlFor='username'>Username</Label>

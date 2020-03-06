@@ -10,6 +10,7 @@ const HeaderContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
   .header-container {
     width: 90%;
     display: flex;
@@ -31,6 +32,7 @@ const HeaderContainer = styled.div`
       display: flex;
       align-items: center;
     }
+
     .sign-out {
       text-decoration: none;
       font-size: 1rem;
@@ -56,52 +58,30 @@ const HeaderContainer = styled.div`
   }
 `;
 
-const Header = ({ displayHeader }) => {
-  const { push } = useHistory();
-  const signout = () => {
-    localStorage.removeItem('token');
-    localStorage.removeItem('userID');
-    localStorage.clear();
-    push('/');
-  };
+const Header = ({displayHeader}) => {
+    const { push } = useHistory();
+    const signout = () => {
+        localStorage.removeItem("token")
+        localStorage.removeItem("userID")
+        push("/")
+    }
 
-<<<<<<< HEAD
-  return (
-    <HeaderContainer
-      style={displayHeader ? { display: 'flex' } : { display: 'none' }}>
-      <div className='header-container'>
-        <Link to='/profile'>
-          <ReactSVG src='flask.svg' />
-        </Link>
-        <nav>
-          <Link to='/recommendation-form'>Recommendation Form</Link>
-          <Link to='/recommendations'>Strain Recommendations</Link>
-          <Link to='/strains'>Strain List</Link>
-          <Link to='/cabinet'>My Cabinet</Link>
-        </nav>
-        <Link to='/' className='sign-out' onClick={signout}>
-          <div>Sign&nbsp;Out</div>
-        </Link>
-      </div>
-    </HeaderContainer>
-  );
-=======
     return (
         <HeaderContainer style={displayHeader ? {display: "flex"} : {display: "none"}}>
             <div className='header-container'>
-                <Link to='/profile'>
+                <Link to='/dashboard'>
                     <ReactSVG src="flask.svg" />
                 </Link>
                 <nav>
-                    <Link to='/recommendations'>Strain Recommendations</Link>
+                    <Link to='/recommendation-form'>Reccomendation Form</Link>
                     <Link to='/strains'>Strain List</Link>
+                    <Link to='/recommendations'>Recommendations</Link>
                     <Link to='/cabinet'>My Cabinet</Link>
                 </nav>
                     <Link to='/' className='sign-out' onClick={signout}><div>Sign&nbsp;Out</div></Link>
             </div>
         </HeaderContainer>
     );
->>>>>>> 83edf079210c019ad1acab9d4e718c8276fffcdc
 };
 
 export default Header;

@@ -16,13 +16,14 @@ import styled from 'styled-components';
 const Container = styled.div`
   background-color: #98fb98;
   form {
-    margin: 2%;
-    input[type='submit'] {
-      font-size: 100%;
-      padding: 8px;
-      background-color: #3cb371;
-      color: white;
-      border-radius: 5px;
+
+    margin:2%;
+    input[type=submit] {
+      font-size:100%;
+      padding:8px;
+      background-color:#3CB371;
+      color:white;
+      border-radius:5px;
       &:hover {
         cursor: pointer;
         border: 1px solid #98fb98;
@@ -54,9 +55,10 @@ const Container = styled.div`
       display: flex;
       justify-content: center;
       h3 {
-        text-decoration: none;
-        color: white;
-        font-size: 180%;
+
+        text-decoration:none;
+        color:white;
+        font-size:180%;
       }
     }
     > div:last-child {
@@ -82,6 +84,7 @@ const RecommendForm = () => {
   const { push } = useHistory();
 
   const userID = useSelector(state => state.currentuser);
+
 
   const onSubmit = e => {
     e.preventDefault();
@@ -135,14 +138,13 @@ const RecommendForm = () => {
           alignItems: 'center'
         }}
         onSubmit={onSubmit}>
-        <div
-          style={{ backgroundColor: '#F5F5F5', padding: '50px', marginTop: 0 }}>
-          Welcome to our recommendations page – use these parameters to generate
-          a list of strain recommendations.
-        </div>
+
+        <div style={{backgroundColor: "#F5F5F5", padding: "50px", marginTop: 0}}>Welcome to our recommendations page – use these parameters to generate a list of strain recommendations.</div>
         <div>
           <div>
-            <h3 style={{ marginTop: '1%' }}>Your Medical Symptoms</h3>
+            <h3 style={{ marginTop: '1%' }}>
+              Your Medical Symptoms
+            </h3>
           </div>
           <div
             style={{
@@ -178,9 +180,8 @@ const RecommendForm = () => {
           </div>
         </div>
         <div>
-          <div>
-            <h3 style={{ marginTop: '1%' }}>Preferred Type of Strain</h3>
-          </div>
+
+          <div><h3 style={{ marginTop: '1%' }}>Preferred Type of Strain</h3></div>
           {console.log(choices, 'CHOICES')}
           <div
             style={{
@@ -252,9 +253,8 @@ const RecommendForm = () => {
           </div>
         </div>
         <div>
-          <div>
-            <h3 style={{ marginTop: '1%' }}>Desired Effects</h3>
-          </div>
+
+          <div><h3 style={{ marginTop: '1%' }}>Desired Effects</h3></div>
           <div
             style={{
               display: 'flex',
@@ -296,9 +296,10 @@ const RecommendForm = () => {
           </div>
         </div>
         <div>
-          <div>
-            <h3 style={{ marginTop: '1%' }}>Effects to Avoid</h3>
-          </div>
+
+          <div><h3 style={{ marginTop: '1%' }}>
+            Effects to Avoid
+          </h3></div>
           <div
             style={{
               display: 'flex',
@@ -340,10 +341,10 @@ const RecommendForm = () => {
           </div>
         </div>
 
-        <div className='review'>
-          <div>
-            <h3 style={{ marginTop: '2%' }}>Anything Else? </h3>
-          </div>
+        <div className="review">
+          <div><h3 style={{ marginTop: '2%' }}>
+            Anything Else?{' '}
+          </h3></div>
           <StyledReviewDiv>
             <Inputtextarea
               placeholder='Tell us how we can help'
