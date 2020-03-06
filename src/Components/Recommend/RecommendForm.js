@@ -14,8 +14,9 @@ import { useHistory } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  background-color:#98fb98;
+  background-color: #98fb98;
   form {
+
     margin:2%;
     input[type=submit] {
       font-size:100%;
@@ -24,51 +25,52 @@ const Container = styled.div`
       color:white;
       border-radius:5px;
       &:hover {
-          cursor:pointer;
-          border:1px solid #98FB98;
-          color:#98FB98;
+        cursor: pointer;
+        border: 1px solid #98fb98;
+        color: #98fb98;
       }
       &:active {
-          background-color:#2E8B57;
-          outline:none;
+        background-color: #2e8b57;
+        outline: none;
       }
       &:focus {
-          outline:none;
+        outline: none;
       }
-  }
+    }
   }
   form > div {
-    margin-top:20px;
-    background-color:white;
-    display:flex;
-    align-items:center;
-    flex-direction:column;
-    border-radius:10px;
-    width:80%;
-    border:1px solid #F5F5F5;
+    margin-top: 20px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 10px;
+    width: 80%;
+    border: 1px solid #f5f5f5;
     > div:first-child {
-      width:100%;
-      border-top-left-radius:10px;
-      border-top-right-radius:10px;
-      background-color:#3cb371;
-      display:flex;
-      justify-content:center;
+      width: 100%;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      background-color: #3cb371;
+      display: flex;
+      justify-content: center;
       h3 {
+
         text-decoration:none;
         color:white;
         font-size:180%;
       }
     }
     > div:last-child {
-      padding:10px;
+      padding: 10px;
     }
     fieldset {
       input {
-        background-color:#F5F5F5;
+        background-color: #f5f5f5;
       }
     }
   }
-`
+`;
 
 const RecommendForm = () => {
   const [choices, setChoices] = useState({
@@ -83,24 +85,6 @@ const RecommendForm = () => {
 
   const userID = useSelector(state => state.currentuser);
 
-  function makestring() {
-    setChoices({
-      ...choices,
-      race: Array.isArray(choices.race) ? choices.race.join(',') : choices.race,
-      positive_effects: Array.isArray(choices.positive_effects)
-        ? choices.positive_effects.join(',')
-        : choices.positive_effects,
-      negative_effects_avoid: Array.isArray(choices.negative_effects_avoid)
-        ? choices.negative_effects_avoid.join(',')
-        : choices.negative_effects_avoid,
-      ailments: Array.isArray(choices.ailments)
-        ? choices.ailments.join(',')
-        : choices.ailments,
-      flavors: Array.isArray(choices.flavors)
-        ? choices.flavors.join(',')
-        : choices.flavors
-    });
-  }
 
   const onSubmit = e => {
     e.preventDefault();
@@ -147,7 +131,6 @@ const RecommendForm = () => {
         flexDirection: 'column',
         alignItems: 'center'
       }}>
-      {console.log(userID, 'myID')}
       <form
         style={{
           display: 'flex',
@@ -155,6 +138,7 @@ const RecommendForm = () => {
           alignItems: 'center'
         }}
         onSubmit={onSubmit}>
+
         <div style={{backgroundColor: "#F5F5F5", padding: "50px", marginTop: 0}}>Welcome to our recommendations page – use these parameters to generate a list of strain recommendations.</div>
         <div>
           <div>
@@ -196,6 +180,7 @@ const RecommendForm = () => {
           </div>
         </div>
         <div>
+
           <div><h3 style={{ marginTop: '1%' }}>Preferred Type of Strain</h3></div>
           {console.log(choices, 'CHOICES')}
           <div
@@ -230,8 +215,10 @@ const RecommendForm = () => {
             ))}
           </div>
         </div>
+        <div>
           <div>
-          <div><h3 style={{ marginTop: '1%' }}>Flavors</h3></div>
+            <h3 style={{ marginTop: '1%' }}>Flavors</h3>
+          </div>
           <div
             style={{
               display: 'flex',
@@ -266,6 +253,7 @@ const RecommendForm = () => {
           </div>
         </div>
         <div>
+
           <div><h3 style={{ marginTop: '1%' }}>Desired Effects</h3></div>
           <div
             style={{
@@ -279,7 +267,9 @@ const RecommendForm = () => {
               <fieldset style={{ width: '20%' }}>
                 {ele} &nbsp;
                 <input
-                  checked={choices.positive_effects.includes(ele) ? true : false}
+                  checked={
+                    choices.positive_effects.includes(ele) ? true : false
+                  }
                   type='checkbox'
                   id='coding'
                   name='positive_effects'
@@ -306,6 +296,7 @@ const RecommendForm = () => {
           </div>
         </div>
         <div>
+
           <div><h3 style={{ marginTop: '1%' }}>
             Effects to Avoid
           </h3></div>
@@ -349,6 +340,7 @@ const RecommendForm = () => {
             ))}
           </div>
         </div>
+
         <div className="review">
           <div><h3 style={{ marginTop: '2%' }}>
             Anything Else?{' '}
