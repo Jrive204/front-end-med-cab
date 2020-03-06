@@ -16,7 +16,7 @@ import styled from 'styled-components';
 const Container = styled.div`
   background-color: #98fb98;
   form {
-    margin: 3%;
+    margin: 2%;
     input[type='submit'] {
       font-size: 100%;
       padding: 8px;
@@ -56,6 +56,7 @@ const Container = styled.div`
       h3 {
         text-decoration: none;
         color: white;
+        font-size: 180%;
       }
     }
     > div:last-child {
@@ -84,7 +85,7 @@ const RecommendForm = () => {
 
   const onSubmit = e => {
     e.preventDefault();
-
+    console.log(choices);
     axiosWithAuth()
       .post(
         `https://medcabinet1.herokuapp.com/api/usersdata/${localStorage.getItem(
@@ -92,7 +93,10 @@ const RecommendForm = () => {
         )}/user`,
         choices
       )
-      .then(res => console.log(res) & push('/strains'))
+      .then(res => {
+        console.log(res.data);
+        push(`/recommendations`);
+      })
       .catch(err => console.log(err.message));
   };
 
@@ -131,11 +135,14 @@ const RecommendForm = () => {
           alignItems: 'center'
         }}
         onSubmit={onSubmit}>
+        <div
+          style={{ backgroundColor: '#F5F5F5', padding: '50px', marginTop: 0 }}>
+          Welcome to our recommendations page – use these parameters to generate
+          a list of strain recommendations.
+        </div>
         <div>
           <div>
-            <h3 style={{ marginTop: '1%' }}>
-              Medical conditions you are looking to help alleviate:
-            </h3>
+            <h3 style={{ marginTop: '1%' }}>Your Medical Symptoms</h3>
           </div>
           <div
             style={{
@@ -172,7 +179,7 @@ const RecommendForm = () => {
         </div>
         <div>
           <div>
-            <h3 style={{ marginTop: '1%' }}>Desired Race of your Strains </h3>
+            <h3 style={{ marginTop: '1%' }}>Preferred Type of Strain</h3>
           </div>
           {console.log(choices, 'CHOICES')}
           <div
@@ -246,7 +253,7 @@ const RecommendForm = () => {
         </div>
         <div>
           <div>
-            <h3 style={{ marginTop: '1%' }}>Effects you are looking for:</h3>
+            <h3 style={{ marginTop: '1%' }}>Desired Effects</h3>
           </div>
           <div
             style={{
@@ -290,9 +297,7 @@ const RecommendForm = () => {
         </div>
         <div>
           <div>
-            <h3 style={{ marginTop: '1%' }}>
-              Effects you are trying WANT TO AVOID:
-            </h3>
+            <h3 style={{ marginTop: '1%' }}>Effects to Avoid</h3>
           </div>
           <div
             style={{
@@ -334,11 +339,9 @@ const RecommendForm = () => {
             ))}
           </div>
         </div>
-        <div>
+        <div className='review'>
           <div>
-            <h3 style={{ marginTop: '2%' }}>
-              Any else you are looking for from the recommended strains?{' '}
-            </h3>
+            <h3 style={{ marginTop: '2%' }}>Anything Else? </h3>
           </div>
           <StyledReviewDiv>
             <Inputtextarea

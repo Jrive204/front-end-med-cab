@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import SignUpPage from './Components/SignUpPage'
 import './App.css';
 import { Route, Switch } from "react-router-dom";
 import PrivateRoute from "./Utils/PrivateRoute";
@@ -11,6 +10,7 @@ import StrainList from "./Components/Search/StrainList";
 import RecommendForm from "./Components/Recommend/RecommendForm";
 import ProfilePage from "./Components/ProfilePage/ProfilePage";
 import CabinetList from "./Components/PersonalCabinet/CabinetList";
+import RecommendationsList from "./Components/PersonalCabinet/RecommendationsList";
 import Header from "./Components/Dashboard/Header"
 
 
@@ -32,8 +32,11 @@ const App = () => {
         </Route>
         <PrivateRoute path="/strains" component={StrainList} />
         <PrivateRoute path="/profile" component={ProfilePage} />      
-        <PrivateRoute path="/recommender" component={RecommendForm} />
-        <Route exact path="/cabinet" component={CabinetList} />
+        <PrivateRoute path="/recommendation-form" component={RecommendForm} />
+        <Route path="/cabinet" component={CabinetList} />
+        <Route path="/recommendations">
+          <RecommendationsList />
+        </Route>
         <Route path="/">
           <SignIn setHeaderDisplay={setHeaderDisplay}/>
         </Route>

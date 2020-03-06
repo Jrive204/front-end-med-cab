@@ -73,9 +73,9 @@ const Header = ({displayHeader}) => {
                     <ReactSVG src="flask.svg" />
                 </Link>
                 <nav>
-                    <Link to='/recommendation-form'>Reccomendation Form</Link>
+                    <Link to='/profile'>Profile</Link>
+                    <Link to='/recommendations'>Strain Recommendations</Link>
                     <Link to='/strains'>Strain List</Link>
-                    <Link to='/recommendations'>Recommendations</Link>
                     <Link to='/cabinet'>My Cabinet</Link>
                 </nav>
                     <Link to='/' className='sign-out' onClick={signout}><div>Sign&nbsp;Out</div></Link>
