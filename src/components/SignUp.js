@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import { Link, useHistory } from 'react-router-dom';
 
 const Background = styled.div`
     width: 100%;
@@ -8,7 +9,8 @@ const Background = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #98FB98;
+    background: rgb(126,255,126);
+    background: radial-gradient(circle, rgba(126,255,126,1) 0%, rgba(64,204,69,1) 78%, rgba(0,124,8,1) 100%);
 `;
 
 const SignUpPanel = styled.div`
@@ -83,13 +85,18 @@ width:100%;
     }
 `;
 
-const SignUpPage = () => {
+const SignUp = ({setHeaderDisplay}) => {
     const [newUser, setNewUser] = useState ({
         username: '',
         password: '',
         email: ''
     });
     const [emptyValues, setValueStatus] = useState(false);
+    const { push } = useHistory();
+
+    useEffect(() => {
+        setHeaderDisplay(false);
+    }, [setHeaderDisplay])
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -104,12 +111,13 @@ const SignUpPage = () => {
             setValueStatus(true);
         } else {
             axios.post("https://medcabinet1.herokuapp.com/api/auth/register", newUser)
-            .then(response => {
-                console.log(response);
-                localStorage.setItem("token", response.data.token);
-                setValueStatus(false);
+            .then(response =>{
+                      localStorage.setItem("token", response.data.token);
+                      localStorage.setItem("userID", response.data.id);
+                      push("/dashboard")
+                      console.log(response.data)
+                      setHeaderDisplay(true);
             })
-
             .catch(error => {
                 console.log(error);
                 setValueStatus(true);
@@ -134,6 +142,7 @@ const SignUpPage = () => {
                     <InputContainer>
                         <Label htmlFor='username'>Username</Label>
                         <Input
+                            required
                             id='username'
                             type='text'
                             name='username'
@@ -146,6 +155,7 @@ const SignUpPage = () => {
                     <InputContainer>
                         <Label htmlFor='password'>Password</Label>
                         <Input
+                            required
                             id='password'
                             type='password'
                             name='password'
@@ -161,7 +171,6 @@ const SignUpPage = () => {
                             id='email'
                             type='email'
                             name='email'
-                            style={emptyValues ? {border: "1px solid red"} : {border: "1px solid white"}}
                             onChange={handleChanges}
                             value={newUser.email}
                         />
@@ -169,9 +178,11 @@ const SignUpPage = () => {
                     
                     <Button type='submit'>Sign Up</Button>
                 </form>
+
+                <Link to='/'>Have an account? Sign in here.</Link>
             </SignUpPanel>
         </Background>
     )
 }
 
-export default SignUpPage;
+export default SignUp;

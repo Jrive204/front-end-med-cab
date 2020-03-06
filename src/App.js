@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import SignUpPage from './Components/SignUpPage'
 import './App.css';
 import { Route, Switch } from "react-router-dom";
 import PrivateRoute from "./Utils/PrivateRoute";
