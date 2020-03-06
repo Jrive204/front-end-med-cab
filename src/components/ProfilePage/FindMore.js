@@ -15,7 +15,6 @@ const Buttons = styled.div`
             flex-direction: column;
             justify-content: center;
             align-item: center;
-
             h3 {
                 font-size: 2rem;
                 margin: 0 auto;
