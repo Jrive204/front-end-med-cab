@@ -219,10 +219,6 @@ const Search = ({setQuery, setData, originalData, query, pagination, updatePagin
         <FormContainer>
             <button style={{marginLeft: "50px"}} onClick={firstPage}>{`<<`}</button>
             <button onClick={previousPage}>previous</button>
-            <select onChange={changePath} className="rec-toggle" style={cabinet ? {display:"flex"} : {display:"none"}}>
-                <option value="favorites">Favorites</option>
-                <option value="recommendations">Recommendations</option>
-            </select>
             <form onSubmit={handleSearch} autoComplete="off">
                 <select onChange={updateSearchType}>
                     <option value="all">All Info</option>

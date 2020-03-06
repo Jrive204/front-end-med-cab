@@ -101,17 +101,6 @@ const RecommendForm = () => {
         : choices.flavors
     });
   }
-  function axpost() {
-    axiosWithAuth()
-      .post(
-        `https://medcabinet1.herokuapp.com/api/usersdata/${localStorage.getItem(
-          'userID'
-        )}/user`,
-        choices
-      )
-      .then(res => console.log(res))
-      .catch(err => console.log(err.message));
-  }
 
   const onSubmit = e => {
     e.preventDefault();
@@ -124,7 +113,8 @@ const RecommendForm = () => {
         choices
       )
       .then(res => {
-        console.log(res);
+        console.log(res.data);
+        push(`/recommendations`);
       })
       .catch(err => console.log(err.message));
   };
