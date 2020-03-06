@@ -65,6 +65,7 @@ const Header = ({ displayHeader }) => {
     push('/');
   };
 
+<<<<<<< HEAD
   return (
     <HeaderContainer
       style={displayHeader ? { display: 'flex' } : { display: 'none' }}>
@@ -84,6 +85,23 @@ const Header = ({ displayHeader }) => {
       </div>
     </HeaderContainer>
   );
+=======
+    return (
+        <HeaderContainer style={displayHeader ? {display: "flex"} : {display: "none"}}>
+            <div className='header-container'>
+                <Link to='/profile'>
+                    <ReactSVG src="flask.svg" />
+                </Link>
+                <nav>
+                    <Link to='/recommendations'>Strain Recommendations</Link>
+                    <Link to='/strains'>Strain List</Link>
+                    <Link to='/cabinet'>My Cabinet</Link>
+                </nav>
+                    <Link to='/' className='sign-out' onClick={signout}><div>Sign&nbsp;Out</div></Link>
+            </div>
+        </HeaderContainer>
+    );
+>>>>>>> 83edf079210c019ad1acab9d4e718c8276fffcdc
 };
 
 export default Header;
