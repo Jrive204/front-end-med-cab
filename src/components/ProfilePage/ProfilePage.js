@@ -5,6 +5,7 @@ import Header from '../Dashboard/Header';
 import MyFavs from './MyFavs';
 import FindMore from './FindMore';
 import styled from 'styled-components';
+import {ReactSVG} from 'react-svg';
 
 const Background = styled.div`
     width: 100%;
@@ -15,12 +16,23 @@ const Background = styled.div`
 `;
 
 const Profile = styled.div`
-    background-color: #FFFFF0;
+    border-radius:10px;
+    border:1px solid #F5F5F5;
+    margin-top:30px;
+    background-color: white;
     width: 60%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    > div:first-child {
+        background-color:#3cb371;
+        border-top-left-radius:10px;
+        border-top-right-radius:10px;
+        width:100%;
+        padding: 15px 10% 0 10%;
+        color:white;
+    }
 `;
 
 const Welcome = styled.div`
@@ -32,30 +44,26 @@ const Welcome = styled.div`
     flex-wrap: wrap;
     padding-bottom: 10px;
     margin: 10px 0 25px;
-    border-bottom: 1px solid black;
-`;
-
-const Username = styled.h2`
-    font-weight: 800;
-    margin: -5px 10px 0 10px;
 `;
 
 const UserCard = styled.div`
+margin-top:20px;
     display: flex;
     width: 75%;
     height: 100%;
     justify-content: space-between;
-    background-color: white;
-    border: 1px solid #3CB371;
-    border-radius: 50px;
+    background-color: #F5F5F5;
+    border: 1px solid lightgray;
+    border-radius: 10px;
     padding: 0px
 `;
 
 const Image = styled.div`
-    background-color: black;
+    background-color: #3cb371;
     width: 10rem;
     height: 10rem;
-    border-radius: 50px;
+    border-radius: 10px;
+    fill:white;
 `;
 
 const InfoHeader = styled.div`
@@ -81,16 +89,18 @@ const BottomContent = styled.div`
 `;
 
 const ProfileNav = styled.div`
-    width: 30%;
-    margin: 30px 0 0 33.5%;
+    width: 100%;
     display: flex;
-    justify-content: space-between;
+    margin-top:10px;
+    justify-content:center;
         div {
             font-size: 1.5rem;
             &:first-child {
-                border-right: 1px solid black;
                 padding-right: 20px;
-            }   
+            }
+            a {
+                text-decoration:none;
+            }
         }
 `;
 
@@ -116,13 +126,11 @@ const ProfilePage = () => {
             <Background>
                 <Profile>
                     <div>
-                        <Welcome>Welcome 
-                        <Username> {currentUser.username} </Username>
-                        to MedCabinet</Welcome>
+                        <Welcome>Welcome,&nbsp;<span style={{fontWeight: "bold"}}>{currentUser.username}</span>&nbsp;to Dr. Mary Jane</Welcome>
                     </div>
                     <UserCard>
                         <Image>
-                            <img src='../../img/profile-placeholder.png' alt='placeholder'/>
+                            <ReactSVG src="profile.svg" />
                         </Image>
                         <InfoHeader>
                             <div className='infoItems'>Username:</div>
@@ -140,10 +148,10 @@ const ProfilePage = () => {
                     <BottomContent>
                         <ProfileNav>
                             <div>
-                                <Link to='/profile'>My Favorites</Link>
+                                <Link to='/cabinet'>My&nbsp;Cabinet</Link>
                             </div>
                             <div>
-                                <Link to='/profile/findmore'>Find More</Link>
+                                <Link to='/profile/findmore'>Find&nbsp;More</Link>
                             </div>
                         </ProfileNav>
 

@@ -73,8 +73,8 @@ const Header = ({displayHeader}) => {
                     <ReactSVG src="flask.svg" />
                 </Link>
                 <nav>
-                    <Link to='/profilepage'>Profile</Link>
-                    <Link to='/recommender'>Strain Recommendations</Link>
+                    <Link to='/profile'>Profile</Link>
+                    <Link to='/recommendations'>Strain Recommendations</Link>
                     <Link to='/strains'>Strain List</Link>
                     <Link to='/cabinet'>My Cabinet</Link>
                 </nav>

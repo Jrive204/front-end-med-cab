@@ -7,6 +7,30 @@ import styled from 'styled-components';
 const Container = styled.section`
   width: 70%;
   margin: 0 auto;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  > a:first-child {
+      div {
+          background-color:#3CB371;
+          color:white;
+          border:1px solid #F5F5F5;
+          border-radius:5px;
+          padding:10px;
+      }
+      &:hover {
+        text-decoration:none;
+          div {
+              border: 1px solid #98fb98;
+              color: #98fb98;
+          }
+      }
+      &:active {
+          div {
+              background-color:seagreen;
+          }
+      }
+  }
 `;
 
 const CardContainer = styled.section`
@@ -17,18 +41,6 @@ const CardContainer = styled.section`
     color:red;
     margin-top:10px;
   }
-`;
-
-const Button = styled.div`
-  width: 40%;
-  margin: 2% auto;
-  padding: 2%;
-  color: white;
-  background-color: #3CB371;
-  border-radius: 5px;
-    p {
-        margin-left: 18%;
-    }
 `;
 
 const MyFavs = () => {
@@ -77,11 +89,7 @@ const MyFavs = () => {
 
     return (
         <Container>
-            <Link to='/cabinet'>
-                <Button>
-                    <p>See all your favorites</p>
-                </Button>
-            </Link>
+            <Link to='/cabinet'><div>See all your favorites</div></Link>
             <CardContainer>
                 {data.slice(pagination.lowest, pagination.highest).map(strain => {
                     if (favoriteMap !== undefined) {
