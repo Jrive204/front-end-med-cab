@@ -11,12 +11,15 @@ const Container = styled.div`
   justify-content: center;
   align-items: center;
   background-color: #98fb98;
+  @media screen {
+    height: 90vh;
+  }
 `;
 
 const LoginWindow = styled.div`
   border: 1px solid #f5f5f5;
   border-radius: 5px;
-  width: 30%;
+  width: 25%;
   min-width: 300px;
   display: flex;
   flex-direction: column;
@@ -48,7 +51,7 @@ const InputContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  width: 100%;
+  width: 95%;
   margin: 5px 0;
 `;
 
@@ -57,12 +60,12 @@ const Label = styled.label`
 `;
 
 const Input = styled.input`
-  width: 60%;
+  width: 70%;
   background-color: #f5f5f5;
   border-radius: 3px;
   padding: 8px;
   outline: none;
-  font-size: 80%;
+  font-size: 100%;
   font-family: inherit;
   &:hover {
     border: 1px solid cornflowerblue;
@@ -167,7 +170,7 @@ const SignIn = ({ setHeaderDisplay }) => {
         </h2>
         <form onSubmit={handleSubmit}>
           <InputContainer>
-            <Label htmlFor='username'>Username</Label>
+            <Label htmlFor='username'>Username </Label>
             <Input
               type='text'
               id='username'

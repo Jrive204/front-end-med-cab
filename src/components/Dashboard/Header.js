@@ -8,17 +8,28 @@ const HeaderContainer = styled.div`
   width: 100%;
   background-color: #3cb371;
   display: flex;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
-  .header-container {
-    width: 90%;
-    display: flex;
+  @media (max-width: 500px) {
+    width: 100%;
     justify-content: space-between;
+  }
+
+  .header-container {
+    width: 75%;
+    display: flex;
+    justify-content: space-evenly;
     align-items: center;
+
+    @media (max-width: 500px) {
+      width: 100%;
+      justify-content: space-around;
+    }
+
     a {
       text-decoration: none;
       margin: 0 16px;
-      font-size: 1rem;
+      font-size: 1.22rem;
       font-weight: 500;
       color: white;
       fill: white;
@@ -30,6 +41,10 @@ const HeaderContainer = styled.div`
     nav {
       display: flex;
       align-items: center;
+      @media (max-width: 500px) {
+        width: 50%;
+        display: none;
+      }
     }
     .sign-out {
       text-decoration: none;
@@ -72,7 +87,7 @@ const Header = ({ displayHeader }) => {
         <Link to='/profile'>
           <ReactSVG src='flask.svg' />
         </Link>
-        <nav>
+        <nav className='headernav'>
           <Link to='/recommendation-form'>Recommendation Form</Link>
           <Link to='/recommendations'>Strain Recommendations</Link>
           <Link to='/strains'>Strain List</Link>

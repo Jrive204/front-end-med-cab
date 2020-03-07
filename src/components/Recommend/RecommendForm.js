@@ -15,6 +15,7 @@ import styled from 'styled-components';
 
 const Container = styled.div`
   background-color: #98fb98;
+
   form {
     margin: 2%;
     input[type='submit'] {
@@ -37,6 +38,16 @@ const Container = styled.div`
       }
     }
   }
+  .flavors {
+    @media (max-width: 500px) {
+      width: 45%;
+      display: flex;
+      flex-direction: column-reverse;
+      align-items: center;
+      margin: 2%;
+    }
+  }
+
   form > div {
     margin-top: 20px;
     background-color: white;
@@ -57,14 +68,21 @@ const Container = styled.div`
         text-decoration: none;
         color: white;
         font-size: 180%;
+        @media (max-width: 500px) {
+          text-align: center;
+        }
       }
     }
     > div:last-child {
       padding: 10px;
     }
     fieldset {
+      width: 20%;
       input {
         background-color: #f5f5f5;
+      }
+      @media (max-width: 500px) {
+        width: 100%;
       }
     }
   }
@@ -148,12 +166,14 @@ const RecommendForm = () => {
             style={{
               display: 'flex',
               flexDirection: 'row',
-              width: '80%',
+              width: '100%',
               flexWrap: 'wrap',
-              marginTop: '.2%'
+              marginTop: '.2%',
+              justifyContent: 'center',
+              alignItems: 'center'
             }}>
             {medical.map(ele => (
-              <fieldset style={{ width: '20%' }}>
+              <fieldset>
                 {ele} &nbsp;
                 <input
                   checked={choices.ailments.includes(ele) ? true : false}
@@ -227,14 +247,15 @@ const RecommendForm = () => {
               marginTop: '.2%'
             }}>
             {flav.map(flavs => (
-              <fieldset style={{ width: '20%' }}>
-                {flavs} &nbsp;
+              <fieldset className='flavors'>
+                {flavs}
                 <input
                   checked={choices.flavors.includes(flavs) ? true : false}
                   type='checkbox'
                   id='coding'
                   name='flavors'
                   value={flavs}
+                  style={{ marginLeft: '5%' }}
                   onChange={e =>
                     choices.flavors.includes(flavs)
                       ? setChoices({
@@ -264,7 +285,7 @@ const RecommendForm = () => {
               marginTop: '.2%'
             }}>
             {positive.map(ele => (
-              <fieldset style={{ width: '20%' }}>
+              <fieldset>
                 {ele} &nbsp;
                 <input
                   checked={
@@ -308,7 +329,7 @@ const RecommendForm = () => {
               marginTop: '.2%'
             }}>
             {negative.map(ele => (
-              <fieldset style={{ width: '20%' }}>
+              <fieldset>
                 {ele} &nbsp;
                 <input
                   checked={

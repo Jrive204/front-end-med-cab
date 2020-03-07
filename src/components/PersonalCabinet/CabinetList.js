@@ -8,6 +8,13 @@ const Container = styled.section`
   background-color: #98fb98;
   width: 100%;
   height: 100vh;
+  @media (max-width: 500px) {
+    width: 100%;
+    text-align: center;
+    font-size: 1.2rem;
+    height: 100vh;
+    overflow: hidden;
+  }
 `;
 
 const CardContainer = styled.section`

@@ -32,6 +32,15 @@ const Profile = styled.div`
     width: 100%;
     padding: 15px 10% 0 10%;
     color: white;
+    @media (max-width: 500px) {
+      padding: 0;
+    }
+  }
+
+  @media (max-width: 500px) {
+    width: 100%;
+    text-align: center;
+    font-size: 1.2rem;
   }
 `;
 
@@ -40,10 +49,16 @@ const Welcome = styled.div`
   font-weight: normal;
   width: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   flex-wrap: wrap;
   padding-bottom: 10px;
   margin: 10px 0 25px;
+
+  @media (max-width: 500px) {
+    width: 100%;
+    text-align: center;
+    /* height: 20vh; */
+  }
 `;
 
 const UserCard = styled.div`
@@ -56,6 +71,10 @@ const UserCard = styled.div`
   border: 1px solid lightgray;
   border-radius: 10px;
   padding: 0px;
+  @media (max-width: 500px) {
+    width: 45%;
+    margin-left: 8%;
+  }
 `;
 
 const Image = styled.div`
@@ -71,6 +90,10 @@ const InfoHeader = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  @media (max-width: 500px) {
+    display: none;
+  }
+
   .infoItems {
     margin: 7px 0;
     font-weight: 800;
@@ -78,6 +101,9 @@ const InfoHeader = styled.div`
 `;
 
 const Info = styled.div`
+  @media (max-width: 500px) {
+    display: none;
+  }
   width: 55%;
   .infoItems {
     margin: 10px 0 20px;
@@ -93,10 +119,16 @@ const ProfileNav = styled.div`
   display: flex;
   margin-top: 10px;
   justify-content: center;
+  @media (max-width: 500px) {
+    margin-top: 20px;
+    width: 100%;
+    height: 8vh;
+    text-align: center;
+  }
   div {
     font-size: 1.5rem;
     &:first-child {
-      padding-right: 20px;
+      padding-right: 40px;
     }
     a {
       text-decoration: none;
@@ -136,22 +168,6 @@ const ProfilePage = () => {
       });
   }, []);
 
-  //   useEffect(() => {
-  //     axiosWithAuth()
-  //       .get(
-  //         `https://medcabinet1.herokuapp.com/api/users/${localStorage.getItem(
-  //           'userID'
-  //         )}`
-  //       )
-  //       .then(response => {
-  //         console.log(response);
-  //         setCurrentUser(response.data);
-  //       })
-  //       .catch(error => {
-  //         console.log('Error:', error);
-  //       });
-  //   }, []);
-
   console.log(currentUser);
   return (
     <div>
@@ -164,7 +180,7 @@ const ProfilePage = () => {
             <Welcome>
               Welcome,&nbsp;
               <span style={{ fontWeight: 'bold' }}>{cuser.username}</span>
-              &nbsp;to Dr. Mary Jane
+              &nbsp; to Dr. Mary Jane
             </Welcome>
           </div>
           <UserCard>
@@ -180,9 +196,9 @@ const ProfilePage = () => {
               <div className='infoItems'> {cuser.username}</div>
               <div className='infoItems'>{currentUser.email}</div>
               <div className='infoItems'>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-                enim ad minim veniam.
+                “Always code as if the guy who ends up maintaining your code
+                will be a violent psychopath who knows where you live” ― John
+                Woods
               </div>
             </Info>
           </UserCard>
