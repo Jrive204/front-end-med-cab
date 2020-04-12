@@ -1,7 +1,7 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
-import styled from 'styled-components';
-import { axiosWithAuth } from '../../Utils/axiosWithAuth';
+import React from "react";
+import { useHistory } from "react-router-dom";
+import styled from "styled-components";
+import { axiosWithAuth } from "../../Utils/axiosWithAuth";
 
 const Card = styled.div`
   background-color: white;
@@ -26,7 +26,7 @@ const Card = styled.div`
     > div:first-child {
       width: 2%;
       font-size: 150%;
-      @media (max-width: 500px) {
+      @media (max-width: 800px) {
         width: 80%;
       }
       a {
@@ -80,7 +80,7 @@ const Card = styled.div`
     background-color: #3cb371;
     color: white;
     border-radius: 5px;
-    @media (max-width: 500px) {
+    @media (max-width: 800px) {
       width: 85px;
     }
     &:hover {
@@ -110,15 +110,15 @@ const StrainInfoCard = ({ data, favorited, setFavoriteStatus }) => {
       axiosWithAuth()
         .post(
           `https://medcabinet1.herokuapp.com/api/users/${localStorage.getItem(
-            'userID'
+            "userID"
           )}/favorites`,
           { strain_id: data.id }
         )
-        .then(response => {
+        .then((response) => {
           console.log(response);
           setFavoriteStatus(true);
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
         });
     } else {
@@ -126,11 +126,11 @@ const StrainInfoCard = ({ data, favorited, setFavoriteStatus }) => {
       axiosWithAuth()
         .get(
           `https://medcabinet1.herokuapp.com/api/users/${localStorage.getItem(
-            'userID'
+            "userID"
           )}/favorites`
         )
-        .then(response => {
-          response.data.map(favorite => {
+        .then((response) => {
+          response.data.map((favorite) => {
             if (data.id === favorite.strain_id) {
               idToDelete = favorite.id;
             }
@@ -139,15 +139,15 @@ const StrainInfoCard = ({ data, favorited, setFavoriteStatus }) => {
             .delete(
               `https://medcabinet1.herokuapp.com/api/users/favorites/${idToDelete}`
             )
-            .then(delResponse => {
+            .then((delResponse) => {
               setFavoriteStatus(false);
               console.log(delResponse);
             })
-            .catch(delError => {
+            .catch((delError) => {
               console.log(delError);
             });
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
         });
     }
@@ -155,7 +155,7 @@ const StrainInfoCard = ({ data, favorited, setFavoriteStatus }) => {
 
   return (
     <Card>
-      <div className='heading'>
+      <div className="heading">
         <div>
           <button onClick={() => goBack()}>{`<`}</button>
         </div>
@@ -164,33 +164,33 @@ const StrainInfoCard = ({ data, favorited, setFavoriteStatus }) => {
         </div>
       </div>
       <div>
-        <div class='id-race-rating'>
+        <div class="id-race-rating">
           <p>ID: {data.id}</p>
           <p>Rating: {data.strain_rating}</p>
         </div>
-        <div class='race'>
+        <div class="race">
           <p>{data.race}</p>
         </div>
-        <div class='description'>{data.strain_description}</div>
-        <div class='effects'>
+        <div class="description">{data.strain_description}</div>
+        <div class="effects">
           <p>Flavors</p>
           <p>{data.flavors}</p>
         </div>
-        <div class='effects'>
+        <div class="effects">
           <p>Positive Effects</p>
           <p>{data.positive}</p>
         </div>
-        <div class='effects'>
+        <div class="effects">
           <p>Negative Effects</p>
           <p>{data.negative}</p>
         </div>
-        <div class='effects'>
+        <div class="effects">
           <p>Helpful for those who are experiencing:</p>
           <p>{data.medical}</p>
         </div>
-        <div class='effects'>
+        <div class="effects">
           <button onClick={addToCabinet}>
-            {favorited ? 'Remove From Cabinet' : 'Add To Cabinet'}
+            {favorited ? "Remove From Cabinet" : "Add To Cabinet"}
           </button>
         </div>
       </div>

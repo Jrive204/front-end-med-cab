@@ -2,39 +2,38 @@
 import {
   FETCH_STRAINS_START,
   FETCH_STRAINS_SUCCESS,
-  FETCH_STRAINS_FAILURE
-} from '../Actions/index';
+  FETCH_STRAINS_FAILURE,
+} from "../Actions/index";
 // Initial state setup
 const initialState = {
   strains: [],
-  error: '',
-  isFetching: false
+  error: "",
+  isFetching: false,
 };
 
-
-export function strainReducer(state=initialState, action) {
+export function strainReducer(state = initialState, action) {
   switch (action.type) {
     case FETCH_STRAINS_START:
       return {
         ...state,
-        error: '',
-        isFetching: true
+        error: "",
+        isFetching: true,
       };
     case FETCH_STRAINS_SUCCESS:
       console.log(state);
       return {
         ...state,
-        error: '',
+        error: "",
         isFetching: false,
-        strains: action.payload
+        strains: action.payload,
       };
     case FETCH_STRAINS_FAILURE:
       return {
         ...state,
         error: action.payload,
-        isFetching: false
+        isFetching: false,
       };
     default:
       return state;
-  };
-};
+  }
+}

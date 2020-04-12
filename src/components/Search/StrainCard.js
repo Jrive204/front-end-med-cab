@@ -1,10 +1,10 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { axiosWithAuth } from '../../Utils/axiosWithAuth';
-import { getStrains, findStrain } from '../../Actions/index';
-import { ReactSVG } from 'react-svg';
-import styled from 'styled-components';
+import React from "react";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { axiosWithAuth } from "../../Utils/axiosWithAuth";
+import { getStrains, findStrain } from "../../Actions/index";
+import { ReactSVG } from "react-svg";
+import styled from "styled-components";
 
 const Card = styled.div`
     width:300px;
@@ -111,28 +111,28 @@ const StrainCard = ({ strain, favoriteMap, updateFavoriteMap, cabinet }) => {
     }
   };
 
-  const updateFavoriteState = boolean => {
+  const updateFavoriteState = (boolean) => {
     let strainID = 0;
     let newMap = [];
     if (cabinet === false) {
-      newMap = favoriteMap.map(object => {
+      newMap = favoriteMap.map((object) => {
         if (object.id === strain.id) {
           strainID = strain.id;
           return {
             id: object.id,
-            favorited: boolean
+            favorited: boolean,
           };
         } else {
           return object;
         }
       });
     } else {
-      newMap = favoriteMap.map(object => {
+      newMap = favoriteMap.map((object) => {
         if (object.id === strain.strain_id) {
           strainID = strain.strain_id;
           return {
             id: object.id,
-            favorited: boolean
+            favorited: boolean,
           };
         } else {
           return object;
@@ -143,15 +143,15 @@ const StrainCard = ({ strain, favoriteMap, updateFavoriteMap, cabinet }) => {
       axiosWithAuth()
         .post(
           `https://medcabinet1.herokuapp.com/api/users/${localStorage.getItem(
-            'userID'
+            "userID"
           )}/favorites`,
           { strain_id: strainID }
         )
-        .then(response => {
+        .then((response) => {
           console.log(response);
           updateFavoriteMap(newMap);
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
         });
     } else {
@@ -159,18 +159,18 @@ const StrainCard = ({ strain, favoriteMap, updateFavoriteMap, cabinet }) => {
       axiosWithAuth()
         .get(
           `https://medcabinet1.herokuapp.com/api/users/${localStorage.getItem(
-            'userID'
+            "userID"
           )}/favorites`
         )
-        .then(response => {
+        .then((response) => {
           if (cabinet === false) {
-            response.data.map(favorite => {
+            response.data.map((favorite) => {
               if (strain.id === favorite.strain_id) {
                 idToDelete = favorite.id;
               }
             });
           } else {
-            response.data.map(favorite => {
+            response.data.map((favorite) => {
               if (strain.strain_id === favorite.strain_id) {
                 idToDelete = favorite.id;
               }
@@ -180,15 +180,15 @@ const StrainCard = ({ strain, favoriteMap, updateFavoriteMap, cabinet }) => {
             .delete(
               `https://medcabinet1.herokuapp.com/api/users/favorites/${idToDelete}`
             )
-            .then(delResponse => {
+            .then((delResponse) => {
               updateFavoriteMap(newMap);
               console.log(delResponse);
             })
-            .catch(delError => {
+            .catch((delError) => {
               console.log(delError);
             });
         })
-        .catch(error => {
+        .catch((error) => {
           console.log(error);
         });
     }
@@ -200,7 +200,8 @@ const StrainCard = ({ strain, favoriteMap, updateFavoriteMap, cabinet }) => {
         <Link
           to={
             cabinet ? `/strains/${strain.strain_id}` : `/strains/${strain.id}`
-          }>
+          }
+        >
           <ReactSVG src={`${strain.race}.svg`} />
           <h2>{strain.name}</h2>
         </Link>
@@ -208,7 +209,7 @@ const StrainCard = ({ strain, favoriteMap, updateFavoriteMap, cabinet }) => {
       <div>
         <div>
           <h3>
-            <ReactSVG src='rating.svg' />
+            <ReactSVG src="rating.svg" />
             {strain.strain_rating}
           </h3>
           <h3>{strain.race}</h3>
@@ -217,18 +218,18 @@ const StrainCard = ({ strain, favoriteMap, updateFavoriteMap, cabinet }) => {
               <ReactSVG
                 style={
                   favoriteMap[favIndex].favorited
-                    ? { display: 'none' }
-                    : { display: 'block' }
+                    ? { display: "none" }
+                    : { display: "block" }
                 }
-                src='heart-open.svg'
+                src="heart-open.svg"
               />
               <ReactSVG
                 style={
                   favoriteMap[favIndex].favorited
-                    ? { display: 'block' }
-                    : { display: 'none' }
+                    ? { display: "block" }
+                    : { display: "none" }
                 }
-                src='heart-closed.svg'
+                src="heart-closed.svg"
               />
             </button>
           </div>

@@ -1,3 +1,6 @@
+@import url("https://fonts.googleapis.com/css?family=Londrina+Solid:400,900&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Slackey&display=swap");
+
 .form {
   background-color: red;
   margin: 9 auto;
@@ -7,4 +10,92 @@
 h3 {
   font-weight: bolder !important;
   text-decoration: underline;
+}
+
+.modal-content {
+  margin-top: 20px;
+  /* background-color: white; */
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  border-radius: 10px;
+  width: 80%;
+  border: 1px solid #f5f5f5;
+  width: 100%;
+}
+
+.modal-body {
+  width: 100%;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  /* background-color: #3cb371; */
+  display: flex;
+  justify-content: center;
+}
+.waiting {
+  margin: 0;
+  padding: 0;
+  height: 90vh;
+  width: 100%;
+  font-family: sans-serif;
+  background-image: url("https://media.giphy.com/media/KpAPQVW9lWnWU/giphy.gif");
+  background-size: contain;
+  /* background-attachment: fixed; */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden !important;
+}
+.waiting-2 {
+  display: none;
+  margin: 0;
+  padding: 0;
+  height: 40vh;
+  width: 100%;
+  font-family: sans-serif;
+  background-image: url("https://media2.giphy.com/media/dtRtU8POUj4ZsFrJ1G/giphy.gif?cid=ecf05e47cd28abe1c3e305301a09615f911c4efc0c1f7816&rid=giphy.gif");
+  background-size: contain;
+  /* background-attachment: fixed; */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden !important;
+}
+
+.waiting-cont {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+.waiting-cont p {
+  font-family: "Londrina Solid", cursive;
+  font-size: 2rem;
+}
+
+.waiting-cont span {
+  font-family: "Slackey", cursive;
+  font-weight: bolder;
+  text-decoration: line-through;
+  overflow: hidden;
+}
+@media (max-width: 800px) {
+  .waiting {
+    display: flex;
+    height: 30vh;
+  }
+  .waiting-2 {
+    display: block;
+    margin: 0;
+    padding: 0;
+    height: 50vh;
+    width: 100%;
+    font-family: sans-serif;
+    background-image: url("https://media2.giphy.com/media/dtRtU8POUj4ZsFrJ1G/giphy.gif?cid=ecf05e47cd28abe1c3e305301a09615f911c4efc0c1f7816&rid=giphy.gif");
+    background-size: contain;
+    /* background-attachment: fixed; */
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    overflow: hidden !important;
+  }
 }

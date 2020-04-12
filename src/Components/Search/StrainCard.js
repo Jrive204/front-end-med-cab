@@ -1,10 +1,10 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { axiosWithAuth } from '../../Utils/axiosWithAuth';
-import { getStrains, findStrain } from '../../Actions/index';
-import { ReactSVG } from 'react-svg';
-import styled from 'styled-components';
+import React from "react";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { axiosWithAuth } from "../../Utils/axiosWithAuth";
+import { getStrains, findStrain } from "../../Actions/index";
+import { ReactSVG } from "react-svg";
+import styled from "styled-components";
 
 const Card = styled.div`
     width:300px;
@@ -86,23 +86,22 @@ const Card = styled.div`
   }
 `;
 
-const StrainCard = ({strain, favoriteMap, updateFavoriteMap, cabinet}) => {
-    console.log(cabinet);
-    console.log(favoriteMap);
-    console.log(strain);
-    let favIndex = 0;
-    favoriteMap.forEach((favorite, index) => {
-        if (cabinet === false) {
-            if (favorite.id === strain.id) {
-                favIndex = index;
-            }
-        }
-        else {
-            if (favorite.id === strain.strain_id ) {
-                favIndex = index;
-            }
-        }
-    })
+const StrainCard = ({ strain, favoriteMap, updateFavoriteMap, cabinet }) => {
+  console.log(cabinet);
+  console.log(favoriteMap);
+  console.log(strain);
+  let favIndex = 0;
+  favoriteMap.forEach((favorite, index) => {
+    if (cabinet === false) {
+      if (favorite.id === strain.id) {
+        favIndex = index;
+      }
+    } else {
+      if (favorite.id === strain.strain_id) {
+        favIndex = index;
+      }
+    }
+  });
 
   const favoriteStatus = () => {
     if (favoriteMap[favIndex].favorited === false) {
@@ -112,92 +111,136 @@ const StrainCard = ({strain, favoriteMap, updateFavoriteMap, cabinet}) => {
     }
   };
 
-    const updateFavoriteState = (boolean) => {
-        let strainID = 0;
-        let newMap = [];
-        if (cabinet === false) {
-            newMap = favoriteMap.map(object => {
-                if (object.id === strain.id) {
-                    strainID = strain.id;
-                    return {
-                        id: object.id,
-                        favorited: boolean,
-                    }
-                }
-                else {
-                    return object;
-                }
-            })
+  const updateFavoriteState = (boolean) => {
+    let strainID = 0;
+    let newMap = [];
+    if (cabinet === false) {
+      newMap = favoriteMap.map((object) => {
+        if (object.id === strain.id) {
+          strainID = strain.id;
+          return {
+            id: object.id,
+            favorited: boolean,
+          };
+        } else {
+          return object;
         }
-        else {
-            newMap = favoriteMap.map(object => {
-                if (object.id === strain.strain_id) {
-                    strainID = strain.strain_id;
-                    return {
-                        id: object.id,
-                        favorited: boolean,
-                    }
-                }
-                else {
-                    return object;
-                }
-            })
+      });
+    } else {
+      newMap = favoriteMap.map((object) => {
+        if (object.id === strain.strain_id) {
+          strainID = strain.strain_id;
+          return {
+            id: object.id,
+            favorited: boolean,
+          };
+        } else {
+          return object;
         }
-        if (boolean === true) {
-            axiosWithAuth().post(`https://medcabinet1.herokuapp.com/api/users/${localStorage.getItem("userID")}/favorites`, {"strain_id": strainID})
-            .then(response => {
-                console.log(response);
-                updateFavoriteMap(newMap);
+      });
+    }
+    if (boolean === true) {
+      axiosWithAuth()
+        .post(
+          `https://medcabinet1.herokuapp.com/api/users/${localStorage.getItem(
+            "userID"
+          )}/favorites`,
+          { strain_id: strainID }
+        )
+        .then((response) => {
+          console.log(response);
+          updateFavoriteMap(newMap);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      let idToDelete = 0;
+      axiosWithAuth()
+        .get(
+          `https://medcabinet1.herokuapp.com/api/users/${localStorage.getItem(
+            "userID"
+          )}/favorites`
+        )
+        .then((response) => {
+          if (cabinet === false) {
+            response.data.map((favorite) => {
+              if (strain.id === favorite.strain_id) {
+                idToDelete = favorite.id;
+              }
+            });
+          } else {
+            response.data.map((favorite) => {
+              if (strain.strain_id === favorite.strain_id) {
+                idToDelete = favorite.id;
+              }
+            });
+          }
+          axiosWithAuth()
+            .delete(
+              `https://medcabinet1.herokuapp.com/api/users/favorites/${idToDelete}`
+            )
+            .then((delResponse) => {
+              updateFavoriteMap(newMap);
+              console.log(delResponse);
             })
-            .catch(error => {
-                console.log(error);
-            })
-        }
-        else {
-            let idToDelete = 0;
-            axiosWithAuth().get(`https://medcabinet1.herokuapp.com/api/users/${localStorage.getItem("userID")}/favorites`)
-            .then(response => {
-                if (cabinet === false) {
-                    response.data.map(favorite => {
-                        if (strain.id === favorite.strain_id) {
-                            idToDelete = favorite.id;
-                        }
-                    })
-                }
-                else {
-                    response.data.map(favorite => {
-                        if (strain.strain_id === favorite.strain_id) {
-                            idToDelete = favorite.id;
-                        }
-                    })
-                }
-                axiosWithAuth().delete(`https://medcabinet1.herokuapp.com/api/users/favorites/${idToDelete}`)
-                .then(delResponse => {
-                    updateFavoriteMap(newMap);
-                    console.log(delResponse);
-                })
-                .catch(delError => {
-                    console.log(delError);
-                })
-            })
-            .catch(error => {
-                console.log(error);
-            })
-        }
-      };
+            .catch((delError) => {
+              console.log(delError);
+            });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
 
-    return (
-        <Card>
-            <div><Link to={cabinet ? `/strains/${strain.strain_id}` : `/strains/${strain.id}`}><ReactSVG src={`${strain.race}.svg`}/><h2>{strain.name}</h2></Link></div>
-            <div>
-                <div><h3><ReactSVG src="rating.svg"/>{strain.strain_rating}</h3><h3>{strain.race}</h3><div><button onClick={favoriteStatus}><ReactSVG style={favoriteMap[favIndex].favorited ? {display: "none"} : {display: "block"}}src="heart-open.svg"/><ReactSVG style={favoriteMap[favIndex].favorited ? {display: "block"} : {display: "none"}}src="heart-closed.svg"/></button></div></div>
-                <div>
-                    <h3>Flavors</h3>
-                    <p>{strain.flavors}</p>
-                </div>
-            </div>
-        </Card>
-    )
-}
+  return (
+    <Card>
+      <div>
+        <Link
+          to={
+            cabinet ? `/strains/${strain.strain_id}` : `/strains/${strain.id}`
+          }
+        >
+          <ReactSVG src={`${strain.race}.svg`} />
+          <h2>{strain.name}</h2>
+        </Link>
+      </div>
+      <div>
+        <div>
+          <h3>
+            <ReactSVG src="rating.svg" />
+            {strain.strain_rating}
+          </h3>
+          <h3>{strain.race}</h3>
+          <div>
+            <button onClick={favoriteStatus}>
+              <ReactSVG
+                style={
+                  favoriteMap[favIndex].favorited
+                    ? { display: "none" }
+                    : { display: "block" }
+                }
+                src="heart-open.svg"
+              />
+              <ReactSVG
+                style={
+                  favoriteMap[favIndex].favorited
+                    ? { display: "block" }
+                    : { display: "none" }
+                }
+                src="heart-closed.svg"
+              />
+            </button>
+          </div>
+        </div>
+        <div>
+          <h3>Flavors</h3>
+          <p>{strain.flavors}</p>
+        </div>
+      </div>
+    </Card>
+  );
+};
 
 export default StrainCard;
