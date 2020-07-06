@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import axios from "axios";
-import styled from "styled-components";
-import { Link, useHistory } from "react-router-dom";
-import { ReactSVG } from "react-svg";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import styled from 'styled-components';
+import { Link, useHistory } from 'react-router-dom';
+import { ReactSVG } from 'react-svg';
 
 const Background = styled.div`
   width: 100%;
@@ -30,7 +30,7 @@ const Heading = styled.div`
   padding: 10px;
   border-radius: 10px;
   h1 {
-    font-family: "Pacifico", cursive;
+    font-family: 'Pacifico', cursive;
     font-size: 200%;
     font-weight: bold;
   }
@@ -110,9 +110,9 @@ const Button = styled.button`
 
 const SignUp = ({ setHeaderDisplay }) => {
   const [newUser, setNewUser] = useState({
-    username: "",
-    password: "",
-    email: "",
+    username: '',
+    password: '',
+    email: '',
   });
   const [emptyValues, setValueStatus] = useState(false);
   const { push } = useHistory();
@@ -125,7 +125,7 @@ const SignUp = ({ setHeaderDisplay }) => {
     e.preventDefault();
     let emptyInputs = false;
     Object.values(newUser).forEach((value) => {
-      if (value === "") {
+      if (value === '') {
         emptyInputs = true;
       }
     });
@@ -134,11 +134,9 @@ const SignUp = ({ setHeaderDisplay }) => {
       setValueStatus(true);
     } else {
       axios
-        .post("https://medcabinet1.herokuapp.com/api/auth/register", newUser)
+        .post('https://medcabinet1.herokuapp.com/api/auth/register', newUser)
         .then((response) => {
-          localStorage.setItem("token", response.data.token);
-          localStorage.setItem("userID", response.data.id);
-          push("/");
+          push('/');
           console.log(response.data);
           setHeaderDisplay(true);
         })
@@ -161,24 +159,24 @@ const SignUp = ({ setHeaderDisplay }) => {
     <Background>
       <SignUpPanel>
         <Heading>
-          <ReactSVG src="flask-lg.svg" />
+          <ReactSVG src='flask-lg.svg' />
           <h1>Dr. Mary Jane</h1>
         </Heading>
-        <h2 style={{ fontSize: "120%", fontWeight: "bold", marginTop: "10px" }}>
+        <h2 style={{ fontSize: '120%', fontWeight: 'bold', marginTop: '10px' }}>
           Sign up
         </h2>
         <form onSubmit={handleSubmit}>
           <InputContainer>
-            <Label htmlFor="username">Username</Label>
+            <Label htmlFor='username'>Username</Label>
             <Input
               required
-              id="username"
-              type="text"
-              name="username"
+              id='username'
+              type='text'
+              name='username'
               style={
                 emptyValues
-                  ? { border: "1px solid red" }
-                  : { border: "1px solid white" }
+                  ? { border: '1px solid red' }
+                  : { border: '1px solid white' }
               }
               onChange={handleChanges}
               value={newUser.name}
@@ -186,16 +184,16 @@ const SignUp = ({ setHeaderDisplay }) => {
           </InputContainer>
 
           <InputContainer>
-            <Label htmlFor="password">Password</Label>
+            <Label htmlFor='password'>Password</Label>
             <Input
               required
-              id="password"
-              type="password"
-              name="password"
+              id='password'
+              type='password'
+              name='password'
               style={
                 emptyValues
-                  ? { border: "1px solid red" }
-                  : { border: "1px solid white" }
+                  ? { border: '1px solid red' }
+                  : { border: '1px solid white' }
               }
               onChange={handleChanges}
               value={newUser.password}
@@ -203,19 +201,19 @@ const SignUp = ({ setHeaderDisplay }) => {
           </InputContainer>
 
           <InputContainer>
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor='email'>Email</Label>
             <Input
-              id="email"
-              type="email"
-              name="email"
+              id='email'
+              type='email'
+              name='email'
               onChange={handleChanges}
               value={newUser.email}
             />
           </InputContainer>
 
-          <Button type="submit">Sign Up</Button>
+          <Button type='submit'>Sign Up</Button>
         </form>
-        <Link to="/">Have an account? Sign in here.</Link>
+        <Link to='/'>Have an account? Sign in here.</Link>
       </SignUpPanel>
     </Background>
   );

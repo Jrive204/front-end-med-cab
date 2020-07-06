@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from "react";
-import Search from "../Search/Search";
-import StrainCard from "../Search/StrainCard";
-import { axiosWithAuth } from "../../Utils/axiosWithAuth";
-import styled from "styled-components";
-import Loader from "react-loader-spinner";
-import { useSelector, useDispatch } from "react-redux";
-import { Fetch } from "../../Actions/index";
+import React, { useState, useEffect } from 'react';
+import Search from '../Search/Search';
+import StrainCard from '../Search/StrainCard';
+import { axiosWithAuth } from '../../Utils/axiosWithAuth';
+import styled from 'styled-components';
+import Loader from 'react-loader-spinner';
+import { useSelector, useDispatch } from 'react-redux';
+import { Fetch } from '../../Actions/index';
 
 const Container = styled.section`
   background-color: #98fb98;
@@ -27,7 +27,7 @@ const CardContainer = styled.section`
 const RecommendationsList = () => {
   const [data, setData] = useState([]);
   const [originalData, setOriginalData] = useState([]);
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
   const [failure, setFailureStatus] = useState(false);
   const [pagination, updatePagination] = useState({
     lowest: 0,
@@ -44,7 +44,7 @@ const RecommendationsList = () => {
   let check = data.length === 0;
 
   useEffect(
-    () => dispatch(Fetch(`/usersdata/${localStorage.getItem("userID")}/user`)),
+    () => dispatch(Fetch(`/usersdata/${localStorage.getItem('userID')}/user`)),
     []
   );
   function refreshPage() {
@@ -58,7 +58,7 @@ const RecommendationsList = () => {
         axiosWithAuth()
           .get(
             `https://medcabinet1.herokuapp.com/api/recommendedstrains/${localStorage.getItem(
-              "userID"
+              'userID'
             )}/user`
           )
           .then((recResponse) => {
@@ -82,7 +82,7 @@ const RecommendationsList = () => {
             axiosWithAuth()
               .get(
                 `https://medcabinet1.herokuapp.com/api/users/${localStorage.getItem(
-                  "userID"
+                  'userID'
                 )}/favorites`
               )
               .then((favResponse) => {
@@ -148,25 +148,25 @@ const RecommendationsList = () => {
         updatePagination={updatePagination}
         pagination={pagination}
       />
-      {console.log(check, "CHECK")}
+      {console.log(check, 'CHECK')}
       {loading && (
         <Loader
-          type="BallTriangle"
-          color="#00BFFF"
+          type='BallTriangle'
+          color='#00BFFF'
           height={100}
           width={100}
-          style={{ display: "flex", justifyContent: "center", marginTop: "2%" }}
+          style={{ display: 'flex', justifyContent: 'center', marginTop: '2%' }}
           timeout={5000} //3 secs
         />
       )}
-      {console.log(error, "ERROR")}
+      {console.log(error, 'ERROR')}
 
       {!data && !loading && (
         <>
-          <div className="waiting-cont" style={{ overflow: "hidden" }}>
+          <div className='waiting-cont' style={{ overflow: 'hidden' }}>
             <p
               style={{
-                textAlign: "center",
+                textAlign: 'center',
                 fontFamily: "  font-family: 'Londrina Solid', cursive",
               }}
             >
@@ -174,15 +174,15 @@ const RecommendationsList = () => {
               Perfect Strains!!
               <span>
                 <img
-                  src="https://media.giphy.com/media/gLftX4zfedCNO/giphy.gif"
-                  alt="logo"
-                  style={{ width: "75px" }}
+                  src='https://media.giphy.com/media/gLftX4zfedCNO/giphy.gif'
+                  alt='logo'
+                  style={{ width: '75px' }}
                 />
               </span>
             </p>
-            <button type="button" onClick={refreshPage}>
-              {" "}
-              <span>Reload</span>{" "}
+            <button type='button' onClick={refreshPage}>
+              {' '}
+              <span>Reload</span>{' '}
             </button>
           </div>
         </>
@@ -211,21 +211,21 @@ const RecommendationsList = () => {
           </div> */}
           {error ? (
             <div
-              className="error"
-              style={failure ? { display: "block" } : { display: "none" }}
+              className='error'
+              style={failure ? { display: 'block' } : { display: 'none' }}
             >
               No current Recommendations, Please fill out form located at the
-              nav bar
-              <button type="button" onClick={refreshPage}>
-                {" "}
-                <span>Reload</span>{" "}
+              nav bar <br />
+              <button type='button' onClick={refreshPage}>
+                {' '}
+                <span>Reload</span>{' '}
               </button>
             </div>
           ) : data.length === 0 && failure ? (
-            <div className="waiting-cont" style={{ overflow: "hidden" }}>
+            <div className='waiting-cont' style={{ overflow: 'hidden' }}>
               <p
                 style={{
-                  textAlign: "center",
+                  textAlign: 'center',
                   fontFamily: "  font-family: 'Londrina Solid', cursive",
                 }}
               >
@@ -233,22 +233,22 @@ const RecommendationsList = () => {
                 Perfect Strains!!
                 <span>
                   <img
-                    src="https://media.giphy.com/media/gLftX4zfedCNO/giphy.gif"
-                    alt="logo"
-                    style={{ width: "75px" }}
+                    src='https://media.giphy.com/media/gLftX4zfedCNO/giphy.gif'
+                    alt='logo'
+                    style={{ width: '75px' }}
                   />
                 </span>
               </p>
-              <button type="button" onClick={refreshPage}>
-                {" "}
-                <span> Try a Reload</span>{" "}
+              <button type='button' onClick={refreshPage}>
+                {' '}
+                <span> Try a Reload</span>{' '}
               </button>
             </div>
           ) : null}
         </CardContainer>
       )}
 
-      {console.log(failure, "FAILURE")}
+      {console.log(failure, 'FAILURE')}
     </Container>
   );
 };
