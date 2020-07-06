@@ -138,7 +138,7 @@ const SignUp = ({ setHeaderDisplay }) => {
         .then((response) => {
           push('/');
           console.log(response.data);
-          setHeaderDisplay(true);
+          // setHeaderDisplay(true);
         })
         .catch((error) => {
           console.log(error);
