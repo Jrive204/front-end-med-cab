@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
-import { axiosWithAuth } from "../../Utils/axiosWithAuth";
-import Search from "./Search";
-import StrainCard from "./StrainCard";
-import styled from "styled-components";
+import React, { useState, useEffect } from 'react';
+import { axiosWithAuth } from '../../Utils/axiosWithAuth';
+import Search from './Search';
+import StrainCard from './StrainCard';
+import styled from 'styled-components';
 
 const Container = styled.section`
   background-color: #98fb98;
@@ -26,7 +26,7 @@ const CardContainer = styled.section`
 const StrainList = () => {
   const [data, setData] = useState([]);
   const [originalData, setOriginalData] = useState([]);
-  const [query, setQuery] = useState("");
+  const [query, setQuery] = useState('');
   const [failure, setFailureStatus] = useState(false);
   const [pagination, updatePagination] = useState({
     lowest: 0,
@@ -35,14 +35,14 @@ const StrainList = () => {
   const [favoriteMap, updateFavoriteMap] = useState();
 
   useEffect(() => {
-    getData("name", true);
+    getData('name', true);
   }, []);
 
   const getData = (sortType, ascending) => {
     axiosWithAuth()
       .get(
         `https://medcabinet1.herokuapp.com/api/strains?sortby=${sortType}&sortdir=${
-          ascending ? "asc" : "desc"
+          ascending ? 'asc' : 'desc'
         }`
       )
       .then((response) => {
@@ -53,7 +53,7 @@ const StrainList = () => {
         axiosWithAuth()
           .get(
             `https://medcabinet1.herokuapp.com/api/users/${localStorage.getItem(
-              "userID"
+              'userID'
             )}/favorites`
           )
           .then((favResponse) => {
@@ -97,7 +97,7 @@ const StrainList = () => {
       })
       .catch((error) => {
         setFailureStatus(true);
-        console.log("StrainList.js – could not sort data", error);
+        console.log('StrainList.js – could not sort data', error);
       });
   };
 
@@ -130,8 +130,8 @@ const StrainList = () => {
             }
           })}
           <div
-            className="error"
-            style={failure ? { display: "block" } : { display: "none" }}
+            className='error'
+            style={failure ? { display: 'block' } : { display: 'none' }}
           >
             Could not fetch data. Try refreshing the page or logging out.
           </div>

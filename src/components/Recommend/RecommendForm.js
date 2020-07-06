@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect } from 'react';
 import {
   flav,
   races,
@@ -8,22 +8,22 @@ import {
   Inputtextarea,
   StyledReviewDiv,
   Container,
-} from "./helpers";
-import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
-import { Button, Modal, ModalBody } from "reactstrap";
-import { v4 as uuidv4 } from "uuid";
-import { Send } from "../../Actions";
-import Loader from "react-loader-spinner";
+} from './helpers';
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import { Button, Modal, ModalBody } from 'reactstrap';
+import { v4 as uuidv4 } from 'uuid';
+import { Send } from '../../Actions';
+import Loader from 'react-loader-spinner';
 
 const RecommendForm = () => {
   const [choices, setChoices] = useState({
-    race: "",
-    positive_effects: "",
-    negative_effects_avoid: "",
-    ailments: "",
-    flavors: "",
-    additional_desired_effects: "",
+    race: '',
+    positive_effects: '',
+    negative_effects_avoid: '',
+    ailments: '',
+    flavors: '',
+    additional_desired_effects: '',
   });
   const mainRef = useRef(null);
 
@@ -37,28 +37,28 @@ const RecommendForm = () => {
       mainRef.current.focus();
 
       return alert(
-        "Please fill in Medical Symptoms you are trying to alleviate"
+        'Please fill in Medical Symptoms you are trying to alleviate'
       );
     } else {
       return (
         setChoices({
           ...choices,
           race: Array.isArray(choices.race)
-            ? choices.race.join(",")
+            ? choices.race.join(',')
             : choices.race,
           positive_effects: Array.isArray(choices.positive_effects)
-            ? choices.positive_effects.join(",")
+            ? choices.positive_effects.join(',')
             : choices.positive_effects,
           negative_effects_avoid: Array.isArray(choices.negative_effects_avoid)
-            ? choices.negative_effects_avoid.join(",")
+            ? choices.negative_effects_avoid.join(',')
             : choices.negative_effects_avoid,
           ailments: Array.isArray(choices.ailments)
-            ? choices.ailments.join(",")
+            ? choices.ailments.join(',')
             : choices.ailments,
           flavors: Array.isArray(choices.flavors)
-            ? choices.flavors.join(",")
+            ? choices.flavors.join(',')
             : choices.flavors,
-        }) & dispatch({ type: "MODAL" })
+        }) & dispatch({ type: 'MODAL' })
       );
     }
   };
@@ -72,9 +72,9 @@ const RecommendForm = () => {
     console.log(choices);
 
     dispatch(
-      Send(`/usersdata/${localStorage.getItem("userID")}/user`, choices)
+      Send(`/usersdata/${localStorage.getItem('userID')}/user`, choices)
     );
-    dispatch({ type: "MODAL" });
+    dispatch({ type: 'MODAL' });
 
     if (!loading) {
       push(`/waiting`);
@@ -92,22 +92,22 @@ const RecommendForm = () => {
   return (
     <Container
       style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
       }}
     >
       <form
         style={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
         }}
       >
         {loading ? (
           <Loader
-            type="BallTriangle"
-            color="#00BFFF"
+            type='BallTriangle'
+            color='#00BFFF'
             height={100}
             width={100}
             timeout={5000} //3 secs
@@ -116,8 +116,8 @@ const RecommendForm = () => {
           <>
             <div
               style={{
-                backgroundColor: "#F5F5F5",
-                padding: "50px",
+                backgroundColor: '#F5F5F5',
+                padding: '50px',
                 marginTop: 0,
               }}
             >
@@ -128,33 +128,33 @@ const RecommendForm = () => {
               <div>
                 <h3
                   ref={mainRef}
-                  tabIndex="-1"
-                  id="med"
-                  style={{ marginTop: "1%" }}
+                  tabIndex='-1'
+                  id='med'
+                  style={{ marginTop: '1%' }}
                 >
                   Your Medical Symptoms
                 </h3>
               </div>
               <div
                 style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  width: "100%",
-                  flexWrap: "wrap",
-                  marginTop: ".2%",
-                  justifyContent: "center",
-                  alignItems: "center",
+                  display: 'flex',
+                  flexDirection: 'row',
+                  width: '100%',
+                  flexWrap: 'wrap',
+                  marginTop: '.2%',
+                  justifyContent: 'center',
+                  alignItems: 'center',
                 }}
               >
                 {medical.map((ele) => (
                   <fieldset>
-                    <label className="cbcontainer">
+                    <label className='cbcontainer'>
                       {ele} &nbsp;
                       <input
                         checked={choices.ailments.includes(ele) ? true : false}
-                        type="checkbox"
+                        type='checkbox'
                         id={uuidv4()}
-                        name="ailments"
+                        name='ailments'
                         required
                         value={ele}
                         onChange={(e) =>
@@ -174,7 +174,7 @@ const RecommendForm = () => {
                               })
                         }
                       />
-                      <span className="checkmark"></span>
+                      <span className='checkmark'></span>
                     </label>
                   </fieldset>
                 ))}
@@ -182,26 +182,26 @@ const RecommendForm = () => {
             </div>
             <div>
               <div>
-                <h3 style={{ marginTop: "1%" }}>Preferred Type of Strain</h3>
+                <h3 style={{ marginTop: '1%' }}>Preferred Type of Strain</h3>
               </div>
-              {console.log(choices, "CHOICES")}
+              {console.log(choices, 'CHOICES')}
               <div
                 style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  flexWrap: "wrap",
-                  marginTop: ".2%",
+                  display: 'flex',
+                  flexDirection: 'row',
+                  flexWrap: 'wrap',
+                  marginTop: '.2%',
                 }}
               >
                 {races.map((ele) => (
-                  <fieldset className="race">
-                    <label className="cbcontainer">
+                  <fieldset className='race'>
+                    <label className='cbcontainer'>
                       {ele} &nbsp;
                       <input
                         checked={choices.race.includes(ele) ? true : false}
-                        type="checkbox"
+                        type='checkbox'
                         id={uuidv4()}
-                        name="race"
+                        name='race'
                         value={ele}
                         onChange={(e) =>
                           choices.race.includes(ele)
@@ -218,7 +218,7 @@ const RecommendForm = () => {
                               })
                         }
                       />
-                      <span className="checkmark"></span>
+                      <span className='checkmark'></span>
                     </label>
                   </fieldset>
                 ))}
@@ -226,27 +226,27 @@ const RecommendForm = () => {
             </div>
             <div>
               <div>
-                <h3 style={{ marginTop: "1%" }}>Flavors</h3>
+                <h3 style={{ marginTop: '1%' }}>Flavors</h3>
               </div>
               <div
                 style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  width: "100%",
-                  flexWrap: "wrap",
-                  marginTop: ".2%",
-                  justifyContent: "space-between",
+                  display: 'flex',
+                  flexDirection: 'row',
+                  width: '100%',
+                  flexWrap: 'wrap',
+                  marginTop: '.2%',
+                  justifyContent: 'space-between',
                 }}
               >
                 {flav.map((flavs) => (
-                  <fieldset className="flavors">
-                    <label className="cbcontainer">
+                  <fieldset className='flavors'>
+                    <label className='cbcontainer'>
                       {flavs}
                       <input
                         checked={choices.flavors.includes(flavs) ? true : false}
-                        type="checkbox"
+                        type='checkbox'
                         id={uuidv4()}
-                        name="flavors"
+                        name='flavors'
                         value={flavs}
                         // style={{ marginLeft: '5%' }}
                         onChange={(e) =>
@@ -266,7 +266,7 @@ const RecommendForm = () => {
                               })
                         }
                       />
-                      <span className="checkmark"></span>
+                      <span className='checkmark'></span>
                     </label>
                   </fieldset>
                 ))}
@@ -274,28 +274,28 @@ const RecommendForm = () => {
             </div>
             <div>
               <div>
-                <h3 style={{ marginTop: "1%" }}>Desired Effects</h3>
+                <h3 style={{ marginTop: '1%' }}>Desired Effects</h3>
               </div>
               <div
                 style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  width: "80%",
-                  flexWrap: "wrap",
-                  marginTop: ".2%",
+                  display: 'flex',
+                  flexDirection: 'row',
+                  width: '80%',
+                  flexWrap: 'wrap',
+                  marginTop: '.2%',
                 }}
               >
                 {positive.map((ele) => (
                   <fieldset>
-                    <label className="cbcontainer">
+                    <label className='cbcontainer'>
                       {ele} &nbsp;
                       <input
                         checked={
                           choices.positive_effects.includes(ele) ? true : false
                         }
-                        type="checkbox"
+                        type='checkbox'
                         id={uuidv4()}
-                        name="positive_effects"
+                        name='positive_effects'
                         value={ele}
                         onChange={(e) =>
                           choices.positive_effects.includes(ele)
@@ -314,7 +314,7 @@ const RecommendForm = () => {
                               })
                         }
                       />
-                      <span className="checkmark"></span>
+                      <span className='checkmark'></span>
                     </label>
                   </fieldset>
                 ))}
@@ -322,20 +322,20 @@ const RecommendForm = () => {
             </div>
             <div>
               <div>
-                <h3 style={{ marginTop: "1%" }}>Effects to Avoid</h3>
+                <h3 style={{ marginTop: '1%' }}>Effects to Avoid</h3>
               </div>
               <div
                 style={{
-                  display: "flex",
-                  flexDirection: "row",
-                  width: "80%",
-                  flexWrap: "wrap",
-                  marginTop: ".2%",
+                  display: 'flex',
+                  flexDirection: 'row',
+                  width: '80%',
+                  flexWrap: 'wrap',
+                  marginTop: '.2%',
                 }}
               >
                 {negative.map((ele) => (
                   <fieldset>
-                    <label className="cbcontainer">
+                    <label className='cbcontainer'>
                       {ele} &nbsp;
                       <input
                         checked={
@@ -343,9 +343,9 @@ const RecommendForm = () => {
                             ? true
                             : false
                         }
-                        type="checkbox"
+                        type='checkbox'
                         id={uuidv4()}
-                        name="negative_effects_avoid"
+                        name='negative_effects_avoid'
                         value={ele}
                         onChange={(e) =>
                           choices.negative_effects_avoid.includes(ele)
@@ -364,17 +364,17 @@ const RecommendForm = () => {
                               })
                         }
                       />
-                      <span className="checkmark"></span>
+                      <span className='checkmark'></span>
                     </label>
                   </fieldset>
                 ))}
               </div>
             </div>
             <Button
-              style={{ marginTop: "1%" }}
-              color="info"
+              style={{ marginTop: '1%' }}
+              color='info'
               onClick={toggle}
-              size="lg"
+              size='lg'
             >
               Lock in Selections
             </Button>
@@ -384,33 +384,33 @@ const RecommendForm = () => {
         <Modal
           isOpen={modal}
           toggle={toggle}
-          backdrop={"static"}
+          backdrop={'static'}
           // style={{ color: 'red' }}
-          size="lg"
+          size='lg'
           centered
         >
-          <ModalBody className={"modalstuff"}>
-            <div className="review">
+          <ModalBody className={'modalstuff'}>
+            <div className='review'>
               <div>
-                <h3 style={{ marginTop: "2%" }}>
-                  Any other useful information to help us help you!{" "}
+                <h3 style={{ marginTop: '2%' }}>
+                  Any other useful information to help us help you!{' '}
                 </h3>
               </div>
               <StyledReviewDiv>
                 <Inputtextarea
-                  placeholder="Tell us how we can help"
-                  type="text"
-                  name="additional_desired_effects"
-                  cols="50"
-                  rows="10"
-                  maxLength="200"
+                  placeholder='Tell us how we can help'
+                  type='text'
+                  name='additional_desired_effects'
+                  cols='50'
+                  rows='10'
+                  maxLength='200'
                   onChange={handlechange}
                 />
               </StyledReviewDiv>
               <Button
-                color="success"
+                color='success'
                 onClick={onSubmit}
-                style={{ width: "90%", marginLeft: "4%" }}
+                style={{ width: '90%', marginLeft: '4%' }}
               >
                 SUBMIT
               </Button>

@@ -1,7 +1,7 @@
-import React from "react";
-import { Link, useHistory } from "react-router-dom";
-import styled from "styled-components";
-import { ReactSVG } from "react-svg";
+import React from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import styled from 'styled-components';
+import { ReactSVG } from 'react-svg';
 
 const HeaderContainer = styled.div`
   height: 10vh;
@@ -90,38 +90,38 @@ const HeaderContainer = styled.div`
 const Header = ({ displayHeader }) => {
   const { push } = useHistory();
   const signout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("userID");
-    localStorage.clear();
-    push("/");
+    localStorage.removeItem('token');
+    localStorage.removeItem('userID');
+
+    push('/');
   };
 
   return (
     <HeaderContainer
-      style={displayHeader ? { display: "flex" } : { display: "none" }}
+      style={displayHeader ? { display: 'flex' } : { display: 'none' }}
     >
-      <div className="header-container">
-        <Link to="/profile">
-          <ReactSVG src="flask.svg" />
+      <div className='header-container'>
+        <Link to='/profile'>
+          <ReactSVG src='flask.svg' />
         </Link>
-        <nav className="headernav">
-          <Link className="a" to="/recommendation-form">
+        <nav className='headernav'>
+          <Link className='a' to='/recommendation-form'>
             Recommendation Form
           </Link>
-          <Link className="recform" to="/recommendation-form">
+          <Link className='recform' to='/recommendation-form'>
             Rec <br /> Form
           </Link>
-          <Link className="a" to="/recommendations">
+          <Link className='a' to='/recommendations'>
             Strain Recommendations
           </Link>
-          <Link className="a" to="/strains">
+          <Link className='a' to='/strains'>
             Strain List
           </Link>
-          <Link className="a" to="/cabinet">
+          <Link className='a' to='/cabinet'>
             My Cabinet
           </Link>
         </nav>
-        <Link to="/" className="sign-out" onClick={signout}>
+        <Link to='/' className='sign-out' onClick={signout}>
           <div>Sign&nbsp;Out</div>
         </Link>
       </div>
